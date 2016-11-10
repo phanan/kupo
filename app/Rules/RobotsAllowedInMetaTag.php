@@ -2,17 +2,14 @@
 
 namespace App\Rules;
 
-use App\Crawler;
-
 class RobotsAllowedInMetaTag extends Rule
 {
     /**
      * @inheritdoc
-     * @throws \RuntimeException
      */
-    public function check(Crawler $crawler = null, $url = null)
+    public function check()
     {
-        if (!count($tags = $crawler->filter('meta[name=robots]'))) {
+        if (!count($tags = $this->crawler->filter('meta[name=robots]'))) {
             return true;
         }
 

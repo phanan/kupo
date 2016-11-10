@@ -2,8 +2,6 @@
 
 namespace App\Rules;
 
-use App\Crawler;
-
 class DocTypeCorrect extends Rule
 {
     private $docType;
@@ -12,9 +10,9 @@ class DocTypeCorrect extends Rule
      * @inheritdoc
      * @throws \Exception
      */
-    public function check(Crawler $crawler = null, $url = null)
+    public function check()
     {
-        if (preg_match('/^<!doctype\s.*?>/i', trim($crawler->getRaw()), $matches)) {
+        if (preg_match('/^<!doctype\s.*?>/i', trim($this->crawler->getRaw()), $matches)) {
             $this->docType = trim($matches[0]);
         }
 
@@ -35,5 +33,10 @@ class DocTypeCorrect extends Rule
     public function failedMessage()
     {
         return 'Doc type not found';
+    }
+
+    public function getDocType()
+    {
+        return $this->docType;
     }
 }

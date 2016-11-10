@@ -2,8 +2,6 @@
 
 namespace App\Rules;
 
-use App\Crawler;
-
 class TitleExists extends Rule
 {
     private $title;
@@ -13,9 +11,9 @@ class TitleExists extends Rule
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
-    public function check(Crawler $crawler = null, $url = null)
+    public function check()
     {
-        if (count($tags = $crawler->filter('title'))) {
+        if (count($tags = $this->crawler->filter('title'))) {
             $this->title = trim($tags->first()->text());
         }
 
@@ -36,5 +34,10 @@ class TitleExists extends Rule
     public function failedMessage()
     {
         return 'Title not found or empty';
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
     }
 }

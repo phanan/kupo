@@ -6,6 +6,20 @@ use App\Crawler;
 
 class Rule implements RuleInterface
 {
+    protected $url;
+    protected $crawler;
+
+    /**
+     * RuleInterface constructor.
+     *
+     * @param Crawler|null $crawler
+     * @param null         $url
+     */
+    public function __construct(Crawler $crawler = null, $url = null)
+    {
+        $this->crawler = $crawler;
+        $this->url = $url;
+    }
 
     /**
      * @inheritdoc

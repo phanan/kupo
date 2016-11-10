@@ -2,20 +2,16 @@
 
 namespace App\Rules;
 
-use App\Crawler;
-
 class MetaDescriptionExists extends Rule
 {
     private $description;
 
     /**
      * @inheritdoc
-     * @throws \InvalidArgumentException
-     * @throws \RuntimeException
      */
-    public function check(Crawler $crawler = null, $url = null)
+    public function check()
     {
-        if (count($tags = $crawler->filter('meta[name=description]'))) {
+        if (count($tags = $this->crawler->filter('meta[name=description]'))) {
             $this->description = trim($tags->first()->attr('content'));
         }
 

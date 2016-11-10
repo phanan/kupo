@@ -54,10 +54,10 @@ class Checker
         $crawler = new Crawler($html);
 
         foreach ((array) config('rules') as $rule) {
-            $ruleClass = new $rule();
+            $ruleClass = new $rule($crawler, $this->getUrl());
 
             try {
-                $result = $ruleClass->check($crawler, $this->getUrl());
+                $result = $ruleClass->check();
                 yield [
                     'passed' => $result,
                     'message' => $result ? $ruleClass->passedMessage : $ruleClass->failedMessage,

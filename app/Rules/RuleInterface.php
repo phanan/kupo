@@ -7,14 +7,19 @@ use App\Crawler;
 interface RuleInterface
 {
     /**
-     * Check the DOM against the rule.
+     * RuleInterface constructor.
      *
-     * @param Crawler     $crawler
-     * @param string|null $url
+     * @param Crawler|null $crawler
+     * @param null         $url
+     */
+    public function __construct(Crawler $crawler = null, $url = null);
+
+    /**
+     * Check the rule.
      *
      * @return bool
      */
-    public function check(Crawler $crawler = null, $url = null);
+    public function check();
 
     /**
      * Get the critical level of the rule.

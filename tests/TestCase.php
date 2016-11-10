@@ -1,5 +1,7 @@
 <?php
 
+use App\Crawler;
+
 abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
     /**
@@ -21,5 +23,21 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
         return $app;
+    }
+
+    /**
+     * Create a Crawler instance from a blob file's content.
+     *
+     * @param $name string Name of the blob file.
+     *
+     * @return Crawler
+     */
+    public function createCrawlerFromBlob($name)
+    {
+        if (!ends_with($name, '.html')) {
+            $name = "$name.html";
+        }
+
+        return new Crawler(file_get_contents(__DIR__."/blobs/$name"));
     }
 }

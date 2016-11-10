@@ -37,7 +37,6 @@ export default {
   methods: {
     beforeEnter (el) {
       el.style.opacity = 0
-      console.log(el)
     },
     enter (el, done) {
       const delay = el.dataset.index * 50

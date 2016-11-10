@@ -121,7 +121,18 @@ class UrlHelper
 
             return true;
         } catch (ClientException $e) {
-            return false;
+            if ($e->getCode() !== 403) {
+                return false;
+            }
+
+            // Some servers forbid HEAD requests (for example Quora's).
+            // In such cases, try a full GET.
+            try {
+                $client->request('GET', $url);
+                return true;
+            } catch (ClientException $e) {
+                return false;
+            }
         }
     }
 

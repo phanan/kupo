@@ -2,19 +2,16 @@
 
 namespace App\Rules;
 
-use App\Crawler;
-
 class GoogleAnalyticsInstalled extends Rule
 {
     private $gaCode;
 
     /**
      * @inheritdoc
-     * @throws \RuntimeException
      */
-    public function check(Crawler $crawler = null, $url = null)
+    public function check()
     {
-        foreach ($crawler->filter('script') as $script) {
+        foreach ($this->crawler->filter('script') as $script) {
             $html = $script->ownerDocument->saveHTML($script);
             if (preg_match('/(ua-\d{4,9}-\d{1,4})/i', $html, $matches)) {
                 $this->gaCode = $matches[1];

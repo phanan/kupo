@@ -2,7 +2,6 @@
 
 namespace App\Rules;
 
-use App\Crawler;
 use App\Facades\RobotsFile;
 use App\Facades\UrlHelper;
 
@@ -14,18 +13,18 @@ class SiteMapExists extends Rule
     /**
      * @inheritdoc
      */
-    public function check(Crawler $crawler = null, $url = null)
+    public function check()
     {
         $parser = RobotsFile::getParser();
         if (!$maps = $parser->getSitemaps()) {
-            $maps = [UrlHelper::getDefaultSiteMapUrl($url)];
+            $maps = [UrlHelper::getDefaultSiteMapUrl($this->url)];
         }
 
         $validMaps = [];
         $invalidMaps = [];
 
         foreach ($maps as $map) {
-            $map = UrlHelper::absolutize($map, $url);
+            $map = UrlHelper::absolutize($map, $this->url);
             if (UrlHelper::exists($map)) {
                 $validMaps[] = "`$map`";
             } else {

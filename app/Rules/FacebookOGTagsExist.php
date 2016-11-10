@@ -2,19 +2,17 @@
 
 namespace App\Rules;
 
-use App\Crawler;
-
 class FacebookOGTagsExist  extends Rule
 {
     /**
      * @inheritdoc
      */
-    public function check(Crawler $crawler = null, $url = null)
+    public function check()
     {
-        return count($crawler->filter('meta[property="og:url"]'))
-            && count($crawler->filter('meta[property="og:title"]'))
-            && count($crawler->filter('meta[property="og:description"]'))
-            && count($crawler->filter('meta[property="og:image"]'));
+        return count($this->crawler->filter('meta[property="og:url"]'))
+            && count($this->crawler->filter('meta[property="og:title"]'))
+            && count($this->crawler->filter('meta[property="og:description"]'))
+            && count($this->crawler->filter('meta[property="og:image"]'));
     }
 
     /**
@@ -38,6 +36,6 @@ class FacebookOGTagsExist  extends Rule
      */
     public function failedMessage()
     {
-        return 'At least one of `og:url`, `og:title`, `og:description`, and `og:image` meta property is missing';
+        return 'At least one of `og:url`, `og:title`, `og:description`, and `og:image` meta properties is missing';
     }
 }

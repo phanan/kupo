@@ -2,7 +2,6 @@
 
 namespace App\Rules;
 
-use App\Crawler;
 use App\Facades\UrlHelper;
 
 class FaviconExists extends Rule
@@ -14,20 +13,18 @@ class FaviconExists extends Rule
 
     /**
      * @inheritdoc
-     * @throws \InvalidArgumentException
-     * @throws \RuntimeException
      */
-    public function check(Crawler $crawler = null, $url = null)
+    public function check()
     {
         // Find the favicon URL from the HTML
-        $links = $crawler->filter('link[rel="icon"], link[rel="shortcut icon"]');
+        $links = $this->crawler->filter('link[rel="icon"], link[rel="shortcut icon"]');
 
         // If we can find it, use it. Otherwise, resort to the root favicon.ico.
         $this->faviconUrl = count($links) ?
             $links->first()->attr('href') :
-            UrlHelper::getDefaultFaviconUrl($url);
+            UrlHelper::getDefaultFaviconUrl($this->url);
 
-        $this->faviconUrl = UrlHelper::absolutize($this->faviconUrl, $url);
+        $this->faviconUrl = UrlHelper::absolutize($this->faviconUrl, $this->url);
 
         return UrlHelper::exists($this->faviconUrl);
     }

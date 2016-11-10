@@ -2,21 +2,19 @@
 
 namespace App\Rules;
 
-use App\Crawler;
-
 class AppIconsExist extends Rule
 {
     /**
      * @inheritdoc
      * @throws \RuntimeException
      */
-    public function check(Crawler $crawler = null, $url = null)
+    public function check()
     {
         // To keep things simple, we only check for the tags' existence,
         // not the icon files themselves.
         return
-            count($crawler->filter('link[rel=apple-touch-icon]')) &&
-            count($crawler->filter('link[rel=icon]'));
+            count($this->crawler->filter('link[rel=apple-touch-icon]')) &&
+            count($this->crawler->filter('link[rel=icon]'));
     }
 
     /**

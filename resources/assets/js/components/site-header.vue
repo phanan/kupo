@@ -1,6 +1,6 @@
 <template>
   <header class="site-header">
-    <h1>Deployment Checklist</h1>
+    <h1>Website Launch Checklist</h1>
 
     <check-form/>
   </header>

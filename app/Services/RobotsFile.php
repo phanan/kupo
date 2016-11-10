@@ -102,7 +102,7 @@ class RobotsFile
     /**
      * @param RobotsTxtParser $parser
      */
-    public function setParser($parser)
+    public function setParser(RobotsTxtParser $parser)
     {
         $this->parser = $parser;
     }

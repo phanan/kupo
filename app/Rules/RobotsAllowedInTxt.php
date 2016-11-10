@@ -2,7 +2,6 @@
 
 namespace App\Rules;
 
-use App\Crawler;
 use App\Facades\RobotsFile;
 
 class RobotsAllowedInTxt extends Rule
@@ -10,7 +9,7 @@ class RobotsAllowedInTxt extends Rule
     /**
      * @inheritdoc
      */
-    public function check(Crawler $crawler = null, $url = null)
+    public function check()
     {
         if (!$content = RobotsFile::getContent()) {
             return true;

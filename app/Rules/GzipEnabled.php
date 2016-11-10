@@ -2,31 +2,21 @@
 
 namespace App\Rules;
 
-use App\Crawler;
 use App\Facades\UrlFetcher;
 
 class GzipEnabled extends Rule
 {
-    public function check(Crawler $crawler = null, $url = null)
+    /**
+     * @inheritdoc
+     */
+    public function check()
     {
         // We simply check the fetcher.
         return UrlFetcher::isGzipped();
     }
 
     /**
-     * Get the level of the rule.
-     *
-     * @return string
-     */
-    public function level()
-    {
-        return Levels::NOTICE;
-    }
-
-    /**
-     * Get the message if the rule is passed.
-     *
-     * @return string
+     * @inheritdoc
      */
     public function passedMessage()
     {
@@ -34,9 +24,7 @@ class GzipEnabled extends Rule
     }
 
     /**
-     * Get the message if the rule failed.
-     *
-     * @return string
+     * @inheritdoc
      */
     public function failedMessage()
     {

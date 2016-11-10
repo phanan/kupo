@@ -1,8 +1,18 @@
 <template>
   <div class="results">
-    <ul v-if="items.length">
-      <li is="resultItem" v-for="item in items" :item="item"/>
-    </ul>
+    <transition-group
+      name="staggered-fade"
+      tag="ul"
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @leave="leave"
+    >
+      <li is="resultItem" v-for="(item, index) in items"
+        :item="item"
+        :data-index="index"
+        :key="index"
+      />
+    </transition-group>
     <div class="error" v-if="errored">
       <p>Uh oh, something went wrong. Try again, may be?</p>
     </div>
@@ -24,14 +34,41 @@ export default {
     }
   },
 
+  methods: {
+    beforeEnter (el) {
+      el.style.opacity = 0
+      console.log(el)
+    },
+    enter (el, done) {
+      const delay = el.dataset.index * 50
+      setTimeout(() => {
+        Velocity(
+          el,
+          { opacity: 1 },
+          { complete: done }
+        )
+      }, delay)
+    },
+    leave (el, done) {
+      const delay = el.dataset.index * 50
+      setTimeout(() => {
+        Velocity(
+          el,
+          { opacity: 0 },
+          { complete: done }
+        )
+      }, delay)
+    }
+  },
+
   created () {
     event.on({
+      'check-start': () => this.items = [],
       'check-done': data => {
         if (data) {
           this.items = data
           this.errored = false
         } else {
-          this.items = []
           this.errored = true
         }
       }

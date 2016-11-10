@@ -1,8 +1,10 @@
 <template>
-  <li :class="['item', statusClass, levelClass]">
-    <span class="label">{{ level }}</span>
-    <div v-html="item.message"></div>
-  </li>
+  <transition>
+    <li :class="['item', statusClass, levelClass]">
+      <span class="label">{{ level }}</span>
+      <div v-html="item.message"></div>
+    </li>
+  </transition>
 </template>
 
 <script>

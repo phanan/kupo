@@ -15,5 +15,6 @@
     "sass-loader": "^4.0.2",
     "slugify": "^1.0.2",
     "vue": "^2.0.1"
-  }
+  },
+  "dependencies": {}
 }

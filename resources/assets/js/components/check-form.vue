@@ -1,0 +1,46 @@
+<template>
+  <form method="get" action="/check" class="form form-check" @submit.prevent="check">
+    <input type="url" name="url" placeholder="URL to check" v-model="url" required>
+    <input type="submit" value="Check">
+  </form>
+</template>
+
+<script>
+import checker from '../services/checker'
+
+export default {
+  name: 'checkForm',
+
+  data () {
+    return {
+      url: ''
+    }
+  },
+
+  methods: {
+    check () {
+      checker.check(this.url)
+    }
+  }
+}
+</script>
+
+<style lang="sass">
+.form-check {
+  position: relative;
+  padding-right: 99px;
+
+  [type=url] {
+    width: 100%;
+    border-radius: 24px 0 0 24px;
+  }
+
+  [type=submit] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 0 24px 24px 0;
+    width: 100px;
+  }
+}
+</style>

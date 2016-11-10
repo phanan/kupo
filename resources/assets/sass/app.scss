@@ -1,0 +1,66 @@
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+// Variables
+@import 'variables';
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
+  background: $body-bg;
+  color: #636b6f;
+  font-family: $font-family-sans-serif;
+  font-weight: 100;
+  height: 100vh;
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 100;
+}
+
+input {
+  -webkit-appearance: none;
+  border: 1px solid $input-border;
+  padding: 10px 15px;
+  font-size: 1.2rem;
+  height: 48px;
+
+  &:focus {
+    outline: none;
+    border-color: $input-border-focus;
+  }
+
+  &[type=text], &[type=password], &[type=email], &[type=search], &[type=url] {
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.2);
+  }
+
+  &[type=submit] {
+    background: linear-gradient(to bottom, lighten($brand-primary, 5%), $brand-primary);
+    color: #fff;
+    border-color: $brand-primary;
+
+    &:hover {
+      background: linear-gradient(to bottom, lighten($brand-primary, 7%), lighten($brand-primary, 2%));
+    }
+
+    &:active {
+      background: linear-gradient(to bottom, $brand-primary, lighten($brand-primary, 5%));
+      box-shadow: inset 0 1px 1px rgba(0,0,0,.4);
+    }
+  }
+}
+
+code {
+  padding: 2px 4px;
+  font-size: .8em;
+  color: #c7254e;
+  background-color: #f9f2f4;
+  border-radius: 4px;
+  font-family: 'Roboto Mono', Monaco, courier, monospace;
+  font-weight: 300;
+}

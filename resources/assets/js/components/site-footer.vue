@@ -1,7 +1,7 @@
 <template>
   <footer class="site-footer">
     <p>An open source project by <a href="http://phanan.net">Phan An</a></p>
-    <p>Built on <a href="http://laravel.com">Laravel</a> and <a href="http://vuejs.org">Vue</a> •
+    <p>Built on <a href="http://laravel.com">Laravel</a> and <a href="http://vuejs.org">Vue</a> ·
     <a href="https://github.com/phanan/kupo">GitHub</a></p>
     <p><a href="http://finalfantasy.wikia.com/wiki/Moogle_(race)">Moogles</a> and “kupo” might be
     trademarks and/or copyrights of Square Enix, I don’t know.</p>

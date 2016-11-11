@@ -1,5 +1,5 @@
 <template>
-  <div id="main" :class="{ 'checking': checking }">
+  <div id="main" :class="{ 'checking': checking, 'touch': touch }">
     <site-header/>
     <results/>
     <site-footer/>
@@ -20,7 +20,8 @@ export default {
 
   data () {
     return {
-      checking: false
+      checking: false,
+      touch: 'ontouchstart' in window
     }
   },
 
@@ -50,6 +51,11 @@ export default {
     z-index: 1;
     pointer-events: none;
     background: transparentize(#fff, .5);
+  }
+
+  @media only screen and (max-width: 480px) {
+    width: 100%;
+    padding: 8px;
   }
 }
 </style>

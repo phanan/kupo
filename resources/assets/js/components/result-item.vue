@@ -80,6 +80,10 @@ li.item {
     font-size: .75em;
     opacity: 0;
 
+    .touch & {
+      opacity: 1;
+    }
+
     &:hover {
       background-color: $brand-warning;
       border-color: $brand-warning;

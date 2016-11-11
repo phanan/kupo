@@ -5,7 +5,7 @@ namespace App\Rules;
 class FacebookOGTagsExist  extends Rule
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function check()
     {
@@ -16,7 +16,7 @@ class FacebookOGTagsExist  extends Rule
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function level()
     {
@@ -24,18 +24,28 @@ class FacebookOGTagsExist  extends Rule
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function passedMessage()
     {
-        return 'All basic Facebook Open Graph markups are implemented';
+        return 'All basic Facebook Open Graph markups are implemented.';
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function failedMessage()
     {
-        return 'At least one of `og:url`, `og:title`, `og:description`, and `og:image` meta properties is missing';
+        return 'At least one of `og:url`, `og:title`, `og:description`, and `og:image` meta properties is missing.';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function helpMessage()
+    {
+        return <<<MSG
+Though not mandatory, a page should have valid Open Graph (OG) markups to take control over how the content appears on Facebook. You can about them [here](https://developers.facebook.com/docs/sharing/webmasters), kupo!
+MSG;
     }
 }

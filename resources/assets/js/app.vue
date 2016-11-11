@@ -2,19 +2,21 @@
   <div id="main" :class="{ 'checking': checking }">
     <site-header/>
     <results/>
+    <site-footer/>
     <loader v-show="checking"/>
   </div>
 </template>
 
 <script>
 import siteHeader from './components/site-header.vue'
+import siteFooter from './components/site-footer.vue'
 import results from './components/results.vue'
 import loader from './components/loader.vue'
 import event from './services/event'
 
 export default {
   name: 'app',
-  components: { siteHeader, results, loader },
+  components: { siteHeader, siteFooter, results, loader },
 
   data () {
     return {

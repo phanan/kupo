@@ -1,5 +1,5 @@
 <template>
-  <div class="loader"></div>
+  <div class="loader" title="I'm working hard here, kupo!"></div>
 </template>
 
 <script>

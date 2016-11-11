@@ -1,6 +1,10 @@
 <template>
-  <form method="get" action="/check" class="form form-check" @submit.prevent="check">
-    <input type="url" name="url" placeholder="URL to check" v-model="url" required>
+  <form method="get" action="/check" class="form form-check" autocomplete="off"
+    @submit.prevent="check"
+  >
+    <input type="url" name="url" placeholder="Input your URL here, kupo!" v-model="url"
+      required autofocus
+    >
     <input type="submit" value="Check">
   </form>
 </template>

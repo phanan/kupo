@@ -1,6 +1,6 @@
 <?php
 
-return [
+$rules = [
     App\Rules\RobotsAllowedInTxt::class,
     App\Rules\RobotsAllowedInMetaTag::class,
     App\Rules\TitleExists::class,
@@ -17,3 +17,9 @@ return [
     App\Rules\FacebookOGTagsExist::class,
     App\Rules\TwitterOGTagsExist::class,
 ];
+
+if ($custom = config('customRules')) {
+    $rules = array_merge($rules, $custom);
+}
+
+return $rules;

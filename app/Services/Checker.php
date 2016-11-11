@@ -6,6 +6,7 @@ use App\Crawler;
 use App\Facades\RobotsFile;
 use App\Facades\UrlFetcher;
 use App\Facades\UrlHelper;
+use App\Rules\Rule;
 use Exception;
 
 class Checker
@@ -32,6 +33,7 @@ class Checker
      * @param string|null $url
      *
      * @return \Generator
+     *
      * @throws Exception
      */
     public function validate($url = null)
@@ -44,26 +46,25 @@ class Checker
             throw new Exception('URL not set.');
         }
 
-        try {
-            $html = UrlFetcher::fetch($this->url);
-            RobotsFile::setUrl(UrlHelper::getRobotsUrl($this->url));
-        } catch (Exception $e) {
-            throw $e;
-        }
+        $html = UrlFetcher::fetch($this->url);
+        RobotsFile::setUrl(UrlHelper::getRobotsUrl($this->url));
 
         $crawler = new Crawler($html);
 
-        foreach ((array) config('rules') as $rule) {
-            $ruleClass = new $rule($crawler, $this->getUrl());
+        foreach ((array) config('rules') as $ruleClassName) {
+            /** @var Rule $rule */
+            $rule = new $ruleClassName($crawler, $this->getUrl());
 
             try {
-                $result = $ruleClass->check();
+                $result = $rule->check();
                 yield [
                     'passed' => $result,
-                    'message' => $result ? $ruleClass->passedMessage : $ruleClass->failedMessage,
-                    'level' => $ruleClass->level(),
+                    'message' => $result ? $rule->passedMessage : $rule->failedMessage,
+                    'help' => $rule->helpMessage,
+                    'level' => $rule->level(),
                 ];
-            } catch (Exception $e) {}
+            } catch (Exception $e) {
+            }
         }
     }
 

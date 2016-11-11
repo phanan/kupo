@@ -106,4 +106,12 @@ class RobotsFile
     {
         $this->parser = $parser;
     }
+
+    /**
+     * @param string $content
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+    }
 }

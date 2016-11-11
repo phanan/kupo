@@ -7,7 +7,7 @@ class GoogleAnalyticsInstalled extends Rule
     private $gaCode;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function check()
     {
@@ -23,18 +23,33 @@ class GoogleAnalyticsInstalled extends Rule
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function passedMessage()
     {
-        return "Google Analytics code found (account # `{$this->gaCode}`)";
+        return "Google Analytics code found (account # `{$this->gaCode}`).";
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function failedMessage()
     {
-        return 'Google Analytics code not found';
+        return 'Google Analytics code not found.';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function helpMessage()
+    {
+        return <<<MSG
+As [Google Analytics](https://analytics.google.com) is arguably the most popular web analytics service, it’s assumed here that you want to integrate your site with a GA account. Of course you can safely ignore this rule if it isn’t the case, kupo!
+MSG;
+    }
+
+    public function getGaCode()
+    {
+        return $this->gaCode;
     }
 }

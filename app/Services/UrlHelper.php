@@ -8,8 +8,8 @@ use GuzzleHttp\Exception\ClientException;
 class UrlHelper
 {
     /**
-     * Get the root URL from a base one.
-     * For instance, providing 'http://google.com/index.html?q=l' will return 'http://google.com'.
+     * Get the root URL (with ending slash) from a base one.
+     * For instance, providing 'http://google.com/index.html?q=l' will return 'http://google.com/'.
      *
      * @param $url
      *
@@ -129,6 +129,7 @@ class UrlHelper
             // In such cases, try a full GET.
             try {
                 $client->request('GET', $url);
+
                 return true;
             } catch (ClientException $e) {
                 return false;

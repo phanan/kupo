@@ -7,7 +7,7 @@ class HtmlHasLangAttribute extends Rule
     private $lang;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function check()
     {
@@ -17,7 +17,7 @@ class HtmlHasLangAttribute extends Rule
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function level()
     {
@@ -25,18 +25,33 @@ class HtmlHasLangAttribute extends Rule
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function passedMessage()
     {
-        return "`<html>` tag has a `lang` attribute (`$this->lang`)";
+        return "`<html>` tag has a `lang` attribute (`$this->lang`).";
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function failedMessage()
     {
-        return '`<html>` tag should explicitly have a `lang` attribute';
+        return '`<html>` tag should have an explicit `lang` attribute.';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function helpMessage()
+    {
+        return <<<MSG
+A `lang` attribute in the `<html>` tag sets the language for all the text on the page, which is [a good thing to do](https://www.w3.org/International/questions/qa-lang-why.en), kupo! 
+MSG;
+    }
+
+    public function getLang()
+    {
+        return $this->lang;
     }
 }

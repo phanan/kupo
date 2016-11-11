@@ -10,10 +10,7 @@ class Rule implements RuleInterface
     protected $crawler;
 
     /**
-     * RuleInterface constructor.
-     *
-     * @param Crawler|null $crawler
-     * @param null         $url
+     * {@inheritdoc}
      */
     public function __construct(Crawler $crawler = null, $url = null)
     {
@@ -22,7 +19,7 @@ class Rule implements RuleInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      * @throws \Exception
      */
     public function check(Crawler $crawler = null, $url = null)
@@ -31,7 +28,7 @@ class Rule implements RuleInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function level()
     {
@@ -39,7 +36,7 @@ class Rule implements RuleInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      * @throws \Exception
      */
     public function passedMessage()
@@ -48,7 +45,7 @@ class Rule implements RuleInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      * @throws \Exception
      */
     public function failedMessage()
@@ -56,9 +53,20 @@ class Rule implements RuleInterface
         throw new \Exception('Unimplemented method.');
     }
 
+    /**
+     * Get the help message for the rule.
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public function helpMessage()
+    {
+        throw new \Exception('Unimplemented method.');
+    }
+
     public function __get($name)
     {
-        if ($name === 'passedMessage' || $name === 'failedMessage') {
+        if (in_array($name, ['passedMessage', 'failedMessage', 'helpMessage'], true)) {
             return md($this->$name());
         }
 

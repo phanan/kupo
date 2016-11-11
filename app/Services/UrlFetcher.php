@@ -29,6 +29,15 @@ class UrlFetcher
         $this->setClient($client ?: new Client());
     }
 
+    /**
+     * Fetch an URL.
+     *
+     * @param $url string
+     *
+     * @return string
+     *
+     * @throws \RuntimeException
+     */
     public function fetch($url)
     {
         $this->response = $this->client->request('GET', $url, [

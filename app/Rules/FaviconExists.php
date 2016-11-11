@@ -12,7 +12,7 @@ class FaviconExists extends Rule
     private $faviconUrl;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function check()
     {
@@ -30,7 +30,7 @@ class FaviconExists extends Rule
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function level()
     {
@@ -38,18 +38,28 @@ class FaviconExists extends Rule
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function passedMessage()
     {
-        return "Favicon found at `{$this->faviconUrl}`";
+        return "Favicon found at `{$this->faviconUrl}`.";
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function failedMessage()
     {
-        return "Favicon not found at `{$this->faviconUrl}`";
+        return "Favicon not found at `{$this->faviconUrl}`.";
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function helpMessage()
+    {
+        return <<<MSG
+A [favicon](https://en.wikipedia.org/wiki/Favicon) (short for _favorite icon_) represents the site graphically on the tab bar or in bookmarks. If a favicon isn’t specified in the HTML markups, the browser will look for a file named `favicon.ico` at the root of the site, kupo! 
+MSG;
     }
 }

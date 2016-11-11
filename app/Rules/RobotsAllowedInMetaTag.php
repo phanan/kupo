@@ -5,7 +5,7 @@ namespace App\Rules;
 class RobotsAllowedInMetaTag extends Rule
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function check()
     {
@@ -23,7 +23,7 @@ class RobotsAllowedInMetaTag extends Rule
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function level()
     {
@@ -31,18 +31,28 @@ class RobotsAllowedInMetaTag extends Rule
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function passedMessage()
     {
-        return '`ROBOTS` meta tag with `NOINDEX` and/or `NOFOLLOW` value not found';
+        return '`ROBOTS` meta tag with `NOINDEX` and/or `NOFOLLOW` value not found.';
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function failedMessage()
     {
-        return '`ROBOTS` meta tag with `NOINDEX` and/or `NOFOLLOW` value found';
+        return '`ROBOTS` meta tag with `NOINDEX` and/or `NOFOLLOW` value found.';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function helpMessage()
+    {
+        return <<<MSG
+A page can tell search engines to NOT index or follow its content with a `<meta name="robots" value="noindex, nofollow">` tag. Since you’re launching to public, this is hardly what you want, kupo!   
+MSG;
     }
 }

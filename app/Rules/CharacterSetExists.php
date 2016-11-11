@@ -7,7 +7,7 @@ class CharacterSetExists extends Rule
     private $charset;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function check()
     {
@@ -26,23 +26,34 @@ class CharacterSetExists extends Rule
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function passedMessage()
     {
-        return "Character set found: `{$this->charset}`";
+        return "Character set found: `{$this->charset}`.";
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function failedMessage()
     {
-        return 'Character set not found';
+        return 'Character set not found.';
     }
 
     public function getCharset()
     {
         return $this->charset;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function helpMessage()
+    {
+        return <<<MSG
+A valid [character set](https://en.wikipedia.org/wiki/Character_encodings_in_HTML) helps browsers display a page correctly.
+Most of the time you’ll want a `UTF-8` encoding. For HTML5, all you need is a `<meta charset="UTF-8">` tag in `<head>`, kupo!
+MSG;
     }
 }

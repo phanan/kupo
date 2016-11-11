@@ -41,4 +41,11 @@ interface RuleInterface
      * @return string
      */
     public function failedMessage();
+
+    /**
+     * Get the help message for the rule.
+     *
+     * @return string
+     */
+    public function helpMessage();
 }

@@ -2,7 +2,9 @@
   <transition>
     <li :class="['item', statusClass, levelClass]">
       <span class="label">{{ level }}</span>
-      <div v-html="item.message"></div>
+      <i class="help-icon" @click="showingHelp=!showingHelp">?</i>
+      <div class="msg" v-html="item.message"/>
+      <div class="help" v-show="showingHelp" v-html="item.help"/>
     </li>
   </transition>
 </template>
@@ -14,9 +16,15 @@ export default {
   name: 'result-item',
   props: ['item'],
 
+  data() {
+    return {
+      showingHelp: false
+    }
+  },
+
   computed: {
     level () {
-      return this.item.passed ? 'Passed' : this.item.level
+      return this.item.passed ? 'Passed' : 'Failed'
     },
 
     statusClass () {
@@ -31,61 +39,99 @@ export default {
 </script>
 
 <style lang="sass">
-  @import '../../sass/_variables';
+@import '../../sass/_variables';
 
-  li.item {
-    margin-bottom: 6px;
-    border: 1px solid $brand-success;
-    position: relative;
-    background: #fff;
+li.item {
+  margin-bottom: 6px;
+  border: 1px solid $brand-success;
+  position: relative;
+  background: #fff;
+  border-radius: 5px;
+  overflow: hidden;
+  word-wrap: break-word;
+  border-bottom-width: 2px;
+
+  .msg {
     padding: 24px 24px 0;
-    border-radius: 5px;
-    overflow: hidden;
-    word-wrap: break-word;
-    line-height: 1.8;
-    border-bottom-width: 2px;
+  }
 
-    .label {
+  .help {
+    padding: 8px 24px;
+    font-size: .9em;
+    border-top: 1px solid #fff;
+    box-shadow: inset 0 1px 5px rgba(black, 0.1);
+  }
+
+  .help-icon {
+    $wh: 18px;
+    cursor: pointer;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    border: 1px solid #e4e4e4;
+    color: #bfbfbf;
+    font-style: normal;
+    width: $wh;
+    height: $wh;
+    display: block;
+    text-align: center;
+    line-height: $wh - 2px;
+    border-radius: 50%;
+    font-size: .75em;
+    opacity: 0;
+
+    &:hover {
+      background-color: $brand-warning;
+      border-color: $brand-warning;
       color: #fff;
-      background: $brand-success;
-      font-family: 'Roboto Mono', Monaco, courier, monospace;
-      text-transform: uppercase;
-      font-size: .8em;
-      padding: 2px 4px;
-      border-radius: 0 0 5px;
-      position: absolute;
-      left: 0;
-      top: 0;
+    }
+  }
+
+  &:hover .help-icon {
+    opacity: 1;
+  }
+
+  .label {
+    color: #fff;
+    background: $brand-success;
+    font-family: 'Roboto Mono', Monaco, courier, monospace;
+    text-transform: uppercase;
+    font-size: .7em;
+    padding: 2px 4px;
+    border-radius: 0 0 5px;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  &.failed {
+    &.notice {
+      border-color: $brand-info;
+      .label {
+        background: $brand-info;
+      }
     }
 
-    &.failed {
-      &.notice {
-        border-color: $brand-info;
-        .label {
-          background: $brand-info;
-        }
+    &.warning {
+      border-color: $brand-warning;
+      .label {
+        background: $brand-warning;
       }
+    }
 
-      &.warning {
-        border-color: $brand-warning;
-        .label {
-          background: $brand-warning;
-        }
+    &.error {
+      border-color: $brand-danger;
+      .label {
+        background: $brand-danger;
       }
+    }
 
-      &.error {
-        border-color: $brand-danger;
-        .label {
-          background: $brand-danger;
-        }
-      }
-
-      &.critical {
-        border-color: $brand-critical;
-        .label {
-          background: $brand-critical;
-        }
+    &.critical {
+      border-color: $brand-critical;
+      .label {
+        background: $brand-critical;
       }
     }
   }
+}
 </style>

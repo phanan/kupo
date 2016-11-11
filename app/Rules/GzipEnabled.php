@@ -7,7 +7,7 @@ use App\Facades\UrlFetcher;
 class GzipEnabled extends Rule
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function check()
     {
@@ -16,18 +16,28 @@ class GzipEnabled extends Rule
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function passedMessage()
     {
-        return 'Content is gzipped';
+        return 'Content is gzipped.';
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function failedMessage()
     {
-        return 'Content is not gzipped';
+        return 'Content is not gzipped.';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function helpMessage()
+    {
+        return <<<MSG
+Compressing your web page helps reduce loading time and save bandwidth. If your server is Apache, this can be done with [some simple `.htaccess` rules](https://github.com/phanan/htaccess#compress-text-files), kupo! 
+MSG;
     }
 }

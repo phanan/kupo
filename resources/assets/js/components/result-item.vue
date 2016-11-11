@@ -1,7 +1,6 @@
 <template>
   <transition>
     <li :class="['item', statusClass, levelClass]">
-      <span class="label">{{ level }}</span>
       <i class="help-icon" @click="showingHelp=!showingHelp">?</i>
       <div class="msg" v-html="item.message"/>
       <div class="help" v-show="showingHelp" v-html="item.help"/>
@@ -23,10 +22,6 @@ export default {
   },
 
   computed: {
-    level () {
-      return this.item.passed ? 'Passed' : 'Failed'
-    },
-
     statusClass () {
       return this.item.passed ? 'passed' : 'failed'
     },
@@ -95,7 +90,7 @@ li.item {
     opacity: 1;
   }
 
-  .label {
+  &::before {
     color: #fff;
     background: $brand-success;
     font-family: 'Roboto Mono', Monaco, courier, monospace;
@@ -106,33 +101,38 @@ li.item {
     position: absolute;
     left: 0;
     top: 0;
+    content: 'Passed';
   }
 
   &.failed {
+    &::before {
+      content: 'Failed';
+    }
+
     &.notice {
       border-color: $brand-info;
-      .label {
+      &::before {
         background: $brand-info;
       }
     }
 
     &.warning {
       border-color: $brand-warning;
-      .label {
+      &::before {
         background: $brand-warning;
       }
     }
 
     &.error {
       border-color: $brand-danger;
-      .label {
+      &::before {
         background: $brand-danger;
       }
     }
 
     &.critical {
       border-color: $brand-critical;
-      .label {
+      &::before {
         background: $brand-critical;
       }
     }

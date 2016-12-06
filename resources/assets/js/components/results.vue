@@ -20,6 +20,7 @@
 </template>
 
 <script>
+/*global Velocity*/
 import resultItem from './result-item.vue'
 import event from '../services/event'
 
@@ -30,7 +31,7 @@ export default {
   data () {
     return {
       items: [],
-      errored: false,
+      errored: false
     }
   },
 
@@ -62,7 +63,9 @@ export default {
 
   created () {
     event.on({
-      'check-start': () => this.items = [],
+      'check-start': () => {
+        this.items = []
+      },
       'check-done': data => {
         if (data) {
           this.items = data

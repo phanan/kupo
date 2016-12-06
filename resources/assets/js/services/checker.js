@@ -4,7 +4,7 @@ import event from './event'
 export default {
   checking: false,
 
-  check(url) {
+  check (url) {
     if (this.checking) {
       return
     }
@@ -17,7 +17,7 @@ export default {
         event.emit('check-done', response.data)
         this.checking = false
       })
-      .catch(error => {
+      .catch(() => {
         event.emit('check-done', false)
         this.checking = false
       })

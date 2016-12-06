@@ -15,7 +15,7 @@ export default {
   name: 'result-item',
   props: ['item'],
 
-  data() {
+  data () {
     return {
       showingHelp: false
     }

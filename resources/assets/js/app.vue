@@ -27,8 +27,12 @@ export default {
 
   created () {
     event.on({
-      'check-start': () => this.checking = true,
-      'check-done': () => this.checking = false
+      'check-start': () => {
+        this.checking = true
+      },
+      'check-done': () => {
+        this.checking = false
+      }
     })
   }
 }

@@ -1,12 +1,13 @@
 {
   "private": true,
   "scripts": {
-    "prod": "gulp --production",
+    "prod": "cross-env NODE_ENV=production && gulp --production",
     "dev": "gulp watch",
     "test": "eslint resources/assets/js --ext=js,vue"
   },
   "devDependencies": {
     "axios": "^0.15.2",
+    "cross-env": "^3.1.3",
     "eslint": "^3.11.1",
     "eslint-config-vue": "^2.0.1",
     "eslint-plugin-vue": "^1.0.0",

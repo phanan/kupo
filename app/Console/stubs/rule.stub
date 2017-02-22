@@ -16,6 +16,14 @@ class DummyClass extends Rule
     /**
      * {@inheritdoc}
      */
+    public function level()
+    {
+        return Levels::NOTICE;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function passedMessage()
     {
         return 'Message when the rule passes';

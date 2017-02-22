@@ -29,7 +29,7 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="scss">
 .form-check {
   position: relative;
   padding-right: 99px;

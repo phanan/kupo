@@ -1,6 +1,6 @@
 {
     "name": "phanan/kupo",
-    "description": "Simple site launch checklist validator",
+    "description": "Simple site launch checklist checker",
     "keywords": ["site", "launch", "checklist"],
     "license": "MIT",
     "type": "project",

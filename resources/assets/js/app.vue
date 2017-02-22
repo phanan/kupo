@@ -38,7 +38,7 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="scss">
 #main {
   position: relative;
   padding: 16px;

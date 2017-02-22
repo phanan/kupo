@@ -12,7 +12,9 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Site Launch Checklist Validator',
+    'name' => 'kupo',
+
+    'description' => 'Site launch checklist checker',
 
     /*
     |--------------------------------------------------------------------------

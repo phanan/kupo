@@ -3,9 +3,11 @@
 /public/css
 /public/img
 /public/js
+/public/hot
 /storage/*.key
 /vendor
 Homestead.json
 Homestead.yaml
 .env
 /config/customRules.php
+mix-manifest.json

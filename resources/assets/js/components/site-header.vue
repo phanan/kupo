@@ -1,6 +1,6 @@
 <template>
   <header class="site-header">
-    <h1><span class="name">kupo</span> Site Launch Checklist</h1>
+    <h1><span class="name">{{ appMeta.name }}</span> {{ appMeta.description }}</h1>
     <check-form/>
   </header>
 </template>
@@ -10,11 +10,16 @@ import checkForm from './check-form.vue'
 
 export default {
   name: 'header',
-  components: { checkForm }
+  components: { checkForm },
+  data () {
+    return {
+      appMeta: window.appMeta
+    }
+  }
 }
 </script>
 
-<style lang="sass">
+<style lang="scss">
 @import '../../sass/_variables';
 
 .site-header {

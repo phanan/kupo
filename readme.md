@@ -1,4 +1,4 @@
-# kupo
+# kupo [![Build Status](https://travis-ci.org/phanan/kupo.svg?branch=master)](https://travis-ci.org/phanan/kupo)
 
 > A simple site launch checklist checker (for the lack of a better name).
 

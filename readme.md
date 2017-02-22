@@ -1,40 +1,57 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img width="150"src="https://laravel.com/laravel.png"></a></p>
+# kupo
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+> A simple site launch checklist checker (for the lack of a better name).
 
-## About Laravel
+<img src="https://github.com/phanan/kupo/raw/master/screen.gif" width="488" height="auto" alt="Screen record">
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+## Why
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+After (or is it before?) lanching a new site, you often want to validate it against a checklist and make sure the title is filled, gzip is enabled, robots.txt and sitemap.xml are all there etc. **kupo** is built to help you with this tedious task. Just key in the site's address, hit <key>ENTER</key>, and it will check for:
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+* Title and description tags
+* App icons' existence
+* A character set
+* A doc type
+* A favicon
+* A `lang` attribute
+* Proper `alt` attributes on images
+* `robots.txt` (and makes sure you bots are allowed)
+* `sitemap.xml` for SEO purpose oh God I hate this
+* Gzip to be enabled
+* Google Analytics to be installed
+* [Those OpenGraph tags that Facebook asks for](https://developers.facebook.com/docs/sharing/webmasters#markup)
+* [Those funny markups that Twitter inquires](https://dev.twitter.com/cards/markup)
+* …and more to come (or so I hope)
 
-## Learning Laravel
+## Install
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+As this tool is built on top of [Vue](https://vuejs.org) and [Laravel](https://laravel.com), your environment must meet their requirements. You'll also need a decent Node version (mine is `v6.9.1`) and [yarn](https://github.com/yarnpkg/yarn). Now from your command line, execute this bunch of commands:
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+```bash
+git clone https://github.com/phanan/kupo.git
+cd kupo
+composer install
+yarn install
+yarn build
+php artisan serve
+// kupo should now have been started at http://localhost:8000/
+```
 
-## Contributing
+## Extend
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+Depending on your needs, you may want to add more rules into kupo. In order to do so, just follow these certain steps:
 
-## Security Vulnerabilities
+1. Create a new Rule class: `php artisan make:rule FunnyBunnyMustBeSeen`
+1. Open `app\Rules\FunnyBunnyMustBeSeen.php` and fill the class with your logic. Basically, you'll need to make sure `check()` returns a truthy/falsy value, indicating if the rule passes/fails. Other methods should be self-explanatory.
+1. Now add `App\Rules\FunnyBunnyMustBeSeen::class` to the array found in `config/customRules.php`
+1. That should be it!
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+## Contribute
+
+If you feel like a certain rule should be added, please contribute! Just fork and follow the same steps as described in the above "Extend" section, except the file in step 3 should be `config/rules.php` instead. Create a passing test, make a PR, and I'll be more than happy to consider. Of course, bug fixes and any other kind of contributions are welcome, too!
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+MIT © [Phan An](http://phanan.net)
+
+

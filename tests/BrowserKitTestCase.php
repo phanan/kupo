@@ -3,7 +3,6 @@
 namespace Tests;
 
 use App\Crawler;
-use Illuminate\Contracts\Console\Kernel;
 use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
 
 abstract class BrowserKitTestCase extends BaseTestCase

@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-class FacebookOGTagsExist  extends Rule
+class FacebookOGTagsExist extends Rule
 {
     /**
      * {@inheritdoc}
@@ -44,7 +44,7 @@ class FacebookOGTagsExist  extends Rule
      */
     public function helpMessage()
     {
-        return <<<MSG
+        return <<<'MSG'
 Though not mandatory, a page should have valid Open Graph (OG) markups to take control over how the content appears on Facebook. You can about them [here](https://developers.facebook.com/docs/sharing/webmasters), kupo!
 MSG;
     }

@@ -55,7 +55,7 @@ class RobotsAllowedInTxt extends Rule
      */
     public function helpMessage()
     {
-        return <<<MSG
+        return <<<'MSG'
 A site can also specify crawling instructions in a file named [`robots.txt`](http://www.robotstxt.org/robotstxt.html), placed at the root of its public directory. Having 
 ```
 User-agent: *

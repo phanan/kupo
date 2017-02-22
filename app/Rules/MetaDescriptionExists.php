@@ -39,7 +39,7 @@ class MetaDescriptionExists extends Rule
      */
     public function helpMessage()
     {
-        return <<<MSG
+        return <<<'MSG'
 A meta description summarizes a page content and is often used by search engines to display as a snippet in search results. You can learn how to create the right meta description [here](https://yoast.com/meta-descriptions/), kupo!  
 MSG;
     }

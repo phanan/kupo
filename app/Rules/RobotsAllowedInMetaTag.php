@@ -51,7 +51,7 @@ class RobotsAllowedInMetaTag extends Rule
      */
     public function helpMessage()
     {
-        return <<<MSG
+        return <<<'MSG'
 A page can tell search engines to NOT index or follow its content with a `<meta name="robots" value="noindex, nofollow">` tag. Since you’re launching to public, this is hardly what you want, kupo!   
 MSG;
     }

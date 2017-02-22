@@ -51,7 +51,7 @@ class CharacterSetExists extends Rule
      */
     public function helpMessage()
     {
-        return <<<MSG
+        return <<<'MSG'
 A valid [character set](https://en.wikipedia.org/wiki/Character_encodings_in_HTML) helps browsers display a page correctly.
 Most of the time you’ll want a `UTF-8` encoding. For HTML5, all you need is a `<meta charset="UTF-8">` tag in `<head>`, kupo!
 MSG;

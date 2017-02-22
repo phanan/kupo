@@ -48,7 +48,7 @@ class SiteMapExists extends Rule
      */
     public function helpMessage()
     {
-        return <<<MSG
+        return <<<'MSG'
 An [XML Sitemap](https://en.wikipedia.org/wiki/Site_map#XML_Sitemaps) is a structured format that a user doesn’t need to see, but it tells the search engine about the pages in a site, their relative importance to each other, and how often they are updated. Having a proper, up-to-date sitemap can greatly benefit your site’s SEO result, thus is highly recommended, kupo!  
 MSG;
     }

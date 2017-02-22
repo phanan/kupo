@@ -58,7 +58,7 @@ class FaviconExists extends Rule
      */
     public function helpMessage()
     {
-        return <<<MSG
+        return <<<'MSG'
 A [favicon](https://en.wikipedia.org/wiki/Favicon) (short for _favorite icon_) represents the site graphically on the tab bar or in bookmarks. If a favicon isn’t specified in the HTML markups, the browser will look for a file named `favicon.ico` at the root of the site, kupo! 
 MSG;
     }

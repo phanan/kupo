@@ -24,10 +24,10 @@ class Crawler extends BaseCrawler
 
     /**
      * Get the original raw HTML.
-     * 
-     * @return string
      *
      * @throws \Exception
+     *
+     * @return string
      */
     public function getRaw()
     {

@@ -1,6 +1,9 @@
 <template>
   <header class="site-header">
-    <h1><span class="name">{{ appMeta.name }}</span> {{ appMeta.description }}</h1>
+    <h1>
+      <span class="name">{{ appMeta.name }}</span>
+      <span class="description">{{ appMeta.description }}</span>
+    </h1>
     <check-form/>
   </header>
 </template>
@@ -28,6 +31,16 @@ export default {
 
     .name {
       color: $brand-primary;
+    }
+
+    .description {
+      &::before {
+        content: "· ";
+      }
+
+      @media only screen and (max-width: 667px) {
+        display: none;
+      }
     }
   }
 

@@ -45,7 +45,7 @@ class HtmlHasLangAttribute extends Rule
      */
     public function helpMessage()
     {
-        return <<<MSG
+        return <<<'MSG'
 A `lang` attribute in the `<html>` tag sets the language for all the text on the page, which is [a good thing to do](https://www.w3.org/International/questions/qa-lang-why.en), kupo! 
 MSG;
     }

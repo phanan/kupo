@@ -32,9 +32,9 @@ class Checker
      *
      * @param string|null $url
      *
-     * @return \Generator
-     *
      * @throws Exception
+     *
+     * @return \Generator
      */
     public function validate($url = null)
     {
@@ -58,10 +58,10 @@ class Checker
             try {
                 $result = $rule->check();
                 yield [
-                    'passed' => $result,
+                    'passed'  => $result,
                     'message' => $result ? $rule->passedMessage : $rule->failedMessage,
-                    'help' => $rule->helpMessage,
-                    'level' => $rule->level(),
+                    'help'    => $rule->helpMessage,
+                    'level'   => $rule->level(),
                 ];
             } catch (Exception $e) {
             }

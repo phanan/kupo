@@ -31,10 +31,10 @@ return [
     'connections' => [
 
         'pusher' => [
-            'driver' => 'pusher',
-            'key' => env('PUSHER_KEY'),
-            'secret' => env('PUSHER_SECRET'),
-            'app_id' => env('PUSHER_APP_ID'),
+            'driver'  => 'pusher',
+            'key'     => env('PUSHER_KEY'),
+            'secret'  => env('PUSHER_SECRET'),
+            'app_id'  => env('PUSHER_APP_ID'),
             'options' => [
                 //
             ],
@@ -51,9 +51,9 @@ return [
             'clusters' => [
                 'default' => [
                     [
-                        'host' => env('REDIS_HOST', '127.0.0.1'),
+                        'host'     => env('REDIS_HOST', '127.0.0.1'),
                         'password' => env('REDIS_PASSWORD', null),
-                        'port' => env('REDIS_PORT', 6379),
+                        'port'     => env('REDIS_PORT', 6379),
                         'database' => 0,
                     ],
                 ],

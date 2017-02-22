@@ -5,7 +5,7 @@ namespace Tests\Rules;
 use App\Rules\ImgTagsHaveAlt;
 use Tests\BrowserKitTestCase;
 
-class ImgTagsHaveAltTest extends BrowserKitTestCase
+class ImgTagsHaveAlt extends BrowserKitTestCase
 {
     public function testCheck()
     {

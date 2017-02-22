@@ -20,7 +20,7 @@ class RobotsFile
 
     /**
      * Content of the robots.txt file.
-     * 
+     *
      * @var string
      */
     private $content;

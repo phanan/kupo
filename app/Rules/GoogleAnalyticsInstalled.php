@@ -43,7 +43,7 @@ class GoogleAnalyticsInstalled extends Rule
      */
     public function helpMessage()
     {
-        return <<<MSG
+        return <<<'MSG'
 As [Google Analytics](https://analytics.google.com) is arguably the most popular web analytics service, it’s assumed here that you want to integrate your site with a GA account. Of course you can safely ignore this rule if it isn’t the case, kupo!
 MSG;
     }

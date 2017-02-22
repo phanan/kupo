@@ -20,6 +20,7 @@ class Rule implements RuleInterface
 
     /**
      * {@inheritdoc}
+     *
      * @throws \Exception
      */
     public function check(Crawler $crawler = null, $url = null)
@@ -37,6 +38,7 @@ class Rule implements RuleInterface
 
     /**
      * {@inheritdoc}
+     *
      * @throws \Exception
      */
     public function passedMessage()
@@ -46,6 +48,7 @@ class Rule implements RuleInterface
 
     /**
      * {@inheritdoc}
+     *
      * @throws \Exception
      */
     public function failedMessage()
@@ -56,8 +59,9 @@ class Rule implements RuleInterface
     /**
      * Get the help message for the rule.
      *
-     * @return string
      * @throws \Exception
+     *
+     * @return string
      */
     public function helpMessage()
     {

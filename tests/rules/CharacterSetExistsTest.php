@@ -3,7 +3,6 @@
 namespace Tests\Rules;
 
 use App\Rules\CharacterSetExists;
-use Mockery as m;
 use Tests\BrowserKitTestCase;
 
 class CharacterSetExistsTest extends BrowserKitTestCase

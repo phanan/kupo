@@ -4,7 +4,6 @@ namespace Tests\Rules;
 
 use App\Facades\UrlHelper;
 use App\Rules\FaviconExists;
-use Mockery as m;
 use Tests\BrowserKitTestCase;
 
 class FaviconExistsTest extends BrowserKitTestCase
@@ -35,7 +34,7 @@ class FaviconExistsTest extends BrowserKitTestCase
     }
 
     /**
-     * Test <link rel="shortcut icon">
+     * Test <link rel="shortcut icon">.
      */
     public function testCheckExplicitFaviconByLinkRelShortcutIcon()
     {

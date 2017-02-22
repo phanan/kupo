@@ -31,8 +31,7 @@ As this tool is built on top of [Vue](https://vuejs.org) and [Laravel](https://l
 git clone https://github.com/phanan/kupo.git
 cd kupo
 composer install
-yarn install
-yarn build
+yarn && yarn build
 php artisan serve
 // kupo should now have been started at http://localhost:8000/
 ```

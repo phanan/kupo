@@ -1,10 +1,13 @@
 <?php
 
+namespace Tests\Rules;
+
 use App\Facades\UrlHelper;
 use App\Rules\FaviconExists;
 use Mockery as m;
+use Tests\BrowserKitTestCase;
 
-class FaviconExistsTest extends TestCase
+class FaviconExistsTest extends BrowserKitTestCase
 {
     public function testCheckDefaultFavicon()
     {

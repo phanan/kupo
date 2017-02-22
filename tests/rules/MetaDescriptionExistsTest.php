@@ -1,8 +1,11 @@
 <?php
 
-use App\Rules\MetaDescriptionExists;
+namespace Tests\Rules;
 
-class MetaDescriptionExistsTest extends TestCase
+use App\Rules\MetaDescriptionExists;
+use Tests\BrowserKitTestCase;
+
+class MetaDescriptionExistsTest extends BrowserKitTestCase
 {
     public function testCheck()
     {

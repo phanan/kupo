@@ -1,8 +1,11 @@
 <?php
 
-use App\Rules\TwitterOGTagsExist;
+namespace Tests\Rules;
 
-class TwitterOGTagsExistTest extends TestCase
+use App\Rules\TwitterOGTagsExist;
+use Tests\BrowserKitTestCase;
+
+class TwitterOGTagsExistTest extends BrowserKitTestCase
 {
     public function testCheck()
     {

@@ -1,8 +1,11 @@
 <?php
 
-use App\Rules\RobotsAllowedInMetaTag;
+namespace Tests\Rules;
 
-class RobotsAllowedInMetaTagTest extends TestCase
+use App\Rules\RobotsAllowedInMetaTag;
+use Tests\BrowserKitTestCase;
+
+class RobotsAllowedInMetaTagTest extends BrowserKitTestCase
 {
     public function testCheck()
     {

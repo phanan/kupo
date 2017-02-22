@@ -1,9 +1,12 @@
 <?php
 
+namespace Tests\Rules;
+
 use App\Facades\UrlFetcher;
 use App\Rules\GzipEnabled;
+use Tests\BrowserKitTestCase;
 
-class GzipEnabledTest extends TestCase
+class GzipEnabledTest extends BrowserKitTestCase
 {
     public function testCheck()
     {

@@ -1,5 +1,5 @@
 {
-  "private": true,
+  "license": "MIT",
   "scripts": {
     "prod": "cross-env NODE_ENV=production && gulp --production",
     "dev": "gulp watch",

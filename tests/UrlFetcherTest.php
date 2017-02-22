@@ -1,12 +1,14 @@
 <?php
 
+namespace Tests;
+
 use App\Services\UrlFetcher;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 
-class UrlFetcherTest extends TestCase
+class UrlFetcherTest extends BrowserKitTestCase
 {
     public function testFetch()
     {

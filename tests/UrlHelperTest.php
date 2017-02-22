@@ -1,8 +1,10 @@
 <?php
 
+namespace Tests;
+
 use App\Services\UrlHelper;
 
-class UrlHelperTest extends TestCase
+class UrlHelperTest extends BrowserKitTestCase
 {
     /**
      * @var UrlHelper
@@ -69,10 +71,12 @@ class UrlHelperTest extends TestCase
             'http://foo.bar/baz/dir/sitemap.xml',
             $this->helper->absolutize('dir/sitemap.xml', 'http://foo.bar/baz/qux.html')
         );
+
         static::assertEquals(
             'http://foo.bar/sitemap.xml',
             $this->helper->absolutize('/sitemap.xml', 'http://foo.bar/baz/qux.html')
         );
+
         static::assertEquals(
             'http://baz.qux/sitemap.xml',
             $this->helper->absolutize('http://baz.qux/sitemap.xml', 'http://foo.bar/baz/qux.html')

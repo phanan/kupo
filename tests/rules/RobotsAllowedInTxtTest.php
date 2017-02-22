@@ -1,9 +1,12 @@
 <?php
 
+namespace Tests\Rules;
+
 use App\Facades\RobotsFile;
 use App\Rules\RobotsAllowedInTxt;
+use Tests\BrowserKitTestCase;
 
-class RobotsAllowedInTxtTest extends TestCase
+class RobotsAllowedInTxtTest extends BrowserKitTestCase
 {
     public function testCheck()
     {

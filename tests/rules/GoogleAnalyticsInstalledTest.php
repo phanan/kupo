@@ -1,8 +1,11 @@
 <?php
 
-use App\Rules\GoogleAnalyticsInstalled;
+namespace Tests\Rules;
 
-class GoogleAnalyticsInstalledTest extends TestCase
+use App\Rules\GoogleAnalyticsInstalled;
+use Tests\BrowserKitTestCase;
+
+class GoogleAnalyticsInstalledTest extends BrowserKitTestCase
 {
     public function testCheck()
     {

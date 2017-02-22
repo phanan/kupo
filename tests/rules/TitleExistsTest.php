@@ -1,8 +1,11 @@
 <?php
 
-use App\Rules\TitleExists;
+namespace Tests\Rules;
 
-class TitleExistsTest extends TestCase
+use App\Rules\TitleExists;
+use Tests\BrowserKitTestCase;
+
+class TitleExistsTest extends BrowserKitTestCase
 {
     public function testCheck()
     {

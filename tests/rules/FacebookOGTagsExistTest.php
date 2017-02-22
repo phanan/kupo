@@ -1,8 +1,11 @@
 <?php
 
-use App\Rules\FacebookOGTagsExist;
+namespace Tests\Rules;
 
-class FacebookOGTagsExistTest extends TestCase
+use App\Rules\FacebookOGTagsExist;
+use Tests\BrowserKitTestCase;
+
+class FacebookOGTagsExistTest extends BrowserKitTestCase
 {
     public function testCheck()
     {

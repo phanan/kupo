@@ -1,12 +1,15 @@
 <?php
 
+namespace Tests\Rules;
+
 use App\Crawler;
 use App\Facades\RobotsFile;
 use App\Facades\UrlHelper;
 use App\Rules\SiteMapExists;
 use Mockery as m;
+use Tests\BrowserKitTestCase;
 
-class SiteMapExistsTest extends TestCase
+class SiteMapExistsTest extends BrowserKitTestCase
 {
     public function testCheckDefaultSitemaps()
     {

@@ -1,8 +1,11 @@
 <?php
 
-use App\Rules\HtmlHasLangAttribute;
+namespace Tests\Rules;
 
-class HtmlHasLangAttributeTest extends TestCase
+use App\Rules\HtmlHasLangAttribute;
+use Tests\BrowserKitTestCase;
+
+class HtmlHasLangAttributeTest extends BrowserKitTestCase
 {
     public function testCheck()
     {

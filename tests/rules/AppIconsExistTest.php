@@ -1,8 +1,11 @@
 <?php
 
-use App\Rules\AppIconsExist;
+namespace Tests\Rules;
 
-class AppIconsExistTest extends TestCase
+use App\Rules\AppIconsExist;
+use Tests\BrowserKitTestCase;
+
+class AppIconsExistTest extends BrowserKitTestCase
 {
     public function testCheck()
     {

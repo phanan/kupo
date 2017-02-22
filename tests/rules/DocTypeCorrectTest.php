@@ -1,8 +1,11 @@
 <?php
 
-use App\Rules\DocTypeCorrect;
+namespace Tests\Rules;
 
-class DocTypeCorrectTest extends TestCase
+use App\Rules\DocTypeCorrect;
+use Tests\BrowserKitTestCase;
+
+class DocTypeCorrectTest extends BrowserKitTestCase
 {
     public function testCheck()
     {

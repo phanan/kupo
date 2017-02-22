@@ -1,8 +1,11 @@
 <?php
 
-use App\Rules\ImgTagsHaveAlt;
+namespace Tests\Rules;
 
-class ImgTagsHaveAltTest extends TestCase
+use App\Rules\ImgTagsHaveAlt;
+use Tests\BrowserKitTestCase;
+
+class ImgTagsHaveAltTest extends BrowserKitTestCase
 {
     public function testCheck()
     {

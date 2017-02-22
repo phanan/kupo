@@ -1,0 +1,29 @@
+language: php
+
+php:
+  - 7.0
+
+env:
+  APP_ENV: testing
+  CACHE_DRIVER: array
+  SESSION_DRIVER: array
+  QUEUE_DRIVER: sync
+  DB_CONNECTION: sqlite
+  APP_KEY: b4f02ccc59f38233cdd984353a279f10
+  BROADCAST_DRIVER: log
+
+branches:
+  - master
+
+install:
+  - . $HOME/.nvm/nvm.sh
+  - nvm install stable
+  - nvm use stable
+  - npm install -g yarn
+  - yarn
+  - composer self-update
+  - composer install --prefer-source --no-interaction
+
+script:
+  - phpunit
+  - yarn lint

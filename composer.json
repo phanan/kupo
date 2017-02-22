@@ -49,6 +49,7 @@
         ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
+            "php -r \"file_exists('config/customRules.php') || copy('config/customRules.php.example', 'config/customRules.php');\"",
             "php artisan optimize"
         ],
         "post-update-cmd": [

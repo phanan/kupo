@@ -1,0 +1,39 @@
+<?php
+
+namespace DummyNamespace;
+
+class DummyClass extends Rule
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function check()
+    {
+        // Perform the check here.
+        return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function passedMessage()
+    {
+        return 'Message when the rule passes';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function failedMessage()
+    {
+        return 'Message when the rule fails.';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function helpMessage()
+    {
+        return 'The help message for this rule.';
+    }
+}

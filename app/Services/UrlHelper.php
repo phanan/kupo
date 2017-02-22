@@ -27,7 +27,7 @@ class UrlHelper
     }
 
     /**
-     * Get the URL of a file in the root of an URL.
+     * Get the URL of a file at the root of an URL.
      * For instance, providing 'http://google.com/index.html' and 'sitemap.xml' will return
      * 'http://google.com/sitemap.xml'.
      *

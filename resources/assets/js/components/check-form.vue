@@ -17,12 +17,19 @@ export default {
 
   data () {
     return {
-      url: ''
+      url: window.location.hash.substr(1)
+    }
+  },
+
+  created () {
+    if (this.url) {
+      this.check()
     }
   },
 
   methods: {
     check () {
+      window.location.hash = encodeURI(this.url)
       checker.check(this.url)
     }
   }

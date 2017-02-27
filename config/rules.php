@@ -1,6 +1,8 @@
 <?php
 
 $rules = [
+    App\Rules\StatusCode200::class,
+    App\Rules\StatusCode404::class,
     App\Rules\RobotsAllowedInTxt::class,
     App\Rules\RobotsAllowedInMetaTag::class,
     App\Rules\TitleExists::class,

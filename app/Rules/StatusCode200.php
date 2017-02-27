@@ -3,18 +3,17 @@
 namespace App\Rules;
 
 use App\Facades\UrlFetcher;
-use GuzzleHttp\Exception\BadResponseException;
 
 class StatusCode200 extends Rule
 {
     protected $statusCode;
+
     /**
      * {@inheritdoc}
      */
     public function check()
     {
         return UrlFetcher::getResponse()->getStatusCode() == 200;
-
     }
 
     /**
@@ -38,7 +37,7 @@ class StatusCode200 extends Rule
      */
     public function failedMessage()
     {
-        return 'This page returned ' . $this->statusCode . ' instead of `200`.';
+        return 'This page returned '.$this->statusCode.' instead of `200`.';
     }
 
     /**

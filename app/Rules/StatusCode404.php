@@ -8,12 +8,13 @@ use GuzzleHttp\Exception\BadResponseException;
 class StatusCode404 extends Rule
 {
     protected $statusCode;
+
     /**
      * {@inheritdoc}
      */
     public function check()
     {
-        $uri = rtrim($this->url, '/') . '/page-to-test-404-response';
+        $uri = rtrim($this->url, '/').'/page-to-test-404-response';
 
         $fetcher = new UrlFetcher();
         try {
@@ -48,7 +49,7 @@ class StatusCode404 extends Rule
      */
     public function failedMessage()
     {
-        return 'Not found page returned `' . $this->statusCode . '`` instead of `404`.';
+        return 'Not found page returned `'.$this->statusCode.'` instead of `404`.';
     }
 
     /**

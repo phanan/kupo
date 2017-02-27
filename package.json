@@ -24,11 +24,7 @@
     "lodash": "^4.16.2",
     "node-sass": "^3.11.2",
     "slugify": "^1.0.2",
-    "vue": "^2.0.1"
-  },
-  "dependencies": {
-    "install": "^0.8.7",
-    "npm": "^4.3.0",
+    "vue": "^2.0.1",
     "yoastseo": "git+https://github.com/Yoast/YoastSEO.js.git#develop"
   }
 }

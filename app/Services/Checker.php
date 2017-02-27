@@ -6,6 +6,7 @@ use App\Crawler;
 use App\Facades\RobotsFile;
 use App\Facades\UrlFetcher;
 use App\Facades\UrlHelper;
+use App\Rules\Levels;
 use App\Rules\Rule;
 use Exception;
 
@@ -49,7 +50,7 @@ class Checker
         $html = UrlFetcher::fetch($this->url);
         RobotsFile::setUrl(UrlHelper::getRobotsUrl($this->url));
 
-        $crawler = new Crawler($html);
+        $crawler = new Crawler($html, $this->url);
 
         foreach ((array) config('rules') as $ruleClassName) {
             /** @var Rule $rule */

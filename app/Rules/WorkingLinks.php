@@ -55,9 +55,9 @@ class WorkingLinks extends Rule
             'rejected' => function (RequestException $e) use (&$fail) {
 
                 if ($response = $e->getResponse()) {
-                    $result = "`{$response->getStatusCode()} {$response->getReasonPhrase()}` - ";
+                    $result = "* `{$response->getStatusCode()} {$response->getReasonPhrase()}` - ";
                 } else {
-                    $result = '`XXX UNKNOWN` - ';
+                    $result = '* `XXX UNKNOWN` - ';
                 }
 
                 $result .= $e->getRequest()->getUri();
@@ -72,11 +72,11 @@ class WorkingLinks extends Rule
         $promise->wait();
 
         if (empty($fail)) {
-            $this->msg = "All {$ok} links work!";
+            $this->msg = "All **{$ok}** links on this page are working!";
             return true;
         }
 
-        $this->msg = "`{$ok}` links are working, `".count($fail)."` failed:<br/>".implode("<br/>", $fail);
+        $this->msg = "Not all links on this page are working. {$ok} links are working, but **".count($fail)." failed**:\n\n".implode("\n", $fail);
 
         return false;
     }
@@ -111,7 +111,7 @@ class WorkingLinks extends Rule
     public function helpMessage()
     {
         return <<<'MSG'
-Make sure all links are working.
+Make sure all links on your website are working.
 MSG;
     }
 }

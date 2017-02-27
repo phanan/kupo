@@ -41,6 +41,7 @@ class WorkingLinks extends Rule
 
         if (empty($requests)) {
             $this->msg = 'No links found..';
+            
             return true;
         }
 
@@ -53,7 +54,6 @@ class WorkingLinks extends Rule
                 $ok++;
             },
             'rejected' => function (RequestException $e) use (&$fail) {
-
                 if ($response = $e->getResponse()) {
                     $result = "* `{$response->getStatusCode()} {$response->getReasonPhrase()}` - ";
                 } else {
@@ -73,6 +73,7 @@ class WorkingLinks extends Rule
 
         if (empty($fail)) {
             $this->msg = "All **{$ok}** links on this page are working!";
+
             return true;
         }
 

@@ -41,7 +41,7 @@ class WorkingLinks extends Rule
 
         if (empty($requests)) {
             $this->msg = 'No links found..';
-            
+
             return true;
         }
 

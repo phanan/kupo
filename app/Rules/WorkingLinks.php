@@ -13,13 +13,13 @@ class WorkingLinks extends Rule
     protected $statusCode;
 
     protected $msg = null;
+
     /**
      * {@inheritdoc}
      */
     public function check()
     {
         $requests = [];
-
 
         foreach ($this->crawler->filter('a')->links() as $link) {
             $uri = $link->getUri();
@@ -49,15 +49,15 @@ class WorkingLinks extends Rule
         $client = new Client();
         $pool = new Pool($client, $requests, [
             'concurrency' => 5,
-            'fulfilled' => function (ResponseInterface $response) use(&$ok) {
+            'fulfilled' => function (ResponseInterface $response) use (&$ok) {
                 $ok++;
             },
-            'rejected' => function (RequestException $e) use(&$fail) {
+            'rejected' => function (RequestException $e) use (&$fail) {
 
                 if ($response = $e->getResponse()) {
                     $result = "`{$response->getStatusCode()} {$response->getReasonPhrase()}` - ";
                 } else {
-                    $result = "`XXX UNKNOWN` - ";
+                    $result = '`XXX UNKNOWN` - ';
                 }
 
                 $result .= $e->getRequest()->getUri();
@@ -76,7 +76,7 @@ class WorkingLinks extends Rule
             return true;
         }
 
-        $this->msg = "`{$ok}` links are working, `". count($fail) ."` failed:<br/>" . implode("<br/>", $fail);
+        $this->msg = "`{$ok}` links are working, `".count($fail)."` failed:<br/>".implode("<br/>", $fail);
 
         return false;
     }

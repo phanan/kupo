@@ -6,7 +6,6 @@ use App\Crawler;
 use App\Facades\RobotsFile;
 use App\Facades\UrlFetcher;
 use App\Facades\UrlHelper;
-use App\Rules\Levels;
 use App\Rules\Rule;
 use Exception;
 

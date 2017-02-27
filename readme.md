@@ -31,9 +31,7 @@ As this tool is built on top of [Vue](https://vuejs.org) and [Laravel](https://l
 git clone https://github.com/phanan/kupo.git
 cd kupo
 composer install
-cp .env.example .env
-php artisan key:generate
-yarn && yarn build
+php artisan kupo:init
 php artisan serve
 // kupo should now have been started at http://localhost:8000/
 ```

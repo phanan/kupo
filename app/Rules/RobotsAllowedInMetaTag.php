@@ -9,7 +9,7 @@ class RobotsAllowedInMetaTag extends Rule
      */
     public function check()
     {
-        if (!count($tags = $this->crawler->filter('meta[name=robots]'))) {
+        if (!count($tags = $this->crawler->filterCaseInsensitiveAttribute('meta[name=robots]'))) {
             return true;
         }
 

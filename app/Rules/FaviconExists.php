@@ -17,7 +17,7 @@ class FaviconExists extends Rule
     public function check()
     {
         // Find the favicon URL from the HTML
-        $links = $this->crawler->filter('link[rel="icon"], link[rel="shortcut icon"]');
+        $links = $this->crawler->filterCaseInsensitiveAttribute('link[rel="icon"], link[rel="shortcut icon"]');
 
         // If we can find it, use it. Otherwise, resort to the root favicon.ico.
         $this->faviconUrl = count($links) ?

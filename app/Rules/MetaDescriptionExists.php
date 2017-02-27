@@ -11,7 +11,7 @@ class MetaDescriptionExists extends Rule
      */
     public function check()
     {
-        if (count($tags = $this->crawler->filter('meta[name=description]'))) {
+        if (count($tags = $this->crawler->filterCaseInsensitiveAttribute('meta[name=description]'))) {
             $this->description = trim($tags->first()->attr('content'));
         }
 

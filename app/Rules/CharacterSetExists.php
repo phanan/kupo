@@ -14,7 +14,7 @@ class CharacterSetExists extends Rule
         if (count($tags = $this->crawler->filter('meta[charset]'))) {
             // <meta charset="utf-8">
             $this->charset = trim($tags->first()->attr('charset'));
-        } elseif (count($tags = $this->crawler->filter('meta[http-equiv="Content-Type"]'))) {
+        } elseif (count($tags = $this->crawler->filterCaseInsensitiveAttribute('meta[http-equiv=content-type]'))) {
             // <meta http-equiv="Content-Type" content="text/html; utf-8">
             $value = $tags->first()->attr('content');
             if (preg_match('/charset\s*=\s*(.*)/i', $value, $matches)) {

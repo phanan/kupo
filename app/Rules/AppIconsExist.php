@@ -14,8 +14,8 @@ class AppIconsExist extends Rule
         // To keep things simple, we only check for the tags' existence,
         // not the icon files themselves.
         return
-            count($this->crawler->filter('link[rel=apple-touch-icon]')) ||
-            count($this->crawler->filter('link[rel=icon]'));
+            count($this->crawler->filterCaseInsensitiveAttribute('link[rel=apple-touch-icon]')) ||
+            count($this->crawler->filterCaseInsensitiveAttribute('link[rel=icon]'));
     }
 
     /**

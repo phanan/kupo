@@ -9,10 +9,10 @@ class TwitterOGTagsExist extends Rule
      */
     public function check()
     {
-        return count($this->crawler->filter('meta[name="twitter:card"]'))
-        && count($this->crawler->filter('meta[name="twitter:title"]'))
-        && count($this->crawler->filter('meta[name="twitter:description"]'))
-        && count($this->crawler->filter('meta[name="twitter:image"]'));
+        return count($this->crawler->filterCaseInsensitiveAttribute('meta[name="twitter:card"]'))
+        && count($this->crawler->filterCaseInsensitiveAttribute('meta[name="twitter:title"]'))
+        && count($this->crawler->filterCaseInsensitiveAttribute('meta[name="twitter:description"]'))
+        && count($this->crawler->filterCaseInsensitiveAttribute('meta[name="twitter:image"]'));
     }
 
     /**

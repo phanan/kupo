@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Symfony\Component\CssSelector\CssSelectorConverter;
 use Symfony\Component\DomCrawler\Crawler as BaseCrawler;
 
 class Crawler extends BaseCrawler
@@ -36,5 +37,43 @@ class Crawler extends BaseCrawler
         }
 
         throw new \Exception("Can't get raw HTML. Make sure you have initialized Crawler with a string.");
+    }
+
+    /**
+     * Filter by a CSS attribute selector case-insensitively.
+     * This method is very limited in term of capability (only works for 'attr[key=val]', with val
+     * being Latin-only).
+     *
+     * @param $selector string The selector string
+     *
+     * @return BaseCrawler
+     *
+     * @throws \Exception
+     */
+    public function filterCaseInsensitiveAttribute($selector)
+    {
+        return $this->filterXPath($this->createCaseInsensitiveAttributeXPath($selector));
+    }
+
+    /**
+     * Convert a CSS attribute selector into XPath case-insensitively.
+     *
+     * @param $selector
+     *
+     * @return string
+     *
+     * @throws \Exception
+     */
+    public function createCaseInsensitiveAttributeXPath($selector)
+    {
+        $converter = new CssSelectorConverter(true);
+        $xpath = $converter->toXPath($selector);
+
+        $re = '/(@(.*?))\s*=/';
+        if (!preg_match_all($re, $xpath, $matches)) {
+            throw new \Exception("$selector is not a valid/usable CSS selector.");
+        }
+
+        return preg_replace($re, 'translate($1, "ABCDEFGHJIKLMNOPQRSTUVWXYZ", "abcdefghjiklmnopqrstuvwxyz") =', $xpath);
     }
 }

@@ -9,10 +9,10 @@ class FacebookOGTagsExist extends Rule
      */
     public function check()
     {
-        return count($this->crawler->filter('meta[property="og:url"]'))
-            && count($this->crawler->filter('meta[property="og:title"]'))
-            && count($this->crawler->filter('meta[property="og:description"]'))
-            && count($this->crawler->filter('meta[property="og:image"]'));
+        return count($this->crawler->filterCaseInsensitiveAttribute('meta[property="og:url"]'))
+            && count($this->crawler->filterCaseInsensitiveAttribute('meta[property="og:title"]'))
+            && count($this->crawler->filterCaseInsensitiveAttribute('meta[property="og:description"]'))
+            && count($this->crawler->filterCaseInsensitiveAttribute('meta[property="og:image"]'));
     }
 
     /**

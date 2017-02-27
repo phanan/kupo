@@ -23,6 +23,7 @@
     <body>
         <div id="app"></div>
 
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
         <script src="{{ mix('/js/app.js') }}"></script>
     </body>

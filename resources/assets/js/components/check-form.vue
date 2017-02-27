@@ -17,7 +17,7 @@ export default {
 
   data () {
     return {
-      url: window.location.hash.substr(1)
+      url: decodeURI(window.location.hash.substr(1))
     }
   },
 

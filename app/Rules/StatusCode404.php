@@ -14,7 +14,7 @@ class StatusCode404 extends Rule
      */
     public function check()
     {
-        $uri = rtrim($this->url, '/').'/page-to-test-404-response';
+        $uri = rtrim($this->url, '/').'/-~!page-to-test-404-responses-for-invalid-pages!~-';
 
         $fetcher = new UrlFetcher();
         try {

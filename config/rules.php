@@ -1,8 +1,6 @@
 <?php
 
 $rules = [
-    App\Rules\StatusCode200::class,
-    App\Rules\StatusCode404::class,
     App\Rules\RobotsAllowedInTxt::class,
     App\Rules\RobotsAllowedInMetaTag::class,
     App\Rules\TitleExists::class,
@@ -18,6 +16,7 @@ $rules = [
     App\Rules\GzipEnabled::class,
     App\Rules\FacebookOGTagsExist::class,
     App\Rules\TwitterOGTagsExist::class,
+    App\Rules\PageNotFoundGives404::class,
 ];
 
 if ($custom = config('customRules')) {

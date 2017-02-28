@@ -5,7 +5,7 @@ namespace App\Rules;
 use App\Services\UrlFetcher;
 use GuzzleHttp\Exception\BadResponseException;
 
-class StatusCode404 extends Rule
+class PageNotFoundGives404 extends Rule
 {
     protected $statusCode;
 

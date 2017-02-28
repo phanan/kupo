@@ -28,7 +28,7 @@ class Rule implements RuleInterface
      *
      * @throws \Exception
      */
-    public function check(Crawler $crawler = null, $url = null)
+    public function check()
     {
         throw new \Exception('Unimplemented method.');
     }

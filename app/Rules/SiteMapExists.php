@@ -46,6 +46,22 @@ class SiteMapExists extends Rule
     /**
      * {@inheritdoc}
      */
+    public function passedMessage()
+    {
+        return $this->passedMsg;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function failedMessage()
+    {
+        return $this->failedMsg;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function helpMessage()
     {
         return <<<'MSG'

@@ -60,7 +60,7 @@ class Checker
 
         foreach ((array) config('rules') as $ruleClassName) {
             /** @var Rule $rule */
-            $rule = app()->make($ruleClassName);
+            $rule = $this->container->make($ruleClassName);
 
             try {
                 $result = $rule->check($crawler, $response, $uri);

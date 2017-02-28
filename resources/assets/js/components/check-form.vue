@@ -26,7 +26,7 @@ export default {
       this.check()
     }
 
-    window.onpopstate = (event) => {
+    window.onpopstate = event => {
       this.url = event.state ? event.state.url : ''
       this.check()
     }
@@ -34,14 +34,13 @@ export default {
 
   methods: {
     submitCheck () {
-      window.history.pushState({ url: this.url }, this.url, '?url=' + encodeURI(this.url))
+      window.history.pushState({ url: this.url }, this.url, `?url=${encodeURI(this.url)}`)
       this.check()
     },
 
     check () {
       checker.check(this.url)
     }
-
   }
 }
 </script>

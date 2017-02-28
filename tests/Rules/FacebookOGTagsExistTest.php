@@ -9,12 +9,12 @@ class FacebookOGTagsExistTest extends BrowserKitTestCase
 {
     public function testCheck()
     {
-        $crawler = $this->createCrawlerFromBlob('FacebookOGTagsExistPassed');
-        $rule = new FacebookOGTagsExist($crawler);
-        static::assertTrue($rule->check());
+        $args = $this->createArgumentsFromBlob('FacebookOGTagsExistPassed');
+        $rule = new FacebookOGTagsExist();
+        static::assertTrue($rule->check(...$args));
 
-        $crawler = $this->createCrawlerFromBlob('FacebookOGTagsExistFailed');
-        $rule = new FacebookOGTagsExist($crawler);
-        static::assertFalse($rule->check());
+        $args = $this->createArgumentsFromBlob('FacebookOGTagsExistFailed');
+        $rule = new FacebookOGTagsExist();
+        static::assertFalse($rule->check(...$args));
     }
 }

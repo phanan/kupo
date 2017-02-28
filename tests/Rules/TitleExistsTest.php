@@ -9,13 +9,13 @@ class TitleExistsTest extends BrowserKitTestCase
 {
     public function testCheck()
     {
-        $crawler = $this->createCrawlerFromBlob('TitleExistsPassed');
-        $rule = new TitleExists($crawler);
-        static::assertTrue($rule->check());
+        $args = $this->createArgumentsFromBlob('TitleExistsPassed');
+        $rule = new TitleExists();
+        static::assertTrue($rule->check(...$args));
         static::assertEquals('Foo', $rule->getTitle());
 
-        $crawler = $this->createCrawlerFromBlob('TitleExistsFailed');
-        $rule = new TitleExists($crawler);
-        static::assertFalse($rule->check());
+        $args = $this->createArgumentsFromBlob('TitleExistsFailed');
+        $rule = new TitleExists();
+        static::assertFalse($rule->check(...$args));
     }
 }

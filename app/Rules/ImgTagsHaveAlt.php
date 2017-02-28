@@ -2,14 +2,18 @@
 
 namespace App\Rules;
 
+use App\Crawler;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
+
 class ImgTagsHaveAlt extends Rule
 {
     /**
      * {@inheritdoc}
      */
-    public function check()
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
     {
-        foreach ($this->crawler->filter('img') as $img) {
+        foreach ($crawler->filter('img') as $img) {
             if (!trim($img->getAttribute('alt'))) {
                 return false;
             }

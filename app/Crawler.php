@@ -53,7 +53,7 @@ class Crawler extends BaseCrawler
     public function filterCaseInsensitiveAttribute($selector)
     {
         $selector = strtolower($selector);
-        
+
         return $this->filterXPath($this->createCaseInsensitiveAttributeXPath($selector));
     }
 

@@ -4,6 +4,11 @@ namespace App\Rules;
 
 use App\Crawler;
 
+/**
+ * @property  $passedMessage string The message to display when the rule passes
+ * @property  $failedMessage string The message to display when the rule fails
+ * @property  $helpMessage string The help message, to provide more info about the rule
+ */
 class Rule implements RuleInterface
 {
     protected $url;

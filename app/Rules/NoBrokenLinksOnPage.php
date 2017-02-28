@@ -8,7 +8,7 @@ use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
 
-class WorkingLinks extends Rule
+class NoBrokenLinksOnPage extends Rule
 {
     protected $statusCode;
 
@@ -112,7 +112,7 @@ class WorkingLinks extends Rule
     public function helpMessage()
     {
         return <<<'MSG'
-Make sure all links on your website are working.
+Make sure all links on your page are working.
 MSG;
     }
 }

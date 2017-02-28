@@ -2,17 +2,23 @@
 
 namespace App\Rules;
 
+use App\Crawler;
 use App\Facades\UrlFetcher;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 
 class GzipEnabled extends Rule
 {
     /**
      * {@inheritdoc}
      */
-    public function check()
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
     {
-        // We simply check the fetcher.
-        return UrlFetcher::isGzipped();
+        // When the content is decoded by Guzzle, the X-Encoded header is used
+        $encoding = $response->getHeader('Content-Encoding') + $response->getHeader('X-Encoded-Content-Encoding');
+
+        // We check if the header containts the gzip content-encoding.
+        return in_array('gzip', $encoding);
     }
 
     /**

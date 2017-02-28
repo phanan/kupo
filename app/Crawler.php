@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\CssSelector\CssSelectorConverter;
 use Symfony\Component\DomCrawler\Crawler as BaseCrawler;
 
@@ -16,6 +17,10 @@ class Crawler extends BaseCrawler
      */
     public function __construct($node = null, $currentUri = null, $baseHref = null)
     {
+        if ($node instanceof ResponseInterface) {
+            $node = (string) $node->getBody();
+        }
+
         if (is_string($node)) {
             $this->rawHtml = $node;
         }

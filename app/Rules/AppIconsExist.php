@@ -2,6 +2,10 @@
 
 namespace App\Rules;
 
+use App\Crawler;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
+
 class AppIconsExist extends Rule
 {
     /**
@@ -9,13 +13,13 @@ class AppIconsExist extends Rule
      *
      * @throws \RuntimeException
      */
-    public function check()
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
     {
         // To keep things simple, we only check for the tags' existence,
         // not the icon files themselves.
         return
-            count($this->crawler->filterCaseInsensitiveAttribute('link[rel=apple-touch-icon]')) ||
-            count($this->crawler->filterCaseInsensitiveAttribute('link[rel=icon]'));
+            count($crawler->filterCaseInsensitiveAttribute('link[rel=apple-touch-icon]')) ||
+            count($crawler->filterCaseInsensitiveAttribute('link[rel=icon]'));
     }
 
     /**

@@ -18,6 +18,7 @@
                 'name' => config('app.name'),
                 'description' => config('app.description'),
             ]); ?>;
+            window.defaultUrl = '{{ $url }}';
         </script>
     </head>
     <body>

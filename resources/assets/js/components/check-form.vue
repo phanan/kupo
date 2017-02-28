@@ -1,6 +1,6 @@
 <template>
   <form method="get" action="/check" class="form form-check" autocomplete="off"
-    @submit.prevent="check"
+    @submit.prevent="submitCheck"
   >
     <input type="url" name="url" placeholder="Input your URL here, kupo!" v-model="url"
       required autofocus
@@ -17,7 +17,7 @@ export default {
 
   data () {
     return {
-      url: decodeURI(window.location.hash.substr(1))
+      url: window.defaultUrl
     }
   },
 
@@ -25,13 +25,23 @@ export default {
     if (this.url) {
       this.check()
     }
+
+    window.onpopstate = (event) => {
+      this.url = event.state ? event.state.url : ''
+      this.check()
+    }
   },
 
   methods: {
+    submitCheck () {
+      window.history.pushState({ url: this.url }, this.url, '?url=' + encodeURI(this.url))
+      this.check()
+    },
+
     check () {
-      window.location.hash = encodeURI(this.url)
       checker.check(this.url)
     }
+
   }
 }
 </script>

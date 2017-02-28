@@ -10,11 +10,11 @@ class ImgTagsHaveAlt extends BrowserKitTestCase
     public function testCheck()
     {
         $crawler = $this->createCrawlerFromBlob('ImgTagsHaveAltPassed');
-        $rule = new ImgTagsHaveAlt($crawler);
+        $rule = new self($crawler);
         static::assertTrue($rule->check());
 
         $crawler = $this->createCrawlerFromBlob('ImgTagsHaveAltFailed');
-        $rule = new ImgTagsHaveAlt($crawler);
+        $rule = new self($crawler);
         static::assertFalse($rule->check());
     }
 }

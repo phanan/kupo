@@ -3,7 +3,6 @@
 namespace Tests\Rules;
 
 use App\Facades\UrlFetcher;
-use App\Rules\GzipEnabled;
 use App\Rules\StatusCode200;
 use GuzzleHttp\Psr7\Response;
 use Tests\BrowserKitTestCase;

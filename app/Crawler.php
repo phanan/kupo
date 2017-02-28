@@ -21,27 +21,7 @@ class Crawler extends BaseCrawler
             $node = (string) $node->getBody();
         }
 
-        if (is_string($node)) {
-            $this->rawHtml = $node;
-        }
-
         parent::__construct($node, $currentUri, $baseHref);
-    }
-
-    /**
-     * Get the original raw HTML.
-     *
-     * @throws \Exception
-     *
-     * @return string
-     */
-    public function getRaw()
-    {
-        if ($this->rawHtml) {
-            return $this->rawHtml;
-        }
-
-        throw new \Exception("Can't get raw HTML. Make sure you have initialized Crawler with a string.");
     }
 
     /**

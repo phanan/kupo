@@ -6,6 +6,7 @@ use App\Crawler;
 use App\Facades\RobotsFile;
 use App\Facades\UrlFetcher;
 use App\Facades\UrlHelper;
+use App\Rules\Levels;
 use App\Rules\Rule;
 use Exception;
 
@@ -64,6 +65,12 @@ class Checker
                     'level'   => $rule->level(),
                 ];
             } catch (Exception $e) {
+                yield [
+                    'passed'  => false,
+                    'message' => "Error checking rule `{$ruleClassName}`.",
+                    'help'    => config('app.debug') ? (string) $e : null,
+                    'level'   => Levels::ERROR,
+                ];
             }
         }
     }

@@ -4,6 +4,8 @@ namespace App\Services;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Psr7\Uri;
+use Psr\Http\Message\UriInterface;
 
 class UrlHelper
 {
@@ -13,17 +15,11 @@ class UrlHelper
      *
      * @param $url
      *
-     * @return string
+     * @return UriInterface
      */
     public function getRootUrl($url)
     {
-        $parts = parse_url($url);
-
-        return $parts['scheme']
-            .'://'
-            .$parts['host']
-            .(array_key_exists('port', $parts) ? ':'.$parts['port'] : '')
-            .'/';
+        return (new Uri($url))->withPath('/')->withQuery('')->withFragment('');
     }
 
     /**
@@ -38,7 +34,7 @@ class UrlHelper
      */
     public function getRootFileUrl($url, $fileName)
     {
-        return $this->getRootUrl($url).$fileName;
+        return $this->getRootUrl($url)->withPath($fileName);
     }
 
     /**
@@ -52,7 +48,7 @@ class UrlHelper
      */
     public function getDefaultFaviconUrl($url)
     {
-        return $this->getRootFileUrl($url, 'favicon.ico');
+        return $this->getRootFileUrl($url, '/favicon.ico');
     }
 
     /**
@@ -66,7 +62,7 @@ class UrlHelper
      */
     public function getRobotsUrl($url)
     {
-        return $this->getRootFileUrl($url, 'robots.txt');
+        return $this->getRootFileUrl($url, '/robots.txt');
     }
 
     /**
@@ -80,7 +76,7 @@ class UrlHelper
      */
     public function getDefaultSiteMapUrl($url)
     {
-        return $this->getRootFileUrl($url, 'sitemap.xml');
+        return $this->getRootFileUrl($url, '/sitemap.xml');
     }
 
     /**

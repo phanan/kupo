@@ -2,6 +2,10 @@
 
 namespace App\Rules;
 
+use App\Crawler;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
+
 class DocTypeCorrect extends Rule
 {
     private $docType;
@@ -11,9 +15,9 @@ class DocTypeCorrect extends Rule
      *
      * @throws \Exception
      */
-    public function check()
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
     {
-        if (preg_match('/^<!doctype\s.*?>/i', trim($this->crawler->getRaw()), $matches)) {
+        if (preg_match('/^<!doctype\s.*?>/i', trim($response->getBody()), $matches)) {
             $this->docType = trim($matches[0]);
         }
 

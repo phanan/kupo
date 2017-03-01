@@ -3,23 +3,20 @@
 namespace App\Rules;
 
 use App\Crawler;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 
 interface RuleInterface
 {
     /**
-     * RuleInterface constructor.
-     *
-     * @param Crawler|null $crawler
-     * @param null         $url
-     */
-    public function __construct(Crawler $crawler = null, $url = null);
-
-    /**
      * Check the rule.
      *
+     * @param Crawler           $crawler
+     * @param ResponseInterface $response
+     * @param UriInterface      $uri
      * @return bool
      */
-    public function check();
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri);
 
     /**
      * Get the critical level of the rule.

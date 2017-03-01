@@ -9,13 +9,13 @@ class DocTypeCorrectTest extends BrowserKitTestCase
 {
     public function testCheck()
     {
-        $crawler = $this->createCrawlerFromBlob('DocTypeCorrectPassed');
-        $rule = new DocTypeCorrect($crawler);
-        static::assertTrue($rule->check());
+        $args = $this->createArgumentsFromBlob('DocTypeCorrectPassed');
+        $rule = new DocTypeCorrect();
+        static::assertTrue($rule->check(...$args));
         static::assertEquals('<!DOCTYPE html>', $rule->getDocType());
 
-        $crawler = $this->createCrawlerFromBlob('DocTypeCorrectFailed');
-        $rule = new DocTypeCorrect($crawler);
-        static::assertFalse($rule->check());
+        $args = $this->createArgumentsFromBlob('DocTypeCorrectFailed');
+        $rule = new DocTypeCorrect();
+        static::assertFalse($rule->check(...$args));
     }
 }

@@ -9,12 +9,12 @@ class RobotsAllowedInMetaTagTest extends BrowserKitTestCase
 {
     public function testCheck()
     {
-        $crawler = $this->createCrawlerFromBlob('RobotsAllowedInMetaTagPassed');
-        $rule = new RobotsAllowedInMetaTag($crawler);
-        static::assertTrue($rule->check());
+        $args = $this->createArgumentsFromBlob('RobotsAllowedInMetaTagPassed');
+        $rule = new RobotsAllowedInMetaTag();
+        static::assertTrue($rule->check(...$args));
 
-        $crawler = $this->createCrawlerFromBlob('RobotsAllowedInMetaTagFailed');
-        $rule = new RobotsAllowedInMetaTag($crawler);
-        static::assertFalse($rule->check());
+        $args = $this->createArgumentsFromBlob('RobotsAllowedInMetaTagFailed');
+        $rule = new RobotsAllowedInMetaTag();
+        static::assertFalse($rule->check(...$args));
     }
 }

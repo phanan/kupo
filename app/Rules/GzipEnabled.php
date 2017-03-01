@@ -3,7 +3,6 @@
 namespace App\Rules;
 
 use App\Crawler;
-use App\Facades\UrlFetcher;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 

@@ -2,7 +2,6 @@
 
 namespace Tests\Rules;
 
-use App\Facades\UrlFetcher;
 use App\Rules\GzipEnabled;
 use Tests\BrowserKitTestCase;
 

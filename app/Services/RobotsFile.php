@@ -43,7 +43,6 @@ class RobotsFile
 
         if ($this->content === null) {
             try {
-                logger("URL: " .$this->url);
                 $this->content = (string) $this->client->get($this->url)->getBody();
             } catch (ClientException $e) {
                 $this->content = '';

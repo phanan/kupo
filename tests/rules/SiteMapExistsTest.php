@@ -2,11 +2,9 @@
 
 namespace Tests\Rules;
 
-use App\Crawler;
 use App\Facades\RobotsFile;
 use App\Facades\UrlHelper;
 use App\Rules\SiteMapExists;
-use GuzzleHttp\Psr7\Uri;
 use Mockery as m;
 use Tests\BrowserKitTestCase;
 

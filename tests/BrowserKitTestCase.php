@@ -6,7 +6,6 @@ use App\Crawler;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Uri;
 use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
-use Psr\Http\Message\ResponseInterface;
 
 abstract class BrowserKitTestCase extends BaseTestCase
 {

@@ -3,16 +3,11 @@
 namespace App\Services;
 
 use App\Crawler;
-
-use App\Services\UrlFetcher;
-use App\Facades\UrlHelper;
 use App\Rules\Levels;
 use App\Rules\Rule;
-use App\Rules\RuleInterface;
 use Exception;
 use GuzzleHttp\Psr7\Uri;
 use Illuminate\Contracts\Container\Container;
-use Psr\Http\Message\UriInterface;
 
 class Checker
 {
@@ -25,19 +20,23 @@ class Checker
     /** @var RobotsFile  */
     private $robotsFile;
 
+    /** @var UrlHelper  */
+    private $urlHelper;
+
     /**
      * Construct a new instance of this service.
      *
      * @param Container $container
      * @param \App\Services\UrlFetcher $fetcher
      * @param RobotsFile $robotsFile
-     *
+     * @param UrlHelper $urlHelper
      */
-    public function __construct(Container $container, UrlFetcher $fetcher, RobotsFile $robotsFile)
+    public function __construct(Container $container, UrlFetcher $fetcher, RobotsFile $robotsFile, UrlHelper $urlHelper)
     {
         $this->container = $container;
         $this->fetcher = $fetcher;
         $this->robotsFile = $robotsFile;
+        $this->urlHelper = $urlHelper;
     }
 
     /**
@@ -54,9 +53,10 @@ class Checker
         $uri = new Uri($url);
 
         $response = $this->fetcher->fetch($uri);
-        $this->robotsFile->setUrl(UrlHelper::getRobotsUrl($uri));
 
-        $crawler = new Crawler($response);
+        $this->robotsFile->setUrl($this->urlHelper->getRobotsUrl($uri));
+
+        $crawler = new Crawler($response, $uri);
 
         foreach ((array) config('rules') as $ruleClassName) {
             /** @var Rule $rule */

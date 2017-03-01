@@ -8,6 +8,6 @@ class UrlFetcher extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'UrlFetcher';
+        return \App\Services\UrlFetcher::class;
     }
 }

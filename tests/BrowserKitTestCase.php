@@ -25,7 +25,7 @@ abstract class BrowserKitTestCase extends BaseTestCase
         }
 
         $response = new Response(200, [], file_get_contents(__DIR__."/blobs/$name"));
-        $uri = new Uri('http://foo.bar/' . $name);
+        $uri = new Uri('http://foo.bar/'.$name);
         $crawler = new Crawler($response, $uri);
 
         return [$crawler, $response, $uri];
@@ -46,7 +46,7 @@ abstract class BrowserKitTestCase extends BaseTestCase
 
         $response = \GuzzleHttp\Psr7\parse_response(file_get_contents(__DIR__."/messages/$name"));
 
-        $uri = new Uri('http://foo.bar/' . $name);
+        $uri = new Uri('http://foo.bar/'.$name);
         $crawler = new Crawler($response, $uri);
 
         return [$crawler, $response, $uri];

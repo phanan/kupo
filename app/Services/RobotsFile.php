@@ -40,7 +40,6 @@ class RobotsFile
      */
     public function getContent()
     {
-
         if ($this->content === null) {
             try {
                 $this->content = (string) $this->client->get($this->url)->getBody();

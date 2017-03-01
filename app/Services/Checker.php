@@ -11,16 +11,16 @@ use Illuminate\Contracts\Container\Container;
 
 class Checker
 {
-    /** @var  Container */
+    /** @var Container */
     private $container;
 
     /** @var UrlFetcher */
     private $fetcher;
 
-    /** @var RobotsFile  */
+    /** @var RobotsFile */
     private $robotsFile;
 
-    /** @var UrlHelper  */
+    /** @var UrlHelper */
     private $urlHelper;
 
     /**

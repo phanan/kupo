@@ -24,7 +24,7 @@ class RobotsFileServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        app()->singleton('RobotsFile', function () {
+        $this->app->singleton(RobotsFile::class, function () {
             return new RobotsFile();
         });
     }

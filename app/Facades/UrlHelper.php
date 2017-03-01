@@ -8,6 +8,6 @@ class UrlHelper extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'UrlHelper';
+        return \App\Services\UrlHelper::class;
     }
 }

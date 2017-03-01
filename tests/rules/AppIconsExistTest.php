@@ -2,7 +2,6 @@
 
 namespace Tests\Rules;
 
-use App\Crawler;
 use App\Rules\AppIconsExist;
 use Tests\BrowserKitTestCase;
 

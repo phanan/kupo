@@ -16,7 +16,7 @@ class FacebookOGTagsExist extends Rule
         return count($crawler->filterCaseInsensitiveAttribute('meta[property="og:url"]'))
             && count($crawler->filterCaseInsensitiveAttribute('meta[property="og:title"]'))
             && count($crawler->filterCaseInsensitiveAttribute('meta[property="og:description"]'))
-            && count($crawler->filterCaseInsensitiveAttribute('meta[property="og:image"]'));
+            && count($crawler->filterCaseInsensitiveAttribute('meta[property="OG:image"]'));
     }
 
     /**

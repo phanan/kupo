@@ -2,7 +2,6 @@
 
 namespace Tests\Rules;
 
-use App\Crawler;
 use App\Facades\RobotsFile;
 use App\Facades\UrlHelper;
 use App\Rules\SiteMapExists;
@@ -17,13 +16,13 @@ class SiteMapExistsTest extends BrowserKitTestCase
             'getSitemaps' => [],
         ]);
 
-        $rule = new SiteMapExists(new Crawler(), 'http://foo.bar');
+        $rule = new SiteMapExists();
         RobotsFile::shouldReceive('getParser')
             ->once()
             ->andReturn($parser);
         UrlHelper::shouldReceive('getDefaultSiteMapUrl')
             ->once()
-            ->with('http://foo.bar')
+            ->with('http://foo.bar/PlainResponse.txt')
             ->andReturn('http://foo.bar/sitemap.xml');
         UrlHelper::shouldReceive('absolutize')
             ->once();
@@ -31,7 +30,8 @@ class SiteMapExistsTest extends BrowserKitTestCase
             ->once()
             ->andReturn(true);
 
-        static::assertTrue($rule->check());
+        $args = $this->createArgumentsFromMessage('PlainResponse');
+        static::assertTrue($rule->check(...$args));
     }
 
     public function testCheckSitemapsInRobotsTxtFile()
@@ -53,6 +53,7 @@ class SiteMapExistsTest extends BrowserKitTestCase
             ->twice()
             ->andReturn(false);
 
-        static::assertFalse($rule->check());
+        $args = $this->createArgumentsFromMessage('PlainResponse');
+        static::assertFalse($rule->check(...$args));
     }
 }

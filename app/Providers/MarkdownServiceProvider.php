@@ -24,7 +24,7 @@ class MarkdownServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        app()->singleton('Markdown', function () {
+        $this->app->singleton(Markdown::class, function () {
             return new Markdown();
         });
     }

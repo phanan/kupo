@@ -13,9 +13,10 @@ class FaviconExistsTest extends BrowserKitTestCase
         UrlHelper::shouldReceive('getDefaultFaviconUrl', 'absolutize', [
             'exists' => true,
         ]);
-        $crawler = $this->createCrawlerFromBlob('FaviconExists_DefaultFavicon');
-        $rule = new FaviconExists($crawler);
-        static::assertTrue($rule->check());
+
+        $args = $this->createArgumentsFromBlob('FaviconExists_DefaultFavicon');
+        $rule = new FaviconExists();
+        static::assertTrue($rule->check(...$args));
     }
 
     /*
@@ -28,9 +29,9 @@ class FaviconExistsTest extends BrowserKitTestCase
         ]);
         UrlHelper::shouldReceive('getDefaultFaviconUrl')
             ->never();
-        $crawler = $this->createCrawlerFromBlob('FaviconExists_RelIcon');
-        $rule = new FaviconExists($crawler);
-        static::assertTrue($rule->check());
+        $args = $this->createArgumentsFromBlob('FaviconExists_RelIcon');
+        $rule = new FaviconExists();
+        static::assertTrue($rule->check(...$args));
     }
 
     /**
@@ -38,13 +39,24 @@ class FaviconExistsTest extends BrowserKitTestCase
      */
     public function testCheckExplicitFaviconByLinkRelShortcutIcon()
     {
-        UrlHelper::shouldReceive('absolutize', [
-            'exists' => true,
-        ]);
+        UrlHelper::shouldReceive('exists')->withArgs(['http://foo.bar/icon.png'])->andReturn(true);
         UrlHelper::shouldReceive('getDefaultFaviconUrl')
             ->never();
-        $crawler = $this->createCrawlerFromBlob('FaviconExists_RelShortcutIcon');
-        $rule = new FaviconExists($crawler);
-        static::assertTrue($rule->check());
+        $args = $this->createArgumentsFromBlob('FaviconExists_RelShortcutIcon');
+        $rule = new FaviconExists();
+        static::assertTrue($rule->check(...$args));
+    }
+
+    /**
+     * Test <link rel="shortcut icon">.
+     */
+    public function testCheckExplicitRelativeFaviconByLinkRelShortcutIcon()
+    {
+        UrlHelper::shouldReceive('exists')->withArgs(['http://foo.bar/icon.png'])->andReturn(true);
+        UrlHelper::shouldReceive('getDefaultFaviconUrl')
+            ->never();
+        $args = $this->createArgumentsFromBlob('FaviconExists_RelShortcutIconRelative');
+        $rule = new FaviconExists();
+        static::assertTrue($rule->check(...$args));
     }
 }

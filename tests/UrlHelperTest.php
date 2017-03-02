@@ -21,15 +21,15 @@ class UrlHelperTest extends BrowserKitTestCase
     {
         static::assertEquals(
             'http://foo.bar/',
-            $this->helper->getRootUrl('http://foo.bar')
+            (string) $this->helper->getRootUrl('http://foo.bar')
         );
         static::assertEquals(
             'http://localhost:8000/',
-            $this->helper->getRootUrl('http://localhost:8000/index.php')
+            (string) $this->helper->getRootUrl('http://localhost:8000/index.php')
         );
         static::assertEquals(
             'http://foo.bar/',
-            $this->helper->getRootUrl('http://foo.bar/baz/qux.html?foo=bar#home')
+            (string) $this->helper->getRootUrl('http://foo.bar/baz/qux.html?foo=bar#home')
         );
     }
 
@@ -37,7 +37,7 @@ class UrlHelperTest extends BrowserKitTestCase
     {
         static::assertEquals(
             'http://foo.bar/.htaccess',
-            $this->helper->getRootFileUrl('http://foo.bar/baz/qux.html', '.htaccess')
+            (string) $this->helper->getRootFileUrl('http://foo.bar/baz/qux.html', '/.htaccess')
         );
     }
 
@@ -45,7 +45,7 @@ class UrlHelperTest extends BrowserKitTestCase
     {
         static::assertEquals(
             'http://foo.bar/favicon.ico',
-            $this->helper->getDefaultFaviconUrl('http://foo.bar/baz/qux.html')
+            (string) $this->helper->getDefaultFaviconUrl('http://foo.bar/baz/qux.html')
         );
     }
 
@@ -53,7 +53,7 @@ class UrlHelperTest extends BrowserKitTestCase
     {
         static::assertEquals(
             'http://foo.bar/robots.txt',
-            $this->helper->getRobotsUrl('http://foo.bar/baz/qux.html')
+            (string) $this->helper->getRobotsUrl('http://foo.bar/baz/qux.html')
         );
     }
 
@@ -61,7 +61,7 @@ class UrlHelperTest extends BrowserKitTestCase
     {
         static::assertEquals(
             'http://foo.bar/sitemap.xml',
-            $this->helper->getDefaultSiteMapUrl('http://foo.bar/baz/qux.html')
+            (string) $this->helper->getDefaultSiteMapUrl('http://foo.bar/baz/qux.html')
         );
     }
 
@@ -69,17 +69,17 @@ class UrlHelperTest extends BrowserKitTestCase
     {
         static::assertEquals(
             'http://foo.bar/baz/dir/sitemap.xml',
-            $this->helper->absolutize('dir/sitemap.xml', 'http://foo.bar/baz/qux.html')
+            (string) $this->helper->absolutize('dir/sitemap.xml', 'http://foo.bar/baz/qux.html')
         );
 
         static::assertEquals(
             'http://foo.bar/sitemap.xml',
-            $this->helper->absolutize('/sitemap.xml', 'http://foo.bar/baz/qux.html')
+            (string) $this->helper->absolutize('/sitemap.xml', 'http://foo.bar/baz/qux.html')
         );
 
         static::assertEquals(
             'http://baz.qux/sitemap.xml',
-            $this->helper->absolutize('http://baz.qux/sitemap.xml', 'http://foo.bar/baz/qux.html')
+            (string) $this->helper->absolutize('http://baz.qux/sitemap.xml', 'http://foo.bar/baz/qux.html')
         );
     }
 }

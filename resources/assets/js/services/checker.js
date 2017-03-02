@@ -12,6 +12,12 @@ export default {
     this.checking = true
     event.emit('check-start')
 
+    if (!url) {
+      event.emit('check-done', [])
+      this.checking = false
+      return
+    }
+
     axios.get(`check?url=${url}`)
       .then(response => {
         event.emit('check-done', response.data)

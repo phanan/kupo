@@ -2,17 +2,21 @@
 
 namespace App\Rules;
 
+use App\Crawler;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
+
 class TwitterOGTagsExist extends Rule
 {
     /**
      * {@inheritdoc}
      */
-    public function check()
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
     {
-        return count($this->crawler->filter('meta[name="twitter:card"]'))
-        && count($this->crawler->filter('meta[name="twitter:title"]'))
-        && count($this->crawler->filter('meta[name="twitter:description"]'))
-        && count($this->crawler->filter('meta[name="twitter:image"]'));
+        return count($crawler->filterCaseInsensitiveAttribute('meta[name="twitter:card"]'))
+        && count($crawler->filterCaseInsensitiveAttribute('meta[name="twitter:title"]'))
+        && count($crawler->filterCaseInsensitiveAttribute('meta[name="twitter:description"]'))
+        && count($crawler->filterCaseInsensitiveAttribute('meta[name="twitter:image"]'));
     }
 
     /**

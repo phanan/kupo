@@ -14,15 +14,11 @@ class UrlFetcherTest extends BrowserKitTestCase
     {
         $mock = new MockHandler([
             new Response(200, [], '<html><body>Normal</body></html>'),
-            new Response(200, [], gzencode('<html><body>Gzipped</body></html>')),
         ]);
 
         $client = new Client(['handler' => HandlerStack::create($mock)]);
         $fetcher = new UrlFetcher($client);
 
-        static::assertEquals('<html><body>Normal</body></html>', $fetcher->fetch('http://foo.bar'));
-        static::assertFalse($fetcher->isGzipped());
-        static::assertEquals('<html><body>Gzipped</body></html>', $fetcher->fetch('http://foo.bar'));
-        static::assertTrue($fetcher->isGzipped());
+        static::assertEquals('<html><body>Normal</body></html>', (string) $fetcher->fetch('http://foo.bar')->getBody());
     }
 }

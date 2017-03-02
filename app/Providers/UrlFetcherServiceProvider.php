@@ -24,7 +24,7 @@ class UrlFetcherServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        app()->singleton('UrlFetcher', function () {
+        $this->app->singleton(UrlFetcher::class, function () {
             return new UrlFetcher();
         });
     }

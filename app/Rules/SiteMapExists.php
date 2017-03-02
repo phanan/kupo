@@ -2,8 +2,11 @@
 
 namespace App\Rules;
 
+use App\Crawler;
 use App\Facades\RobotsFile;
 use App\Facades\UrlHelper;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 
 class SiteMapExists extends Rule
 {
@@ -13,18 +16,18 @@ class SiteMapExists extends Rule
     /**
      * {@inheritdoc}
      */
-    public function check()
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
     {
         $parser = RobotsFile::getParser();
         if (!$maps = $parser->getSitemaps()) {
-            $maps = [UrlHelper::getDefaultSiteMapUrl($this->url)];
+            $maps = [UrlHelper::getDefaultSiteMapUrl((string) $uri)];
         }
 
         $validMaps = [];
         $invalidMaps = [];
 
         foreach ($maps as $map) {
-            $map = UrlHelper::absolutize($map, $this->url);
+            $map = UrlHelper::absolutize($map, $uri);
             if (UrlHelper::exists($map)) {
                 $validMaps[] = "`$map`";
             } else {
@@ -41,6 +44,22 @@ class SiteMapExists extends Rule
         $this->passedMsg = 'Site map(s) found at '.implode(', ', $validMaps).'.';
 
         return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function passedMessage()
+    {
+        return $this->passedMsg;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function failedMessage()
+    {
+        return $this->failedMsg;
     }
 
     /**

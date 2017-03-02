@@ -2,6 +2,10 @@
 
 namespace App\Rules;
 
+use App\Crawler;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
+
 class HtmlHasLangAttribute extends Rule
 {
     private $lang;
@@ -9,9 +13,9 @@ class HtmlHasLangAttribute extends Rule
     /**
      * {@inheritdoc}
      */
-    public function check()
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
     {
-        $this->lang = trim($this->crawler->attr('lang'));
+        $this->lang = trim($crawler->attr('lang'));
 
         return (bool) $this->lang;
     }

@@ -2,7 +2,10 @@
 
 namespace App\Rules;
 
+use App\Crawler;
 use App\Facades\UrlHelper;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 
 class FaviconExists extends Rule
 {
@@ -14,17 +17,15 @@ class FaviconExists extends Rule
     /**
      * {@inheritdoc}
      */
-    public function check()
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
     {
         // Find the favicon URL from the HTML
-        $links = $this->crawler->filter('link[rel="icon"], link[rel="shortcut icon"]');
+        $links = $crawler->filterCaseInsensitiveAttribute('link[rel="icon"], link[rel="shortcut icon"]');
 
         // If we can find it, use it. Otherwise, resort to the root favicon.ico.
         $this->faviconUrl = count($links) ?
-            $links->first()->attr('href') :
-            UrlHelper::getDefaultFaviconUrl($this->url);
-
-        $this->faviconUrl = UrlHelper::absolutize($this->faviconUrl, $this->url);
+            $links->first()->link()->getUri() :
+            UrlHelper::getDefaultFaviconUrl($uri);
 
         return UrlHelper::exists($this->faviconUrl);
     }

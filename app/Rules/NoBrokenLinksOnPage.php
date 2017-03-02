@@ -2,11 +2,13 @@
 
 namespace App\Rules;
 
+use App\Crawler;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 
 class NoBrokenLinksOnPage extends Rule
 {
@@ -14,14 +16,27 @@ class NoBrokenLinksOnPage extends Rule
 
     protected $msg = null;
 
+    /** @var Client */
+    protected $client;
+
+    /**
+     * Check for broken links on the page.
+     *
+     * @param Client $client
+     */
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+    }
+
     /**
      * {@inheritdoc}
      */
-    public function check()
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
     {
         $requests = [];
 
-        foreach ($this->crawler->filter('a')->links() as $link) {
+        foreach ($crawler->filter('a')->links() as $link) {
             $uri = $link->getUri();
 
             // Get HEAD to check if exists
@@ -44,17 +59,17 @@ class NoBrokenLinksOnPage extends Rule
 
         $ok = 0;
         $fail = [];
-        $client = new Client();
-        $pool = new Pool($client, $requests, [
+        $pool = new Pool($this->client, $requests, [
             'concurrency' => 5,
             'fulfilled' => function (ResponseInterface $response) use (&$ok) {
                 $ok++;
             },
-            'rejected' => function (RequestException $eHead) use ($client, &$ok, &$fail) {
+            'rejected' => function (RequestException $eHead) use (&$ok, &$fail) {
+                // Retry the request as HEAD, as not every host supports HEAD
                 $retryRequest = $eHead->getRequest()->withMethod('GET');
 
                 try {
-                    $client->send($retryRequest);
+                    $this->client->send($retryRequest);
                     $ok++;
                 } catch (RequestException $eRetry) {
                     if ($response = $eRetry->getResponse()) {

@@ -65,7 +65,6 @@ class NoBrokenLinksOnPage extends Rule
                 $ok++;
             },
             'rejected' => function (RequestException $e) use (&$ok, &$fail) {
-
                 if ($e->getCode() !== 403) {
                     // Retry the request as HEAD, as not every host supports HEAD
                     $retryRequest = $e->getRequest()->withMethod('GET');

@@ -66,7 +66,6 @@ class NoBrokenLinksOnPageTest extends BrowserKitTestCase
         $rule->check(...$args);
 
         // Count the number of transactions
-
         $this->assertCount(3, $container);
 
         /** @var Request $request */
@@ -83,6 +82,5 @@ class NoBrokenLinksOnPageTest extends BrowserKitTestCase
         $request = $container[2]['request'];
         $this->assertEquals('GET', $request->getMethod());
         $this->assertEquals('http://foo.bar/test2', (string) $request->getUri());
-
     }
 }

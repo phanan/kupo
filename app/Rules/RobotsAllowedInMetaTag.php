@@ -2,14 +2,18 @@
 
 namespace App\Rules;
 
+use App\Crawler;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
+
 class RobotsAllowedInMetaTag extends Rule
 {
     /**
      * {@inheritdoc}
      */
-    public function check()
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
     {
-        if (!count($tags = $this->crawler->filterCaseInsensitiveAttribute('meta[name=robots]'))) {
+        if (!count($tags = $crawler->filterCaseInsensitiveAttribute('meta[name=robots]'))) {
             return true;
         }
 

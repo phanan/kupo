@@ -2,6 +2,10 @@
 
 namespace App\Rules;
 
+use App\Crawler;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
+
 class TitleExists extends Rule
 {
     private $title;
@@ -12,9 +16,9 @@ class TitleExists extends Rule
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
-    public function check()
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
     {
-        if (count($tags = $this->crawler->filter('title'))) {
+        if (count($tags = $crawler->filter('title'))) {
             $this->title = trim($tags->first()->text());
         }
 

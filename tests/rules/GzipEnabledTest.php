@@ -2,17 +2,24 @@
 
 namespace Tests\Rules;
 
-use App\Facades\UrlFetcher;
 use App\Rules\GzipEnabled;
 use Tests\BrowserKitTestCase;
 
 class GzipEnabledTest extends BrowserKitTestCase
 {
-    public function testCheck()
+    public function testCheckGzipped()
     {
-        UrlFetcher::shouldReceive('isGzipped')
-            ->once()
-            ->andReturn(true);
-        static::assertTrue((new GzipEnabled())->check());
+        $rule = new GzipEnabled();
+
+        $args = $this->createArgumentsFromMessage('GzippedResponse');
+        static::assertTrue($rule->check(...$args));
+    }
+
+    public function testCheckNotGzipped()
+    {
+        $rule = new GzipEnabled();
+
+        $args = $this->createArgumentsFromMessage('PlainResponse');
+        static::assertFalse($rule->check(...$args));
     }
 }

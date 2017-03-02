@@ -9,13 +9,13 @@ class GoogleAnalyticsInstalledTest extends BrowserKitTestCase
 {
     public function testCheck()
     {
-        $crawler = $this->createCrawlerFromBlob('GoogleAnalyticsInstalledPassed');
-        $rule = new GoogleAnalyticsInstalled($crawler);
-        static::assertTrue($rule->check());
+        $args = $this->createArgumentsFromBlob('GoogleAnalyticsInstalledPassed');
+        $rule = new GoogleAnalyticsInstalled();
+        static::assertTrue($rule->check(...$args));
         static::assertEquals('UA-12345678-9', $rule->getGaCode());
 
-        $crawler = $this->createCrawlerFromBlob('GoogleAnalyticsInstalledFailed');
-        $rule = new GoogleAnalyticsInstalled($crawler);
-        static::assertFalse($rule->check());
+        $args = $this->createArgumentsFromBlob('GoogleAnalyticsInstalledFailed');
+        $rule = new GoogleAnalyticsInstalled();
+        static::assertFalse($rule->check(...$args));
     }
 }

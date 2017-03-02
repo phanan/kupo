@@ -12,13 +12,14 @@ class RobotsAllowedInTxtTest extends BrowserKitTestCase
     {
         RobotsFile::setContent('');
         $rule = new RobotsAllowedInTxt();
-        static::assertTrue($rule->check());
+        $args = $this->createArgumentsFromMessage('PlainResponse');
+        static::assertTrue($rule->check(...$args));
 
         RobotsFile::setContent('
  User-Agent: *
  Disallow: /
 ');
         $rule = new RobotsAllowedInTxt();
-        static::assertFalse($rule->check());
+        static::assertFalse($rule->check(...$args));
     }
 }

@@ -9,13 +9,13 @@ class HtmlHasLangAttributeTest extends BrowserKitTestCase
 {
     public function testCheck()
     {
-        $crawler = $this->createCrawlerFromBlob('HtmlHasLangAttributePassed');
-        $rule = new HtmlHasLangAttribute($crawler);
-        static::assertTrue($rule->check());
+        $args = $this->createArgumentsFromBlob('HtmlHasLangAttributePassed');
+        $rule = new HtmlHasLangAttribute();
+        static::assertTrue($rule->check(...$args));
         static::assertEquals('vi', $rule->getLang());
 
-        $crawler = $this->createCrawlerFromBlob('HtmlHasLangAttributeFailed');
-        $rule = new HtmlHasLangAttribute($crawler);
-        static::assertFalse($rule->check());
+        $args = $this->createArgumentsFromBlob('HtmlHasLangAttributeFailed');
+        $rule = new HtmlHasLangAttribute();
+        static::assertFalse($rule->check(...$args));
     }
 }

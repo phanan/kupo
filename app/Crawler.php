@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\CssSelector\CssSelectorConverter;
 use Symfony\Component\DomCrawler\Crawler as BaseCrawler;
 
@@ -16,27 +17,11 @@ class Crawler extends BaseCrawler
      */
     public function __construct($node = null, $currentUri = null, $baseHref = null)
     {
-        if (is_string($node)) {
-            $this->rawHtml = $node;
+        if ($node instanceof ResponseInterface) {
+            $node = (string) $node->getBody();
         }
 
         parent::__construct($node, $currentUri, $baseHref);
-    }
-
-    /**
-     * Get the original raw HTML.
-     *
-     * @throws \Exception
-     *
-     * @return string
-     */
-    public function getRaw()
-    {
-        if ($this->rawHtml) {
-            return $this->rawHtml;
-        }
-
-        throw new \Exception("Can't get raw HTML. Make sure you have initialized Crawler with a string.");
     }
 
     /**

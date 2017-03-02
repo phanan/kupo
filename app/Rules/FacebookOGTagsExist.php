@@ -2,17 +2,21 @@
 
 namespace App\Rules;
 
+use App\Crawler;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
+
 class FacebookOGTagsExist extends Rule
 {
     /**
      * {@inheritdoc}
      */
-    public function check()
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
     {
-        return count($this->crawler->filterCaseInsensitiveAttribute('meta[property="og:url"]'))
-            && count($this->crawler->filterCaseInsensitiveAttribute('meta[property="og:title"]'))
-            && count($this->crawler->filterCaseInsensitiveAttribute('meta[property="og:description"]'))
-            && count($this->crawler->filterCaseInsensitiveAttribute('meta[property="og:image"]'));
+        return count($crawler->filterCaseInsensitiveAttribute('meta[property="og:url"]'))
+            && count($crawler->filterCaseInsensitiveAttribute('meta[property="og:title"]'))
+            && count($crawler->filterCaseInsensitiveAttribute('meta[property="og:description"]'))
+            && count($crawler->filterCaseInsensitiveAttribute('meta[property="OG:image"]'));
     }
 
     /**

@@ -8,6 +8,6 @@ class Markdown extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'Markdown';
+        return \App\Services\Markdown::class;
     }
 }

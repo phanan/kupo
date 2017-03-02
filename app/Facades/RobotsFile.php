@@ -8,6 +8,6 @@ class RobotsFile extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'RobotsFile';
+        return \App\Services\RobotsFile::class;
     }
 }

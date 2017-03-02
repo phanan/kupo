@@ -3,17 +3,14 @@
 namespace Tests\Rules;
 
 use App\Facades\UrlHelper;
-use App\Rules\NoBrokenLinksOnPage;
 use App\Rules\PageNotFoundGives404;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
-use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Tests\BrowserKitTestCase;
 
-class NoBrokenLinksOnPageTest extends BrowserKitTestCase
+class PageNotFoundGives404Test extends BrowserKitTestCase
 {
     public function testCheck()
     {

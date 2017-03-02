@@ -3,7 +3,6 @@
 namespace App\Rules;
 
 use App\Crawler;
-use App\Facades\UrlFetcher;
 use App\Facades\UrlHelper;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
@@ -18,7 +17,8 @@ class PageNotFoundGives404 extends Rule
     protected $client;
 
     /**
-     * PageNotFoundGives404 constructor.
+     * Check if Not Found pages return a correct 404 Status Code.
+     *
      * @param Client $client
      */
     public function __construct(Client $client)

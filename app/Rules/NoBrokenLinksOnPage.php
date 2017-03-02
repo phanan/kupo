@@ -25,10 +25,7 @@ class NoBrokenLinksOnPage extends Rule
             $uri = $link->getUri();
 
             // Get HEAD to check if exists
-            $request = new Request('GET', $uri, [
-                'User-Agent'      => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/537.36',
-                'Accept-Encoding' => 'gzip',
-            ]);
+            $request = new Request('HEAD', $uri);
 
             // Strip fragment
             $uri = $request->getUri()->withFragment('');
@@ -53,15 +50,22 @@ class NoBrokenLinksOnPage extends Rule
             'fulfilled' => function (ResponseInterface $response) use (&$ok) {
                 $ok++;
             },
-            'rejected' => function (RequestException $e) use (&$fail) {
-                if ($response = $e->getResponse()) {
-                    $result = "* `{$response->getStatusCode()} {$response->getReasonPhrase()}` - ";
-                } else {
-                    $result = '* `XXX UNKNOWN` - ';
-                }
+            'rejected' => function (RequestException $eHead) use ($client, &$ok, &$fail) {
+                $retryRequest = $eHead->getRequest()->withMethod('GET');
 
-                $result .= $e->getRequest()->getUri();
-                $fail[] = $result;
+                try {
+                    $client->send($retryRequest);
+                    $ok++;
+                } catch (RequestException $eRetry) {
+                    if ($response = $eRetry->getResponse()) {
+                        $result = "* `{$response->getStatusCode()} {$response->getReasonPhrase()}` - ";
+                    } else {
+                        $result = '* `XXX UNKNOWN` - ';
+                    }
+
+                    $result .= $eRetry->getRequest()->getUri();
+                    $fail[] = $result;
+                }
             },
         ]);
 

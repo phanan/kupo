@@ -9,13 +9,13 @@ class MetaDescriptionExistsTest extends BrowserKitTestCase
 {
     public function testCheck()
     {
-        $crawler = $this->createCrawlerFromBlob('MetaDescriptionExistsPassed');
-        $rule = new MetaDescriptionExists($crawler);
-        static::assertTrue($rule->check());
+        $args = $this->createArgumentsFromBlob('MetaDescriptionExistsPassed');
+        $rule = new MetaDescriptionExists();
+        static::assertTrue($rule->check(...$args));
         static::assertEquals('A foo walks into a bar.', $rule->getDescription());
 
-        $crawler = $this->createCrawlerFromBlob('MetaDescriptionExistsFailed');
-        $rule = new MetaDescriptionExists($crawler);
-        static::assertFalse($rule->check());
+        $args = $this->createArgumentsFromBlob('MetaDescriptionExistsFailed');
+        $rule = new MetaDescriptionExists();
+        static::assertFalse($rule->check(...$args));
     }
 }

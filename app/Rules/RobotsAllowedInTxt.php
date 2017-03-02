@@ -2,14 +2,17 @@
 
 namespace App\Rules;
 
+use App\Crawler;
 use App\Facades\RobotsFile;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 
 class RobotsAllowedInTxt extends Rule
 {
     /**
      * {@inheritdoc}
      */
-    public function check()
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
     {
         if (!$content = RobotsFile::getContent()) {
             return true;

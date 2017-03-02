@@ -3,28 +3,40 @@
 namespace App\Services;
 
 use App\Crawler;
-use App\Facades\RobotsFile;
-use App\Facades\UrlFetcher;
-use App\Facades\UrlHelper;
+use App\Rules\Levels;
 use App\Rules\Rule;
 use Exception;
+use GuzzleHttp\Psr7\Uri;
+use Illuminate\Contracts\Container\Container;
 
 class Checker
 {
-    private $url;
+    /** @var Container */
+    private $container;
+
+    /** @var UrlFetcher */
+    private $fetcher;
+
+    /** @var RobotsFile */
+    private $robotsFile;
+
+    /** @var UrlHelper */
+    private $urlHelper;
 
     /**
      * Construct a new instance of this service.
      *
-     * @param string $url
-     *
-     * @throws \Exception
+     * @param Container                $container
+     * @param \App\Services\UrlFetcher $fetcher
+     * @param RobotsFile               $robotsFile
+     * @param UrlHelper                $urlHelper
      */
-    public function __construct($url = null)
+    public function __construct(Container $container, UrlFetcher $fetcher, RobotsFile $robotsFile, UrlHelper $urlHelper)
     {
-        if ($url) {
-            $this->setUrl($url);
-        }
+        $this->container = $container;
+        $this->fetcher = $fetcher;
+        $this->robotsFile = $robotsFile;
+        $this->urlHelper = $urlHelper;
     }
 
     /**
@@ -36,61 +48,36 @@ class Checker
      *
      * @return \Generator
      */
-    public function validate($url = null)
+    public function validate($url)
     {
-        if ($url) {
-            $this->setUrl($url);
-        }
+        $uri = new Uri($url);
 
-        if (!$this->url) {
-            throw new Exception('URL not set.');
-        }
+        $response = $this->fetcher->fetch($uri);
 
-        $html = UrlFetcher::fetch($this->url);
-        RobotsFile::setUrl(UrlHelper::getRobotsUrl($this->url));
+        $this->robotsFile->setUrl($this->urlHelper->getRobotsUrl($uri));
 
-        $crawler = new Crawler($html);
+        $crawler = new Crawler($response, $uri);
 
         foreach ((array) config('rules') as $ruleClassName) {
             /** @var Rule $rule */
-            $rule = new $ruleClassName($crawler, $this->getUrl());
+            $rule = $this->container->make($ruleClassName);
 
             try {
-                $result = $rule->check();
+                $result = $rule->check($crawler, $response, $uri);
                 yield [
-                    'passed'  => $result,
+                    'passed' => $result,
                     'message' => $result ? $rule->passedMessage : $rule->failedMessage,
-                    'help'    => $rule->helpMessage,
-                    'level'   => $rule->level(),
+                    'help' => $rule->helpMessage,
+                    'level' => $rule->level(),
                 ];
             } catch (Exception $e) {
+                yield [
+                    'passed' => false,
+                    'message' => "Error checking rule `{$ruleClassName}`.",
+                    'help' => config('app.debug') ? (string) $e : null,
+                    'level' => Levels::ERROR,
+                ];
             }
         }
-    }
-
-    /**
-     * Set the URL to download.
-     *
-     * @param string $url
-     *
-     * @throws Exception
-     */
-    public function setUrl($url)
-    {
-        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
-            throw new Exception('Invalid URL provided.');
-        }
-
-        $this->url = $url;
-    }
-
-    /**
-     * Get the URL.
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
     }
 }

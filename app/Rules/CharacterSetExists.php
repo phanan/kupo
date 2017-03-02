@@ -2,6 +2,10 @@
 
 namespace App\Rules;
 
+use App\Crawler;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
+
 class CharacterSetExists extends Rule
 {
     private $charset;
@@ -9,12 +13,12 @@ class CharacterSetExists extends Rule
     /**
      * {@inheritdoc}
      */
-    public function check()
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
     {
-        if (count($tags = $this->crawler->filter('meta[charset]'))) {
+        if (count($tags = $crawler->filter('meta[charset]'))) {
             // <meta charset="utf-8">
             $this->charset = trim($tags->first()->attr('charset'));
-        } elseif (count($tags = $this->crawler->filter('meta[http-equiv="Content-Type"]'))) {
+        } elseif (count($tags = $crawler->filterCaseInsensitiveAttribute('meta[http-equiv=content-type]'))) {
             // <meta http-equiv="Content-Type" content="text/html; utf-8">
             $value = $tags->first()->attr('content');
             if (preg_match('/charset\s*=\s*(.*)/i', $value, $matches)) {

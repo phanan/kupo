@@ -15,7 +15,7 @@ After (or is it before?) lanching a new site, you often want to validate it agai
 * A favicon
 * A `lang` attribute
 * Proper `alt` attributes on images
-* `robots.txt` (and makes sure you bots are allowed)
+* `robots.txt` (and makes sure them bots are allowed)
 * `sitemap.xml` for SEO purpose oh God I hate this
 * Gzip to be enabled
 * Google Analytics to be installed

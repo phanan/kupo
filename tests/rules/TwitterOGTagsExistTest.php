@@ -9,12 +9,12 @@ class TwitterOGTagsExistTest extends BrowserKitTestCase
 {
     public function testCheck()
     {
-        $crawler = $this->createCrawlerFromBlob('TwitterOGTagsExistPassed');
-        $rule = new TwitterOGTagsExist($crawler);
-        static::assertTrue($rule->check());
+        $args = $this->createArgumentsFromBlob('TwitterOGTagsExistPassed');
+        $rule = new TwitterOGTagsExist();
+        static::assertTrue($rule->check(...$args));
 
-        $crawler = $this->createCrawlerFromBlob('TwitterOGTagsExistFailed');
-        $rule = new TwitterOGTagsExist($crawler);
-        static::assertFalse($rule->check());
+        $args = $this->createArgumentsFromBlob('TwitterOGTagsExistFailed');
+        $rule = new TwitterOGTagsExist();
+        static::assertFalse($rule->check(...$args));
     }
 }

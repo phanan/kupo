@@ -2,6 +2,10 @@
 
 namespace App\Rules;
 
+use App\Crawler;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
+
 class GoogleAnalyticsInstalled extends Rule
 {
     private $gaCode;
@@ -9,9 +13,9 @@ class GoogleAnalyticsInstalled extends Rule
     /**
      * {@inheritdoc}
      */
-    public function check()
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
     {
-        foreach ($this->crawler->filter('script') as $script) {
+        foreach ($crawler->filter('script') as $script) {
             $html = $script->ownerDocument->saveHTML($script);
             if (preg_match('/(ua-\d{4,9}-\d{1,4})/i', $html, $matches)) {
                 $this->gaCode = $matches[1];

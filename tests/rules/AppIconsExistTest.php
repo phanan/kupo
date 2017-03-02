@@ -9,12 +9,12 @@ class AppIconsExistTest extends BrowserKitTestCase
 {
     public function testCheck()
     {
-        $crawler = $this->createCrawlerFromBlob('AppIconsExistPassed');
-        $rule = new AppIconsExist($crawler);
-        static::assertTrue($rule->check());
+        $rule = new AppIconsExist();
 
-        $crawler = $this->createCrawlerFromBlob('AppIconsExistFailed');
-        $rule = new AppIconsExist($crawler);
-        static::assertFalse($rule->check());
+        $args = $this->createArgumentsFromBlob('AppIconsExistPassed');
+        static::assertTrue($rule->check(...$args));
+
+        $args = $this->createArgumentsFromBlob('AppIconsExistFailed');
+        static::assertFalse($rule->check(...$args));
     }
 }

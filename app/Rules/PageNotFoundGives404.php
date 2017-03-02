@@ -2,23 +2,39 @@
 
 namespace App\Rules;
 
-use App\Services\UrlFetcher;
+use App\Crawler;
+use App\Facades\UrlFetcher;
+use App\Facades\UrlHelper;
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 
 class PageNotFoundGives404 extends Rule
 {
     protected $statusCode;
 
+    /** @var Client */
+    protected $client;
+
+    /**
+     * PageNotFoundGives404 constructor.
+     * @param Client $client
+     */
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+    }
+
     /**
      * {@inheritdoc}
      */
-    public function check()
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
     {
-        $uri = rtrim($this->url, '/').'/-~!page-to-test-404-responses-for-invalid-pages!~-';
+        $uri = UrlHelper::getRootFileUrl((string) $uri, '/-~!page-to-test-404-responses-for-invalid-pages!~-');
 
-        $fetcher = new UrlFetcher();
         try {
-            $response = $fetcher->fetch($uri)->getResponse();
+            $response = $this->client->get($uri);
         } catch (BadResponseException $e) {
             $response = $e->getResponse();
         }

@@ -64,23 +64,30 @@ class NoBrokenLinksOnPage extends Rule
             'fulfilled' => function (ResponseInterface $response) use (&$ok) {
                 $ok++;
             },
-            'rejected' => function (RequestException $eHead) use (&$ok, &$fail) {
-                // Retry the request as HEAD, as not every host supports HEAD
-                $retryRequest = $eHead->getRequest()->withMethod('GET');
+            'rejected' => function (RequestException $e) use (&$ok, &$fail) {
 
-                try {
-                    $this->client->send($retryRequest);
-                    $ok++;
-                } catch (RequestException $eRetry) {
-                    if ($response = $eRetry->getResponse()) {
-                        $result = "* `{$response->getStatusCode()} {$response->getReasonPhrase()}` - ";
-                    } else {
-                        $result = '* `XXX UNKNOWN` - ';
+                if ($e->getCode() !== 403) {
+                    // Retry the request as HEAD, as not every host supports HEAD
+                    $retryRequest = $e->getRequest()->withMethod('GET');
+
+                    try {
+                        $this->client->send($retryRequest);
+                        $ok++;
+
+                        return;
+                    } catch (RequestException $retryException) {
+                        // Failed again
                     }
-
-                    $result .= $eRetry->getRequest()->getUri();
-                    $fail[] = $result;
                 }
+
+                if ($response = $e->getResponse()) {
+                    $result = "* `{$response->getStatusCode()} {$response->getReasonPhrase()}` - ";
+                } else {
+                    $result = '* `XXX UNKNOWN` - ';
+                }
+
+                $result .= $e->getRequest()->getUri();
+                $fail[] = $result;
             },
         ]);
 

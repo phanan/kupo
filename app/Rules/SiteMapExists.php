@@ -3,8 +3,8 @@
 namespace App\Rules;
 
 use App\Crawler;
-use App\Facades\RobotsFile;
-use App\Facades\UrlHelper;
+use RobotsFile;
+use UrlHelper;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 
@@ -18,6 +18,7 @@ class SiteMapExists extends Rule
      */
     public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
     {
+        /** @var \RobotsTxtParser $parser */
         $parser = RobotsFile::getParser();
         if (!$maps = $parser->getSitemaps()) {
             $maps = [UrlHelper::getDefaultSiteMapUrl((string) $uri)];

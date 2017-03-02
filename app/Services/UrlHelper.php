@@ -27,10 +27,12 @@ class UrlHelper
      * For instance, providing 'http://google.com/index.html' and 'sitemap.xml' will return
      * 'http://google.com/sitemap.xml'.
      *
-     * @param $url string
+     * @param $url      string
      * @param $fileName string
      *
      * @return string
+     *
+     * @throws \InvalidArgumentException
      */
     public function getRootFileUrl($url, $fileName)
     {
@@ -45,6 +47,8 @@ class UrlHelper
      * @param $url string
      *
      * @return string
+     *
+     * @throws \InvalidArgumentException
      */
     public function getDefaultFaviconUrl($url)
     {
@@ -59,6 +63,8 @@ class UrlHelper
      * @param $url string
      *
      * @return string
+     *
+     * @throws \InvalidArgumentException
      */
     public function getRobotsUrl($url)
     {
@@ -73,6 +79,8 @@ class UrlHelper
      * @param $url string
      *
      * @return string
+     *
+     * @throws \InvalidArgumentException
      */
     public function getDefaultSiteMapUrl($url)
     {

@@ -30,9 +30,9 @@ class UrlHelper
      * @param $url      string
      * @param $fileName string
      *
-     * @return string
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return string
      */
     public function getRootFileUrl($url, $fileName)
     {
@@ -46,9 +46,9 @@ class UrlHelper
      *
      * @param $url string
      *
-     * @return string
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return string
      */
     public function getDefaultFaviconUrl($url)
     {
@@ -62,9 +62,9 @@ class UrlHelper
      *
      * @param $url string
      *
-     * @return string
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return string
      */
     public function getRobotsUrl($url)
     {
@@ -78,9 +78,9 @@ class UrlHelper
      *
      * @param $url string
      *
-     * @return string
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return string
      */
     public function getDefaultSiteMapUrl($url)
     {

@@ -3,10 +3,10 @@
 namespace App\Rules;
 
 use App\Crawler;
-use RobotsFile;
-use UrlHelper;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
+use RobotsFile;
+use UrlHelper;
 
 class SiteMapExists extends Rule
 {

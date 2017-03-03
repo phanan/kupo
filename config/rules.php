@@ -17,6 +17,7 @@ $rules = [
     App\Rules\FacebookOGTagsExist::class,
     App\Rules\TwitterOGTagsExist::class,
     App\Rules\PageNotFoundGives404::class,
+    App\Rules\NoBrokenLinksOnPage::class,
 ];
 
 if ($custom = config('customRules')) {

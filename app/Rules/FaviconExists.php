@@ -3,9 +3,9 @@
 namespace App\Rules;
 
 use App\Crawler;
-use UrlHelper;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
+use UrlHelper;
 
 class FaviconExists extends Rule
 {

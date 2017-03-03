@@ -3,9 +3,9 @@
 namespace App\Rules;
 
 use App\Crawler;
-use RobotsFile;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
+use RobotsFile;
 
 class RobotsAllowedInTxt extends Rule
 {

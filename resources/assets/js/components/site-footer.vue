@@ -1,6 +1,9 @@
 <template>
   <footer class="site-footer">
-    <p>An open source project by <a href="http://phanan.net">Phan An</a></p>
+    <p>An open source project by
+      <a href="https://phanan.net">Phan An</a> and
+      <a href="https://github.com/phanan/kupo/graphs/contributors">other contributors</a>
+    </p>
     <p>Built on <a href="http://laravel.com">Laravel</a> and <a href="http://vuejs.org">Vue</a> ·
     <a href="https://github.com/phanan/kupo">GitHub</a></p>
     <p><a href="http://finalfantasy.wikia.com/wiki/Moogle_(race)">Moogle</a>

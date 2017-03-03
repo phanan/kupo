@@ -14,7 +14,7 @@ class NoBrokenLinksOnPage extends Rule
 {
     protected $statusCode;
 
-    protected $msg = null;
+    protected $msg;
 
     /** @var Client */
     protected $client;
@@ -46,13 +46,13 @@ class NoBrokenLinksOnPage extends Rule
             $uri = $request->getUri()->withFragment('');
             $request = $request->withUri($uri);
 
-            if (in_array($uri->getScheme(), ['http', 'https'])) {
+            if (in_array($uri->getScheme(), ['http', 'https'], true)) {
                 $requests[(string) $request->getUri()] = $request;
             }
         }
 
         if (empty($requests)) {
-            $this->msg = 'No links found..';
+            $this->msg = 'No links found.';
 
             return true;
         }
@@ -61,8 +61,8 @@ class NoBrokenLinksOnPage extends Rule
         $fail = [];
         $pool = new Pool($this->client, $requests, [
             'concurrency' => 5,
-            'fulfilled' => function (ResponseInterface $response) use (&$ok) {
-                $ok++;
+            'fulfilled' => function () use (&$ok) {
+                ++$ok;
             },
             'rejected' => function (RequestException $e) use (&$ok, &$fail) {
                 if ($e->getCode() !== 403) {
@@ -71,7 +71,7 @@ class NoBrokenLinksOnPage extends Rule
 
                     try {
                         $this->client->send($retryRequest);
-                        $ok++;
+                        ++$ok;
 
                         return;
                     } catch (RequestException $retryException) {
@@ -82,7 +82,7 @@ class NoBrokenLinksOnPage extends Rule
                 if ($response = $e->getResponse()) {
                     $result = "* `{$response->getStatusCode()} {$response->getReasonPhrase()}` - ";
                 } else {
-                    $result = '* `XXX UNKNOWN` - ';
+                    $result = '* `UNKNOWN ERROR` - ';
                 }
 
                 $result .= $e->getRequest()->getUri();
@@ -96,23 +96,11 @@ class NoBrokenLinksOnPage extends Rule
         // Force the pool of requests to complete.
         $promise->wait();
 
-        if (empty($fail)) {
-            $this->msg = "All **{$ok}** links on this page are working!";
+        $this->msg = $fail ?
+                'Found **'.count($fail).'** broken '.str_plural('link', count($fail)).':'.PHP_EOL.PHP_EOL.implode(PHP_EOL, $fail) :
+                "All $ok ".str_plural('link', $ok).' on the page are working.';
 
-            return true;
-        }
-
-        $this->msg = "Not all links on this page are working. {$ok} links are working, but **".count($fail)." failed**:\n\n".implode("\n", $fail);
-
-        return false;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function level()
-    {
-        return Levels::CRITICAL;
+        return !$fail;
     }
 
     /**
@@ -137,7 +125,7 @@ class NoBrokenLinksOnPage extends Rule
     public function helpMessage()
     {
         return <<<'MSG'
-Make sure all links on your page are working.
+Make sure all links on your page are working, kupo!
 MSG;
     }
 }

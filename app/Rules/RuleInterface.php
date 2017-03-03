@@ -14,6 +14,7 @@ interface RuleInterface
      * @param Crawler           $crawler
      * @param ResponseInterface $response
      * @param UriInterface      $uri
+     *
      * @return bool
      */
     public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri);

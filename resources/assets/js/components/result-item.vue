@@ -137,5 +137,9 @@ li.item {
       }
     }
   }
+
+  ul:last-child, ol:last-child {
+    margin-bottom: 24px;
+  }
 }
 </style>

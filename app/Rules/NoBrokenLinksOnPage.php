@@ -46,7 +46,7 @@ class NoBrokenLinksOnPage extends Rule
                 $request = new Request('HEAD', $uri);
             } catch (\InvalidArgumentException $e) {
                 // Unable to parse URI exception
-                $fail[] = '* `Bad URL format` - ' . $uri;
+                $fail[] = '* `Bad URL format` - '.$uri;
                 continue;
             }
 

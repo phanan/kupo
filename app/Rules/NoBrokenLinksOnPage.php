@@ -35,12 +35,20 @@ class NoBrokenLinksOnPage extends Rule
     public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
     {
         $requests = [];
+        $ok = 0;
+        $fail = [];
 
         foreach ($crawler->filter('a')->links() as $link) {
             $uri = $link->getUri();
 
-            // Get HEAD to check if exists
-            $request = new Request('HEAD', $uri);
+            try {
+                // Get HEAD to check if exists
+                $request = new Request('HEAD', $uri);
+            } catch (\InvalidArgumentException $e) {
+                // Unable to parse URI exception
+                $fail[] = '* `Bad URL format` - '.$uri;
+                continue;
+            }
 
             // Strip fragment
             $uri = $request->getUri()->withFragment('');
@@ -57,8 +65,6 @@ class NoBrokenLinksOnPage extends Rule
             return true;
         }
 
-        $ok = 0;
-        $fail = [];
         $pool = new Pool($this->client, $requests, [
             'concurrency' => 5,
             'fulfilled' => function () use (&$ok) {

@@ -52,7 +52,7 @@ class Insights
             yield [
                 // If the rule impact is zero, it means that the website has passed the test.
                 'passed' => $result->getSpeedScore() >= 80,
-                'message' => "Your Google Page Insights Mobile Pagespeed score is: <b>".$result->getSpeedScore().'</b>',
+                'message' => 'Your Google Page Insights Mobile Pagespeed score is: <b>'.$result->getSpeedScore().'</b>',
                 'help' => null,
                 'level' => $this->getLevel(100 - $result->getSpeedScore()),
             ];
@@ -60,7 +60,7 @@ class Insights
             yield [
                 // If the rule impact is zero, it means that the website has passed the test.
                 'passed' => $result->getUsabilityScore() >= 80,
-                'message' => "Your Google Page Insights Mobile Usability score is: <b>".$result->getUsabilityScore().'</b>',
+                'message' => 'Your Google Page Insights Mobile Usability score is: <b>'.$result->getUsabilityScore().'</b>',
                 'help' => null,
                 'level' => $this->getLevel(100 - $result->getUsabilityScore()),
             ];
@@ -68,14 +68,14 @@ class Insights
             yield [
                 // If the rule impact is zero, it means that the website has passed the test.
                 'passed' => $result->getSpeedScore() >= 80,
-                'message' => "Your Google Page Insights Desktop Pagespeed score is: <b>" . $result->getSpeedScore() . '</b>',
+                'message' => 'Your Google Page Insights Desktop Pagespeed score is: <b>'.$result->getSpeedScore().'</b>',
                 'help' => null,
                 'level' => $this->getLevel(100 - $result->getSpeedScore()),
             ];
         }
 
         $results = collect($result->getFormattedResults()->getRuleResults())
-            ->sortByDesc(function ($result){
+            ->sortByDesc(function (DefaultRuleResult $result) {
                 return $result->getRuleImpact();
             });
 

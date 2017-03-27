@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Services\UrlFetcher;
 use Illuminate\Support\ServiceProvider;
 use PhpInsights\InsightsCaller;
 

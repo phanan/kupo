@@ -16,7 +16,7 @@ class Insights
     /**
      * Construct a new instance of this service.
      *
-     * @param InsightsCaller                $insightsCaller
+     * @param InsightsCaller $insightsCaller
      */
     public function __construct(InsightsCaller $insightsCaller)
     {
@@ -27,7 +27,7 @@ class Insights
      * Validate the URL against our checklist.
      *
      * @param string|null $url
-     * @param string $strategy
+     * @param string      $strategy
      *
      * @throws Exception
      *
@@ -42,7 +42,7 @@ class Insights
 
         yield [
             // If the rule impact is zero, it means that the website has passed the test.
-            'passed' => !!$result->screenshot,
+            'passed' => (bool) $result->screenshot,
             'message' => $result->screenshot->getImageHtml(),
             'help' => null,
             'level' => Levels::NOTICE,
@@ -52,7 +52,7 @@ class Insights
             yield [
                 // If the rule impact is zero, it means that the website has passed the test.
                 'passed' => $result->getSpeedScore() >= 80,
-                'message' => "Your Google Page Insights Mobile Pagespeed score is: <b>" . $result->getSpeedScore() . '</b>',
+                'message' => "Your Google Page Insights Mobile Pagespeed score is: <b>".$result->getSpeedScore().'</b>',
                 'help' => null,
                 'level' => $this->getLevel(100 - $result->getSpeedScore()),
             ];
@@ -60,7 +60,7 @@ class Insights
             yield [
                 // If the rule impact is zero, it means that the website has passed the test.
                 'passed' => $result->getUsabilityScore() >= 80,
-                'message' => "Your Google Page Insights Mobile Usability score is: <b>" . $result->getUsabilityScore() . '</b>',
+                'message' => "Your Google Page Insights Mobile Usability score is: <b>".$result->getUsabilityScore().'</b>',
                 'help' => null,
                 'level' => $this->getLevel(100 - $result->getUsabilityScore()),
             ];
@@ -74,17 +74,13 @@ class Insights
             ];
         }
 
-
         $results = collect($result->getFormattedResults()->getRuleResults())
-            ->sortByDesc(function($result){
+            ->sortByDesc(function ($result){
                 return $result->getRuleImpact();
             });
 
-        /**
-         * @var string $rule
-         * @var DefaultRuleResult $ruleResult
-         */
-        foreach($results as $rule => $ruleResult) {
+        /** @var DefaultRuleResult $ruleResult */
+        foreach ($results as $rule => $ruleResult) {
 
             $help = [];
             if ($urlBlocks = $ruleResult->getUrlBlocks()) {

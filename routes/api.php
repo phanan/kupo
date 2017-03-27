@@ -4,7 +4,6 @@ use App\Http\Requests\CheckRequest;
 use App\Services\Checker;
 use App\Services\Insights;
 use PhpInsights\InsightsCaller;
-use App\Rules\Levels;
 
 Route::get('check', function (CheckRequest $request, Checker $checker, Insights $insights) {
     $results = $checker->validate($request->url);
@@ -21,7 +20,7 @@ Route::get('check', function (CheckRequest $request, Checker $checker, Insights 
         $results = array_merge($results, iterator_to_array($insightResults));
 
         // Remove duplicate entries
-        $results = array_map("unserialize", array_unique(array_map("serialize", $results)));
+        $results = array_map('unserialize', array_unique(array_map('serialize', $results)));
     }
 
     return response()->json($results);

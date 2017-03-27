@@ -18,7 +18,7 @@ return [
         'key' => env('GOOGLE_KEY'),
     ],
 
-    'insights' => [
+    'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
     ],

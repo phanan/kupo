@@ -14,7 +14,11 @@ return [
     |
     */
 
-    'mailgun' => [
+    'google' => [
+        'key' => env('GOOGLE_KEY'),
+    ],
+
+    'insights' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
     ],

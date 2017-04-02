@@ -81,7 +81,6 @@ class Insights
 
         /** @var DefaultRuleResult $ruleResult */
         foreach ($results as $rule => $ruleResult) {
-
             $help = [];
             if ($urlBlocks = $ruleResult->getUrlBlocks()) {
                 foreach ($ruleResult->getDetails() as $detail) {

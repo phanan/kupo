@@ -13,3 +13,42 @@ new Vue({
   el: '#app',
   render: h => h(require('./app.vue'))
 })
+
+var SnippetPreview = require('yoastseo').SnippetPreview
+var Yoast = require('yoastseo').App
+
+window.doYoast = function () {
+  var focusKeywordField = document.getElementById('focusKeyword')
+  var contentField = document.getElementById('content')
+  var titleField = document.getElementById('title')
+  var metaDescField = document.getElementById('metaDesc')
+  var urlPathField = document.getElementById('urlPath')
+  var baseUrlField = document.getElementById('baseUrl')
+
+  var snippetPreview = new SnippetPreview({
+    targetElement: document.getElementById('snippet'),
+    data: {
+      title: titleField.value,
+      metaDesc: metaDescField.value,
+      urlPath: urlPathField.value
+    },
+    baseURL: baseUrlField.value
+  })
+
+  var yoast = new Yoast({
+    snippetPreview: snippetPreview,
+    targets: {
+      output: 'output'
+    },
+    callbacks: {
+      getData: function () {
+        return {
+          keyword: focusKeywordField.value,
+          text: contentField.value
+        }
+      }
+    }
+  })
+
+  yoast.refresh()
+}

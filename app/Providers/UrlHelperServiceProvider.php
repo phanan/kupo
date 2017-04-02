@@ -24,8 +24,6 @@ class UrlHelperServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(UrlHelper::class, function () {
-            return new UrlHelper();
-        });
+        $this->app->singleton(UrlHelper::class);
     }
 }

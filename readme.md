@@ -21,7 +21,15 @@ After (or is it before?) lanching a new site, you often want to validate it agai
 * Google Analytics to be installed
 * [Those OpenGraph tags that Facebook asks for](https://developers.facebook.com/docs/sharing/webmasters#markup)
 * [Those funny markups that Twitter inquires](https://dev.twitter.com/cards/markup)
+* Make sure every page returns the correct status code
+* Make sure all links on your page are working
 * …and more to come (or so I hope)
+
+## Demo
+
+Want to see Kupo in action?
+
+[Kupo live demo](https://www.letsvalidate.com/)
 
 ## Install
 

@@ -107,7 +107,7 @@ class Insights
         } elseif ($impact < 20) {
             return Levels::WARNING;
         } elseif ($impact < 50) {
-            return Levels::WARNING;
+            return Levels::ERROR;
         } else {
             return Levels::CRITICAL;
         }

@@ -12,7 +12,8 @@
         "symfony/dom-crawler": "^3.1",
         "t1gor/robots-txt-parser": "^0.2.3",
         "erusev/parsedown": "^1.6",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "dsentker/phpinsights": "0.2.x"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

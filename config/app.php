@@ -185,6 +185,7 @@ return [
         App\Providers\UrlFetcherServiceProvider::class,
         App\Providers\RobotsFileServiceProvider::class,
         App\Providers\MarkdownServiceProvider::class,
+        App\Providers\GoogleInsightsServiceProvider::class,
 
     ],
 

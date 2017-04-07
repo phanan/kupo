@@ -93,7 +93,7 @@ class Insights
             yield [
                 // If the rule impact is zero, it means that the website has passed the test.
                 'passed' => $ruleResult->getRuleImpact() == 0,
-                'message' => $ruleResult->getSummary()->toString() ?: $rule,
+                'message' => $ruleResult->getSummary() ? $ruleResult->getSummary()->toString() : $rule,
                 'help' => $help ? implode('<br/>', $help) : null,
                 'level' => $this->getLevel($ruleResult->getRuleImpact()),
             ];

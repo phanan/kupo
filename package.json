@@ -3,7 +3,7 @@
   "scripts": {
     "lint": "eslint resources/assets/js --ext=js,vue",
     "dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch": "yarn dev -- --watch",
+    "watch": "yarn dev --watch",
     "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "build": "yarn lint && cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "postinstall": "yarn build"
@@ -22,7 +22,8 @@
     "eslint-plugin-vue": "^1.0.0",
     "laravel-mix": "^0.8.1",
     "lodash": "^4.16.2",
-    "node-sass": "^3.11.2",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
     "slugify": "^1.0.2",
     "vue": "^2.0.1"
   },

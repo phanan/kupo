@@ -31,7 +31,7 @@ class TitleExists extends Rule
 
     public function helpMessage(): string
     {
-        return <<<MSG
+        return <<<'MSG'
 Unless he has his own submarine, a person should have a name. Likewise, a web page should have a title, kupo!  
 MSG;
     }

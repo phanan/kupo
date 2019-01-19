@@ -31,6 +31,7 @@ class NoBrokenLinksOnPageTest extends TestCase
 
     /**
      * @dataProvider provideCheckData
+     *
      * @param int[] $statusCodes
      */
     public function testCheck(array $statusCodes, bool $expectedResult): void

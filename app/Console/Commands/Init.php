@@ -14,7 +14,7 @@ class Init extends Command
     public function __construct(Artisan $artisan)
     {
         parent::__construct();
-        
+
         $this->artisan = $artisan;
     }
 

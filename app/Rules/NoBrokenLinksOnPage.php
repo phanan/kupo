@@ -51,7 +51,7 @@ class NoBrokenLinksOnPage extends Rule
         $pool = new Pool($this->client, $requests, [
             'concurrency' => 5,
             'fulfilled' => static function () use (&$ok): void {
-                ++$ok;
+                $ok++;
             },
             'rejected' => function (RequestException $e) use (&$ok, &$fail): void {
                 if ($e->getCode() !== 403) {
@@ -60,7 +60,7 @@ class NoBrokenLinksOnPage extends Rule
 
                     try {
                         $this->client->send($retryRequest);
-                        ++$ok;
+                        $ok++;
 
                         return;
                     } catch (RequestException $retryException) {

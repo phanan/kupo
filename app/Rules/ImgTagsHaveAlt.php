@@ -33,7 +33,7 @@ class ImgTagsHaveAlt extends Rule
 
     public function helpMessage(): string
     {
-        return <<<MSG
+        return <<<'MSG'
 An `alt` attribute specifies the alternate text for an image, which comes in handy if the image cannot be displayed for some reason, or if the user uses a screen reader, kupo! 
 MSG;
     }

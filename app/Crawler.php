@@ -48,8 +48,9 @@ class Crawler extends BaseCrawler
      *
      * @param string $selector
      *
-     * @return string
      * @throws Exception
+     *
+     * @return string
      */
     public function createCaseInsensitiveAttributeXPath(string $selector): string
     {

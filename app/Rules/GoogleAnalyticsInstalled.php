@@ -8,6 +8,8 @@ use Psr\Http\Message\UriInterface;
 
 class GoogleAnalyticsInstalled extends Rule
 {
+    private const GA_REGEX = '/(ua-\d{4,9}-\d{1,4})|(ua\\\u002d\d{4,9}\\\u002d\d{1,4})/i';
+
     private $gaCode;
 
     public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri): bool
@@ -15,8 +17,8 @@ class GoogleAnalyticsInstalled extends Rule
         foreach ($crawler->filter('script') as $script) {
             $html = $script->ownerDocument->saveHTML($script);
 
-            if (preg_match('/(ua-\d{4,9}-\d{1,4})/i', $html, $matches)) {
-                $this->gaCode = $matches[1];
+            if (preg_match(self::GA_REGEX, $html, $matches)) {
+                $this->gaCode = $matches[0];
                 break;
             }
         }

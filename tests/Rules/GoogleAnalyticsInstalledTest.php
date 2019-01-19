@@ -13,6 +13,7 @@ class GoogleAnalyticsInstalledTest extends TestCase
     {
         return [
             ['GoogleAnalyticsInstalledPassed', true, 'UA-12345678-9'],
+            ['GoogleAnalyticsInstalledPassed_Unicode', true, 'UA\u002D2997484\u002D1'],
             ['GoogleAnalyticsInstalledFailed', false, null],
         ];
     }

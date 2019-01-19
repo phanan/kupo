@@ -14,7 +14,6 @@ class Checker
 {
     private $container;
     private $fetcher;
-    private $robotsFile;
     private $urlHelper;
     private $markdown;
     private $logger;
@@ -22,14 +21,12 @@ class Checker
     public function __construct(
         Container $container,
         UrlFetcher $fetcher,
-        RobotsTxtFile $robotsFile,
         UrlHelper $urlHelper,
         Markdown $markdown,
         Log $logger
     ) {
         $this->container = $container;
         $this->fetcher = $fetcher;
-        $this->robotsFile = $robotsFile;
         $this->urlHelper = $urlHelper;
         $this->markdown = $markdown;
         $this->logger = $logger;
@@ -42,7 +39,6 @@ class Checker
     {
         $uri = new Uri($url);
         $response = $this->fetcher->fetch($uri);
-        $this->robotsFile->setUrl($this->urlHelper->getRobotsTxtUrl($uri));
         $crawler = new Crawler($response, $uri);
 
         return collect((array) config('rules'))

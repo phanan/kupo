@@ -12,16 +12,13 @@
         "symfony/dom-crawler": "^3.1",
         "t1gor/robots-txt-parser": "^0.2.3",
         "erusev/parsedown": "^1.6",
-        "laravel/tinker": "^1.0",
-        "ext-http": "*",
-        "ext-dom": "*"
+        "laravel/tinker": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~5.7",
-        "laravel/browser-kit-testing": "^1.0",
-        "barryvdh/laravel-ide-helper": "^2.3"
+        "laravel/browser-kit-testing": "^1.0"
     },
     "autoload": {
         "classmap": [
@@ -33,8 +30,7 @@
     },
     "autoload-dev": {
         "classmap": [
-            "tests/TestCase.php",
-            "tests/BrowserKitTestCase.php"
+            "tests/TestCase.php"
         ],
         "psr-4": {
             "Tests\\": "tests/"

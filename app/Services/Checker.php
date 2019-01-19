@@ -42,7 +42,6 @@ class Checker
     {
         $uri = new Uri($url);
         $response = $this->fetcher->fetch($uri);
-        $this->logger->info($this->urlHelper->getRobotsTxtUrl($uri));
         $this->robotsFile->setUrl($this->urlHelper->getRobotsTxtUrl($uri));
         $crawler = new Crawler($response, $uri);
 

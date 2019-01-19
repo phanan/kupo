@@ -230,11 +230,6 @@ return [
         'Validator'    => Illuminate\Support\Facades\Validator::class,
         'View'         => Illuminate\Support\Facades\View::class,
 
-        'UrlHelper'  => App\Facades\UrlHelper::class,
-        'UrlFetcher' => App\Facades\UrlFetcher::class,
-        'RobotsFile' => App\Facades\RobotsFile::class,
-        'Markdown'   => App\Facades\Markdown::class,
-
     ],
 
 ];

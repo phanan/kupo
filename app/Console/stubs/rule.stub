@@ -17,7 +17,7 @@ class DummyClass extends Rule
 
     public function passedMessage(): string
     {
-        return 'Message when the rule passes';
+        return 'Message when the rule passes.';
     }
 
     public function failedMessage(): string

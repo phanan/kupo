@@ -12,7 +12,7 @@ class DocTypeCorrect extends Rule
 
     public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri): bool
     {
-        if (preg_match('/^<!doctype\s.*?>/i', $response->getBody(), $matches)) {
+        if (preg_match('/^<!doctype\s.*?>/i', trim($response->getBody()), $matches)) {
             $this->docType = trim($matches[0]);
         }
 

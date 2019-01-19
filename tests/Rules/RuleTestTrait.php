@@ -7,11 +7,11 @@ use App\Rules\RuleInterface;
 use App\Services\Markdown;
 use App\Services\UrlHelper;
 use GuzzleHttp\Client;
-use function GuzzleHttp\Psr7\parse_response;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Uri;
 use Mockery;
 use Mockery\MockInterface;
+use function GuzzleHttp\Psr7\parse_response;
 
 trait RuleTestTrait
 {

@@ -35,7 +35,7 @@ class TwitterOGTagsExist extends Rule
 
     public function helpMessage(): string
     {
-        return <<<MSG
+        return <<<'MSG'
 Similar to Facebook, Twitter has its own set of Open Graph markups (called “Twitter Card Tags”) for sharing on Twitter. Here is the [Cards Markup Tag Reference](https://dev.twitter.com/cards/markup), kupo!
 MSG;
     }

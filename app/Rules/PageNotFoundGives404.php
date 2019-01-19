@@ -45,7 +45,7 @@ class PageNotFoundGives404 extends Rule
 
     public function helpMessage(): string
     {
-        return <<<MSG
+        return <<<'MSG'
 Make sure every page returns the correct status code. Pages not returning 404 will be indexed by search engines.
 MSG;
     }

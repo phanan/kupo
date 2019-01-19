@@ -65,7 +65,7 @@ class RobotsAllowedInTxtTest extends TestCase
 
         $this->robotTxtFile
             ->shouldReceive('getContent')
-            ->andReturn('User-Agent: *' . PHP_EOL . 'Disallow: /');
+            ->andReturn('User-Agent: *'.PHP_EOL.'Disallow: /');
 
         $this->robotTxtFile
             ->shouldReceive('isPathAllowed')

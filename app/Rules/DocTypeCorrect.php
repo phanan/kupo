@@ -31,7 +31,7 @@ class DocTypeCorrect extends Rule
 
     public function helpMessage(): string
     {
-        return <<<MSG
+        return <<<'MSG'
 A Doctype, or DOCTYPE, helps the HTML layout engines determine a layout mode, such as “[quirks mode](https://en.wikipedia.org/wiki/Quirks_mode)” or “standard mode.” For HTML5, a simple `<!DOCTYPE html>` declaration on top of your page should suffice, kupo!  
 MSG;
     }

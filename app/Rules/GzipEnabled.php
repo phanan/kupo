@@ -29,7 +29,7 @@ class GzipEnabled extends Rule
 
     public function helpMessage(): string
     {
-        return <<<MSG
+        return <<<'MSG'
 Compressing your web page helps reduce loading time and save bandwidth. If your server is Apache, this can be done with [some simple `.htaccess` rules](https://github.com/phanan/htaccess#compress-text-files), kupo! 
 MSG;
     }

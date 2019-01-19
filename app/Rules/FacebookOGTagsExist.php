@@ -35,7 +35,7 @@ class FacebookOGTagsExist extends Rule
 
     public function helpMessage(): string
     {
-        return <<<MSG
+        return <<<'MSG'
 Though not mandatory, a page should have valid Open Graph (OG) markups to take control over how the content appears on Facebook. You can about them [here](https://developers.facebook.com/docs/sharing/webmasters), kupo!
 MSG;
     }

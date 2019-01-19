@@ -37,6 +37,7 @@ class CrawlerTest extends TestCase
 
     /**
      * @dataProvider provideAttributeXPathData
+     *
      * @throws Exception
      */
     public function testCreateCaseInsensitiveAttributeXPath(string $selector, string $expected): void

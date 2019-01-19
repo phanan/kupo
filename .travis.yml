@@ -19,8 +19,8 @@ branches:
 
 install:
   - . $HOME/.nvm/nvm.sh
-  - nvm install stable
-  - nvm use stable
+  - nvm install 9.11.2
+  - nvm use 9.11.2
   - npm install -g yarn
   - yarn
   - composer self-update

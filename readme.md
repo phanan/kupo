@@ -25,7 +25,7 @@ After (or is it before?) lanching a new site, you often want to validate it agai
 
 ## Install
 
-As this tool is built on top of [Vue](https://vuejs.org) and [Laravel](https://laravel.com), your environment must meet their requirements. You'll also need a decent Node version (mine is `v6.9.1`) and [yarn](https://github.com/yarnpkg/yarn). Now from your command line, execute this bunch of commands:
+As this tool is built on top of [Vue](https://vuejs.org) and [Laravel](https://laravel.com), your environment must meet their requirements. You'll also need a decent Node version (mine is `v9.11.2`) and [yarn](https://yarnpkg.com/lang/en/). Now from your command line, execute this bunch of commands:
 
 ```bash
 git clone https://github.com/phanan/kupo.git

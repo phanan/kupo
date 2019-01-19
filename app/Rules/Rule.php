@@ -10,9 +10,9 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
- * @property  $passedMessage string The message to display when the rule passes
- * @property  $failedMessage string The message to display when the rule fails
- * @property  $helpMessage string The help message, to provide more info about the rule
+ * @property-read  string passedMessage The message to display when the rule passes
+ * @property-read  string failedMessage The message to display when the rule fails
+ * @property-read  string helpMessage   The help message, to provide more info about the rule
  */
 abstract class Rule implements RuleInterface
 {

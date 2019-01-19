@@ -8,9 +8,9 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 
-class UrlFetcherTest extends BrowserKitTestCase
+class UrlFetcherTest extends TestCase
 {
-    public function testFetch()
+    public function testFetch(): void
     {
         $mock = new MockHandler([
             new Response(200, [], '<html><body>Normal</body></html>'),
@@ -19,6 +19,6 @@ class UrlFetcherTest extends BrowserKitTestCase
         $client = new Client(['handler' => HandlerStack::create($mock)]);
         $fetcher = new UrlFetcher($client);
 
-        static::assertEquals('<html><body>Normal</body></html>', (string) $fetcher->fetch('http://foo.bar')->getBody());
+        $this->assertEquals('<html><body>Normal</body></html>', (string) $fetcher->fetch('http://foo.bar')->getBody());
     }
 }

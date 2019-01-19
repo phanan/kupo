@@ -3,21 +3,44 @@
 namespace Tests;
 
 use App\Crawler;
+use Exception;
 
 class CrawlerTest extends TestCase
 {
-    public function testCreateCaseInsensitiveAttributeXPath()
+    /** @var Crawler */
+    private $crawler;
+
+    protected function setUp(): void
     {
-        $crawler = new Crawler();
+        parent::setUp();
 
-        $compares = [
-            'meta[http-equiv="content-type"]' => 'descendant-or-self::meta[translate(@http-equiv, "ABCDEFGHJIKLMNOPQRSTUVWXYZ", "abcdefghjiklmnopqrstuvwxyz") = \'content-type\']',
-            'link[rel=icon]' => 'descendant-or-self::link[translate(@rel, "ABCDEFGHJIKLMNOPQRSTUVWXYZ", "abcdefghjiklmnopqrstuvwxyz") = \'icon\']',
-            'link[rel=icon], link[rel="shortcut icon"]' => 'descendant-or-self::link[translate(@rel, "ABCDEFGHJIKLMNOPQRSTUVWXYZ", "abcdefghjiklmnopqrstuvwxyz") = \'icon\'] | descendant-or-self::link[translate(@rel, "ABCDEFGHJIKLMNOPQRSTUVWXYZ", "abcdefghjiklmnopqrstuvwxyz") = \'shortcut icon\']',
+        $this->crawler = new Crawler();
+    }
+
+    public function provideAttributeXPathData(): array
+    {
+        return [
+            [
+                'meta[http-equiv="content-type"]',
+                'descendant-or-self::meta[translate(@http-equiv, "ABCDEFGHJIKLMNOPQRSTUVWXYZ", "abcdefghjiklmnopqrstuvwxyz") = \'content-type\']',
+            ],
+            [
+                'link[rel=icon]',
+                'descendant-or-self::link[translate(@rel, "ABCDEFGHJIKLMNOPQRSTUVWXYZ", "abcdefghjiklmnopqrstuvwxyz") = \'icon\']',
+            ],
+            [
+                'link[rel=icon], link[rel="shortcut icon"]',
+                'descendant-or-self::link[translate(@rel, "ABCDEFGHJIKLMNOPQRSTUVWXYZ", "abcdefghjiklmnopqrstuvwxyz") = \'icon\'] | descendant-or-self::link[translate(@rel, "ABCDEFGHJIKLMNOPQRSTUVWXYZ", "abcdefghjiklmnopqrstuvwxyz") = \'shortcut icon\']',
+            ],
         ];
+    }
 
-        foreach ($compares as $selector => $expected) {
-            static::assertEquals($expected, $crawler->createCaseInsensitiveAttributeXPath($selector));
-        }
+    /**
+     * @dataProvider provideAttributeXPathData
+     * @throws Exception
+     */
+    public function testCreateCaseInsensitiveAttributeXPath(string $selector, string $expected): void
+    {
+        $this->assertEquals($expected, $this->crawler->createCaseInsensitiveAttributeXPath($selector));
     }
 }

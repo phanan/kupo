@@ -6,25 +6,22 @@ use Parsedown;
 
 class Markdown
 {
-    /**
-     * @var Parsedown
-     */
-    private $parsedown;
+    private $parser;
 
-    public function __construct(Parsedown $parsedown = null)
+    public function __construct(Parsedown $parser)
     {
-        $this->parsedown = $parsedown ?: new Parsedown();
+        $this->parser = $parser;
     }
 
     /**
      * Parse markdown into HTML.
      *
-     * @param $text string The markdown text.
+     * @param $text string The markdown text
      *
      * @return string
      */
-    public function parse($text)
+    public function parse($text): string
     {
-        return $this->parsedown->parse($text);
+        return $this->parser->parse($text);
     }
 }

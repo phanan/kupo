@@ -7,26 +7,18 @@ use Illuminate\Support\Facades\Artisan;
 
 class Init extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'kupo:init';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Install or upgrade kupo';
+    private $artisan;
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
+    public function __construct(Artisan $artisan)
+    {
+        parent::__construct();
+        
+        $this->artisan = $artisan;
+    }
+
+    public function handle(): void
     {
         $this->comment('Attempting to install or upgrade kupo.');
         $this->comment('Remember, you can always install/upgrade manually following the guide here:');
@@ -34,7 +26,7 @@ class Init extends Command
 
         if (!config('app.key')) {
             $this->info('Generating app key');
-            Artisan::call('key:generate');
+            $this->artisan->call('key:generate');
         } else {
             $this->comment('App key exists -- skipping');
         }

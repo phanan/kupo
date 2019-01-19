@@ -7,37 +7,15 @@ use Psr\Http\Message\ResponseInterface;
 
 class UrlFetcher
 {
-    /**
-     * @var Client
-     */
     private $client;
 
-    public function __construct(Client $client = null)
-    {
-        $this->setClient($client ?: new Client());
-    }
-
-    /**
-     * Fetch an URL.
-     *
-     * @param $url string
-     *
-     * @throws \RuntimeException
-     *
-     * @return ResponseInterface
-     */
-    public function fetch($url)
-    {
-        return $this->client->request('GET', $url);
-    }
-
-    /**
-     * Set the HTTP Client.
-     *
-     * @param Client $client
-     */
-    public function setClient(Client $client)
+    public function __construct(Client $client)
     {
         $this->client = $client;
+    }
+
+    public function fetch(string $url): ResponseInterface
+    {
+        return $this->client->get($url);
     }
 }

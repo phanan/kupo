@@ -10,47 +10,33 @@ class DocTypeCorrect extends Rule
 {
     private $docType;
 
-    /**
-     * {@inheritdoc}
-     *
-     * @throws \Exception
-     */
-    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri): bool
     {
-        if (preg_match('/^<!doctype\s.*?>/i', trim($response->getBody()), $matches)) {
+        if (preg_match('/^<!doctype\s.*?>/i', $response->getBody(), $matches)) {
             $this->docType = trim($matches[0]);
         }
 
         return (bool) $this->docType;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function passedMessage()
+    public function passedMessage(): string
     {
         return "Doc type found: `{$this->docType}`.";
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function failedMessage()
+    public function failedMessage(): string
     {
         return 'Doc type not found.';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function helpMessage()
+    public function helpMessage(): string
     {
-        return <<<'MSG'
+        return <<<MSG
 A Doctype, or DOCTYPE, helps the HTML layout engines determine a layout mode, such as “[quirks mode](https://en.wikipedia.org/wiki/Quirks_mode)” or “standard mode.” For HTML5, a simple `<!DOCTYPE html>` declaration on top of your page should suffice, kupo!  
 MSG;
     }
 
-    public function getDocType()
+    public function getDocType(): ?string
     {
         return $this->docType;
     }

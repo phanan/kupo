@@ -3,55 +3,37 @@
 namespace App\Rules;
 
 use App\Crawler;
+use DOMElement;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 
 class ImgTagsHaveAlt extends Rule
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri): bool
     {
-        foreach ($crawler->filter('img') as $img) {
-            if (!trim($img->getAttribute('alt'))) {
-                return false;
-            }
-        }
-
-        return true;
+        return collect($crawler->filter('img'))->every(static function (DOMElement $node): bool {
+            return (bool) trim($node->getAttribute('alt'));
+        });
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function level()
+    public function level(): string
     {
         return Levels::NOTICE;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function passedMessage()
+    public function passedMessage(): string
     {
         return 'All `<img>` tags have proper `alt` values.';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function failedMessage()
+    public function failedMessage(): string
     {
         return 'At least one `<img>` tag doesn’t have a proper `alt` value.';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function helpMessage()
+    public function helpMessage(): string
     {
-        return <<<'MSG'
+        return <<<MSG
 An `alt` attribute specifies the alternate text for an image, which comes in handy if the image cannot be displayed for some reason, or if the user uses a screen reader, kupo! 
 MSG;
     }

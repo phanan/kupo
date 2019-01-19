@@ -3,18 +3,29 @@
 namespace App\Rules;
 
 use App\Crawler;
+use App\Services\Markdown;
+use App\Services\RobotsTxtFile;
+use App\Services\UrlHelper;
+use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
-use RobotsFile;
 
 class RobotsAllowedInTxt extends Rule
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
+    private $robotsTxtFile;
+
+    public function __construct(Markdown $markdown, Client $client, UrlHelper $urlHelper, RobotsTxtFile $robotsTxtFile)
     {
-        if (!$content = RobotsFile::getContent()) {
+        parent::__construct($markdown, $client, $urlHelper);
+
+        $this->robotsTxtFile = $robotsTxtFile;
+    }
+
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri): bool
+    {
+        $this->robotsTxtFile->setUrl($this->urlHelper->getRobotsTxtUrl((string) $uri));
+
+        if (!$this->robotsTxtFile->getContent()) {
             return true;
         }
 
@@ -22,43 +33,27 @@ class RobotsAllowedInTxt extends Rule
         //   User-agent: *
         //   Disallow: /
         // appears in the file.
-
-        $parser = RobotsFile::getParser();
-        $parser->setUserAgent('*');
-
-        return $parser->isAllowed('/');
+        return $this->robotsTxtFile->isPathAllowed('/');
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function level()
+    public function level(): string
     {
         return Levels::CRITICAL;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function passedMessage()
+    public function passedMessage(): string
     {
         return 'Search engines are not banned by `robots.txt`.';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function failedMessage()
+    public function failedMessage(): string
     {
         return 'Search engines are banned by `robots.txt`.';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function helpMessage()
+    public function helpMessage(): string
     {
-        return <<<'MSG'
+        return <<<MSG
 A site can also specify crawling instructions in a file named [`robots.txt`](http://www.robotstxt.org/robotstxt.html), placed at the root of its public directory. Having 
 ```
 User-agent: *

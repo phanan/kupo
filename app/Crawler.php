@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\CssSelector\CssSelectorConverter;
 use Symfony\Component\DomCrawler\Crawler as BaseCrawler;
@@ -31,11 +32,11 @@ class Crawler extends BaseCrawler
      *
      * @param $selector string The selector string
      *
-     * @throws \Exception
+     * @throws Exception
      *
      * @return BaseCrawler
      */
-    public function filterCaseInsensitiveAttribute($selector)
+    public function filterCaseInsensitiveAttribute(string $selector): BaseCrawler
     {
         $selector = strtolower($selector);
 
@@ -45,20 +46,20 @@ class Crawler extends BaseCrawler
     /**
      * Convert a CSS attribute selector into XPath case-insensitively.
      *
-     * @param $selector
-     *
-     * @throws \Exception
+     * @param string $selector
      *
      * @return string
+     * @throws Exception
      */
-    public function createCaseInsensitiveAttributeXPath($selector)
+    public function createCaseInsensitiveAttributeXPath(string $selector): string
     {
         $converter = new CssSelectorConverter(true);
         $xpath = $converter->toXPath($selector);
 
         $re = '/(@(.*?))\s*=/';
+
         if (!preg_match_all($re, $xpath, $matches)) {
-            throw new \Exception("$selector is not a valid/usable CSS selector.");
+            throw new Exception("$selector is not a valid/usable CSS selector.");
         }
 
         return preg_replace($re, 'translate($1, "ABCDEFGHJIKLMNOPQRSTUVWXYZ", "abcdefghjiklmnopqrstuvwxyz") =', $xpath);

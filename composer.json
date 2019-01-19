@@ -5,14 +5,16 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.6.4",
+        "php": ">=7.1",
         "laravel/framework": "5.4.*",
         "guzzlehttp/guzzle": "^6.2",
         "symfony/css-selector": "^3.1",
         "symfony/dom-crawler": "^3.1",
         "t1gor/robots-txt-parser": "^0.2.3",
         "erusev/parsedown": "^1.6",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "ext-http": "*",
+        "ext-dom": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -27,10 +29,7 @@
         ],
         "psr-4": {
             "App\\": "app/"
-        },
-        "files": [
-            "app/Support/helpers.php"
-        ]
+        }
     },
     "autoload-dev": {
         "classmap": [
@@ -57,7 +56,8 @@
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize"
-        ]
+        ],
+        "test": "phpunit --colors"
     },
     "config": {
         "preferred-install": "dist"

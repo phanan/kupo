@@ -4,80 +4,87 @@ namespace App\Services;
 
 use App\Crawler;
 use App\Rules\Levels;
-use App\Rules\Rule;
+use App\Rules\RuleInterface;
 use Exception;
 use GuzzleHttp\Psr7\Uri;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\Logging\Log;
 
 class Checker
 {
-    /** @var Container */
     private $container;
-
-    /** @var UrlFetcher */
     private $fetcher;
-
-    /** @var RobotsFile */
     private $robotsFile;
-
-    /** @var UrlHelper */
     private $urlHelper;
+    private $markdown;
+    private $logger;
 
-    /**
-     * Construct a new instance of this service.
-     *
-     * @param Container                $container
-     * @param \App\Services\UrlFetcher $fetcher
-     * @param RobotsFile               $robotsFile
-     * @param UrlHelper                $urlHelper
-     */
-    public function __construct(Container $container, UrlFetcher $fetcher, RobotsFile $robotsFile, UrlHelper $urlHelper)
-    {
+    public function __construct(
+        Container $container,
+        UrlFetcher $fetcher,
+        RobotsTxtFile $robotsFile,
+        UrlHelper $urlHelper,
+        Markdown $markdown,
+        Log $logger
+    ) {
         $this->container = $container;
         $this->fetcher = $fetcher;
         $this->robotsFile = $robotsFile;
         $this->urlHelper = $urlHelper;
+        $this->markdown = $markdown;
+        $this->logger = $logger;
     }
 
     /**
-     * Validate the URL against our checklist.
-     *
-     * @param string|null $url
-     *
-     * @throws Exception
-     *
-     * @return \Generator
+     * Check the URL against our checklist.
      */
-    public function validate($url)
+    public function check(?string $url): array
     {
         $uri = new Uri($url);
-
         $response = $this->fetcher->fetch($uri);
-
-        $this->robotsFile->setUrl($this->urlHelper->getRobotsUrl($uri));
-
+        $this->logger->info($this->urlHelper->getRobotsTxtUrl($uri));
+        $this->robotsFile->setUrl($this->urlHelper->getRobotsTxtUrl($uri));
         $crawler = new Crawler($response, $uri);
 
-        foreach ((array) config('rules') as $ruleClassName) {
-            /** @var Rule $rule */
-            $rule = $this->container->make($ruleClassName);
+        return collect((array) config('rules'))
+            ->map(static function (string $ruleClassName): RuleInterface {
+                return app($ruleClassName);
+            })
+            ->map(function (RuleInterface $rule) use ($crawler, $response, $uri): array {
+                try {
+                    $result = $rule->check($crawler, $response, $uri);
 
-            try {
-                $result = $rule->check($crawler, $response, $uri);
-                yield [
-                    'passed' => $result,
-                    'message' => $result ? $rule->passedMessage : $rule->failedMessage,
-                    'help' => $rule->helpMessage,
-                    'level' => $rule->level(),
-                ];
-            } catch (Exception $e) {
-                yield [
-                    'passed' => false,
-                    'message' => "Error checking rule `{$ruleClassName}`.",
-                    'help' => config('app.debug') ? (string) $e : null,
-                    'level' => Levels::ERROR,
-                ];
-            }
-        }
+                    return $this->createCheckResultArray(
+                        $result,
+                        $result ? $rule->passedMessage : $rule->failedMessage,
+                        $rule->helpMessage,
+                        $rule->level()
+                    );
+                } catch (Exception $e) {
+                    $this->logger->critical($e->getMessage());
+
+                    return $this->createCheckResultArray(
+                        false,
+                        $this->markdown->parse(sprintf('Error checking rule `%s`.', get_class($rule))),
+                        config('app.debug') ? (string) $e->getMessage() : null,
+                        Levels::ERROR
+                    );
+                }
+            })
+            ->all();
+    }
+
+    private function createCheckResultArray(
+        bool $result,
+        string $resultMessage,
+        string $helpMessage,
+        string $errorLevel
+    ): array {
+        return [
+            'passed' => $result,
+            'message' => $resultMessage,
+            'help' => $helpMessage,
+            'level' => $errorLevel,
+        ];
     }
 }

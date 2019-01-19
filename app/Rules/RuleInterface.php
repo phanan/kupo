@@ -6,44 +6,35 @@ use App\Crawler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 
+/**
+ * @property-read string helpMessage
+ * @property-read string passedMessage
+ * @property-read string failedMessage
+ */
 interface RuleInterface
 {
     /**
      * Check the rule.
-     *
-     * @param Crawler           $crawler
-     * @param ResponseInterface $response
-     * @param UriInterface      $uri
-     *
-     * @return bool
      */
-    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri);
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri): bool;
 
     /**
      * Get the critical level of the rule.
-     *
-     * @return string
      */
-    public function level();
+    public function level(): string;
 
     /**
      * Get the message if the rule is passed.
-     *
-     * @return string
      */
-    public function passedMessage();
+    public function passedMessage(): string;
 
     /**
      * Get the message if the rule failed.
-     *
-     * @return string
      */
-    public function failedMessage();
+    public function failedMessage(): string;
 
     /**
      * Get the help message for the rule.
-     *
-     * @return string
      */
-    public function helpMessage();
+    public function helpMessage(): string;
 }

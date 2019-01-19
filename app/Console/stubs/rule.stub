@@ -4,43 +4,28 @@ namespace DummyNamespace;
 
 class DummyClass extends Rule
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function check()
+    public function check(): bool
     {
-        // Perform the check here.
+        // TODO: Perform the check here.
         return false;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function level()
+    public function level(): string
     {
-        return Levels::NOTICE;
+        return Levels::WARNING;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function passedMessage()
+    public function passedMessage(): string
     {
         return 'Message when the rule passes';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function failedMessage()
+    public function failedMessage(): string
     {
         return 'Message when the rule fails.';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function helpMessage()
+    public function helpMessage(): string
     {
         return 'The help message for this rule.';
     }

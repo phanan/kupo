@@ -10,13 +10,7 @@ class TitleExists extends Rule
 {
     private $title;
 
-    /**
-     * {@inheritdoc}
-     *
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri): bool
     {
         if (count($tags = $crawler->filter('title'))) {
             $this->title = trim($tags->first()->text());
@@ -25,33 +19,24 @@ class TitleExists extends Rule
         return (bool) $this->title;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function passedMessage()
+    public function passedMessage(): string
     {
         return "Title found: `{$this->title}`.";
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function failedMessage()
+    public function failedMessage(): string
     {
         return 'Title not found or empty.';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function helpMessage()
+    public function helpMessage(): string
     {
-        return <<<'MSG'
+        return <<<MSG
 Unless he has his own submarine, a person should have a name. Likewise, a web page should have a title, kupo!  
 MSG;
     }
 
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }

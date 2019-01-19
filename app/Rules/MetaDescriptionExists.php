@@ -10,10 +10,7 @@ class MetaDescriptionExists extends Rule
 {
     private $description;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri): bool
     {
         if (count($tags = $crawler->filterCaseInsensitiveAttribute('meta[name=description]'))) {
             $this->description = trim($tags->first()->attr('content'));
@@ -22,33 +19,24 @@ class MetaDescriptionExists extends Rule
         return (bool) $this->description;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function passedMessage()
+    public function passedMessage(): string
     {
         return "Meta description found: `{$this->description}`.";
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function failedMessage()
+    public function failedMessage(): string
     {
         return 'Meta description not found or empty.';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function helpMessage()
+    public function helpMessage(): string
     {
-        return <<<'MSG'
+        return <<<MSG
 A meta description summarizes a page content and is often used by search engines to display as a snippet in search results. You can learn how to create the right meta description [here](https://yoast.com/meta-descriptions/), kupo!  
 MSG;
     }
 
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }

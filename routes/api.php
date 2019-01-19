@@ -2,9 +2,8 @@
 
 use App\Http\Requests\CheckRequest;
 use App\Services\Checker;
+use Illuminate\Http\JsonResponse;
 
-Route::get('check', function (CheckRequest $request, Checker $checker) {
-    $results = $checker->validate($request->url);
-
-    return response()->json(iterator_to_array($results));
+Route::get('check', static function (CheckRequest $request, Checker $checker): JsonResponse {
+    return response()->json($checker->check($request->url));
 })->name('check');

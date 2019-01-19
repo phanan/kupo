@@ -181,10 +181,6 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         App\Providers\ClientServiceProvider::class,
-        App\Providers\UrlHelperServiceProvider::class,
-        App\Providers\UrlFetcherServiceProvider::class,
-        App\Providers\RobotsFileServiceProvider::class,
-        App\Providers\MarkdownServiceProvider::class,
 
     ],
 

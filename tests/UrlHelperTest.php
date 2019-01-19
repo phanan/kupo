@@ -3,83 +3,85 @@
 namespace Tests;
 
 use App\Services\UrlHelper;
+use GuzzleHttp\Client;
+use Mockery;
+use Mockery\MockInterface;
 
-class UrlHelperTest extends BrowserKitTestCase
+class UrlHelperTest extends TestCase
 {
-    /**
-     * @var UrlHelper
-     */
+    /** @var MockInterface&Client */
+    private $client;
+
+    /** @var UrlHelper */
     private $helper;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->helper = new UrlHelper();
         parent::setUp();
+
+        $this->client = Mockery::mock(Client::class);
+        $this->helper = new UrlHelper($this->client);
     }
 
-    public function testGetRootUrl()
+    public function provideRootUrlTestData(): array
     {
-        static::assertEquals(
-            'http://foo.bar/',
-            (string) $this->helper->getRootUrl('http://foo.bar')
-        );
-        static::assertEquals(
-            'http://localhost:8000/',
-            (string) $this->helper->getRootUrl('http://localhost:8000/index.php')
-        );
-        static::assertEquals(
-            'http://foo.bar/',
-            (string) $this->helper->getRootUrl('http://foo.bar/baz/qux.html?foo=bar#home')
-        );
+        return [
+            ['http://foo.bar', 'http://foo.bar/'],
+            ['http://localhost:8000/index.php', 'http://localhost:8000/'],
+            ['http://foo.bar/baz/qux.html?foo=bar#home', 'http://foo.bar/'],
+        ];
     }
 
-    public function testGetRootFileUrl()
+    /** @dataProvider provideRootUrlTestData */
+    public function testGetRootUrl(string $fullUrl, string $rootUrl): void
     {
-        static::assertEquals(
+        $this->assertEquals($rootUrl, $this->helper->getRootUrl($fullUrl));
+    }
+
+    public function testGetRootFileUrl(): void
+    {
+        $this->assertEquals(
             'http://foo.bar/.htaccess',
             (string) $this->helper->getRootFileUrl('http://foo.bar/baz/qux.html', '/.htaccess')
         );
     }
 
-    public function testDefaultFaviconUrl()
+    public function testDefaultFaviconUrl(): void
     {
-        static::assertEquals(
+        $this->assertEquals(
             'http://foo.bar/favicon.ico',
             (string) $this->helper->getDefaultFaviconUrl('http://foo.bar/baz/qux.html')
         );
     }
 
-    public function testGetRobotsUrl()
+    public function testGetRobotsUrl(): void
     {
-        static::assertEquals(
+        $this->assertEquals(
             'http://foo.bar/robots.txt',
-            (string) $this->helper->getRobotsUrl('http://foo.bar/baz/qux.html')
+            (string) $this->helper->getRobotsTxtUrl('http://foo.bar/baz/qux.html')
         );
     }
 
     public function testDefaultSiteMapUrl()
     {
-        static::assertEquals(
+        $this->assertEquals(
             'http://foo.bar/sitemap.xml',
             (string) $this->helper->getDefaultSiteMapUrl('http://foo.bar/baz/qux.html')
         );
     }
 
-    public function testAbsolutize()
+    public function provideAbsolutizeTestData(): array
     {
-        static::assertEquals(
-            'http://foo.bar/baz/dir/sitemap.xml',
-            (string) $this->helper->absolutize('dir/sitemap.xml', 'http://foo.bar/baz/qux.html')
-        );
+        return [
+            ['dir/sitemap.xml', 'http://foo.bar/baz/qux.html', 'http://foo.bar/baz/dir/sitemap.xml'],
+            ['/sitemap.xml', 'http://foo.bar/baz/qux.html', 'http://foo.bar/sitemap.xml'],
+            ['http://baz.qux/sitemap.xml', 'http://foo.bar/baz/qux.html', 'http://baz.qux/sitemap.xml'],
+        ];
+    }
 
-        static::assertEquals(
-            'http://foo.bar/sitemap.xml',
-            (string) $this->helper->absolutize('/sitemap.xml', 'http://foo.bar/baz/qux.html')
-        );
-
-        static::assertEquals(
-            'http://baz.qux/sitemap.xml',
-            (string) $this->helper->absolutize('http://baz.qux/sitemap.xml', 'http://foo.bar/baz/qux.html')
-        );
+    /** @dataProvider provideAbsolutizeTestData */
+    public function testAbsolutize(string $url, string $baseUrl, string $expected): void
+    {
+        $this->assertEquals($expected, (string) $this->helper->absolutize($url, $baseUrl));
     }
 }

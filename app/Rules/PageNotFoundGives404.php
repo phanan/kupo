@@ -3,35 +3,19 @@
 namespace App\Rules;
 
 use App\Crawler;
-use App\Facades\UrlHelper;
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 
 class PageNotFoundGives404 extends Rule
 {
-    protected $statusCode;
+    public const NOT_FOUND_PATH = '/-~!page-to-test-404-responses-for-invalid-pages!~-';
 
-    /** @var Client */
-    protected $client;
+    private $statusCode;
 
-    /**
-     * Check if Not Found pages return a correct 404 Status Code.
-     *
-     * @param Client $client
-     */
-    public function __construct(Client $client)
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri): bool
     {
-        $this->client = $client;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
-    {
-        $uri = UrlHelper::getRootFileUrl((string) $uri, '/-~!page-to-test-404-responses-for-invalid-pages!~-');
+        $uri = $this->urlHelper->getRootFileUrl((string) $uri, self::NOT_FOUND_PATH);
 
         try {
             $response = $this->client->get($uri);
@@ -39,41 +23,29 @@ class PageNotFoundGives404 extends Rule
             $response = $e->getResponse();
         }
 
-        $this->statusCode = $response ? $response->getStatusCode() : '-';
+        $this->statusCode = $response ? $response->getStatusCode() : null;
 
         return $this->statusCode === 404;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function level()
+    public function level(): string
     {
         return Levels::CRITICAL;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function passedMessage()
+    public function passedMessage(): string
     {
-        return 'Not found page correctly return a `404` status.';
+        return 'Not found page correctly returns a `404` status code.';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function failedMessage()
+    public function failedMessage(): string
     {
-        return 'Not found page returned `'.$this->statusCode.'` instead of `404`.';
+        return "Not found page returned a `{$this->statusCode}` instead of `404` status code.";
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function helpMessage()
+    public function helpMessage(): string
     {
-        return <<<'MSG'
+        return <<<MSG
 Make sure every page returns the correct status code. Pages not returning 404 will be indexed by search engines.
 MSG;
     }

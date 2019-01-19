@@ -2,10 +2,10 @@
 
 namespace App\Rules;
 
-abstract class Levels
+final class Levels
 {
-    const NOTICE = 'Notice';
-    const WARNING = 'Warning';
-    const ERROR = 'Error';
-    const CRITICAL = 'Critical';
+    public const NOTICE = 'Notice';
+    public const WARNING = 'Warning';
+    public const ERROR = 'Error';
+    public const CRITICAL = 'Critical';
 }

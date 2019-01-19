@@ -8,10 +8,7 @@ use Psr\Http\Message\UriInterface;
 
 class GzipEnabled extends Rule
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri)
+    public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri): bool
     {
         // When the content is decoded by Guzzle, the X-Encoded header is used
         $encoding = $response->getHeader('Content-Encoding') + $response->getHeader('X-Encoded-Content-Encoding');
@@ -20,28 +17,19 @@ class GzipEnabled extends Rule
         return in_array('gzip', $encoding, true);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function passedMessage()
+    public function passedMessage(): string
     {
         return 'Content is gzipped.';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function failedMessage()
+    public function failedMessage(): string
     {
         return 'Content is not gzipped.';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function helpMessage()
+    public function helpMessage(): string
     {
-        return <<<'MSG'
+        return <<<MSG
 Compressing your web page helps reduce loading time and save bandwidth. If your server is Apache, this can be done with [some simple `.htaccess` rules](https://github.com/phanan/htaccess#compress-text-files), kupo! 
 MSG;
     }

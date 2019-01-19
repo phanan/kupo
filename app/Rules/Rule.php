@@ -3,6 +3,9 @@
 namespace App\Rules;
 
 use App\Crawler;
+use App\Services\Markdown;
+use App\Services\UrlHelper;
+use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 
@@ -13,57 +16,34 @@ use Psr\Http\Message\UriInterface;
  */
 abstract class Rule implements RuleInterface
 {
-    /**
-     * {@inheritdoc}
-     *
-     * @throws \Exception
-     */
-    abstract public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri);
+    protected $markdown;
+    protected $client;
+    protected $urlHelper;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function level()
+    public function __construct(Markdown $markdown, Client $client, UrlHelper $urlHelper)
+    {
+        $this->markdown = $markdown;
+        $this->client = $client;
+        $this->urlHelper = $urlHelper;
+    }
+
+    abstract public function check(Crawler $crawler, ResponseInterface $response, UriInterface $uri): bool;
+
+    public function level(): string
     {
         return Levels::WARNING;
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @throws \Exception
-     */
-    public function passedMessage()
-    {
-        throw new \Exception('Unimplemented method.');
-    }
+    abstract public function passedMessage(): string;
 
-    /**
-     * {@inheritdoc}
-     *
-     * @throws \Exception
-     */
-    public function failedMessage()
-    {
-        throw new \Exception('Unimplemented method.');
-    }
+    abstract public function failedMessage(): string;
 
-    /**
-     * Get the help message for the rule.
-     *
-     * @throws \Exception
-     *
-     * @return string
-     */
-    public function helpMessage()
-    {
-        throw new \Exception('Unimplemented method.');
-    }
+    abstract public function helpMessage(): string;
 
     public function __get($name)
     {
         if (in_array($name, ['passedMessage', 'failedMessage', 'helpMessage'], true)) {
-            return md($this->$name());
+            return $this->markdown->parse($this->$name());
         }
 
         return $this->$name;

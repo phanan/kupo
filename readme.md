@@ -6,7 +6,7 @@
 
 ## Why
 
-After (or is it before?) lanching a new site, you often want to validate it against a checklist and make sure the title is filled, gzip is enabled, robots.txt and sitemap.xml are all there etc. **kupo** is built to help you with this tedious task. Just key in the site's address, hit <kbd>ENTER</kbd>, and it will check for:
+After (or is it before?) launching a new site, you often want to validate it against a checklist and make sure the title is filled, gzip is enabled, robots.txt and sitemap.xml are all there etc. **kupo** is built to help you with this tedious task. Just key in the site's address, hit <kbd>ENTER</kbd>, and it will check for:
 
 * Title and description tags
 * App icons' existence
@@ -51,6 +51,6 @@ If you feel like a certain rule should be added, please contribute! Just fork an
 
 ## License
 
-MIT © [Phan An](http://phanan.net)
+MIT © [Phan An](https://phanan.net)
 
 

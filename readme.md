@@ -36,6 +36,13 @@ php artisan serve
 // kupo should now have been started at http://localhost:8000/
 ```
 
+## Install using Docker
+
+```bash
+docker run -d -p 8000:8000 phanan/kupo
+// kupo should now have been started at http://localhost:8000/
+```
+
 ## Extend
 
 Depending on your needs, you may want to add more rules into kupo. In order to do so, just follow these certain steps:
@@ -52,5 +59,3 @@ If you feel like a certain rule should be added, please contribute! Just fork an
 ## License
 
 MIT © [Phan An](http://phanan.net)
-
-

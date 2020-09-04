@@ -22,7 +22,7 @@
     "eslint-plugin-vue": "^1.0.0",
     "laravel-mix": "^0.8.1",
     "lodash": "^4.17.13",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "sass-loader": "^7.1.0",
     "slugify": "^1.0.2",
     "vue": "^2.0.1"

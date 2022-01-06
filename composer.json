@@ -6,7 +6,7 @@
     "type": "project",
     "require": {
         "php": ">=7.1",
-        "laravel/framework": "5.4.*",
+        "laravel/framework": "5.8.*",
         "guzzlehttp/guzzle": "^6.2",
         "symfony/css-selector": "^3.1",
         "symfony/dom-crawler": "^3.1",
